@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import LegendaryDial from '../components/LegendaryDial.jsx';
+import head from '../generated/ways-to-work-together.head.html?raw';
+import body from '../generated/ways-to-work-together.body.html?raw';
+const [before, after] = body.split('<!--LEGENDARY_DIAL-->');
+---
+<Base headHtml={head}>
+  <Fragment set:html={before} />
+  <LegendaryDial client:visible />
+  <Fragment set:html={after} />
+</Base>

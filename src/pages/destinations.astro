@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import head from '../generated/destinations.head.html?raw';
+import body from '../generated/destinations.body.html?raw';
+---
+<Base headHtml={head}><Fragment set:html={body} /></Base>

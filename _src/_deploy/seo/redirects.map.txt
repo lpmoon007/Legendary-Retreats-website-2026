@@ -1,0 +1,31 @@
+# 301 Redirect Map — Wix → VPS migration
+# Format: OLD_PATH  ->  NEW_PATH  (301 permanent)
+# Preserve search equity from the old Wix URLs.
+#
+# --- Apache (.htaccess) form ---
+# Redirect 301 /about-4 /about
+#
+# --- Nginx form ---
+# location = /about-4 { return 301 /about; }
+
+/                 ->  /
+/about-4          ->  /about
+/contact-4        ->  /contact
+/projects-8       ->  /experience
+/gallery-1        ->  /experience
+/gallery          ->  /experience
+/film             ->  /experience
+/copy-of-home     ->  /
+/leadership       ->  /leadership-retreats
+/retreats         ->  /leadership-retreats
+/services         ->  /leadership-retreats
+/book             ->  /contact
+
+# New pages (no old equivalent — submit to Search Console):
+# /destinations
+# /retreats/moab
+# /retreats/san-juan-mountains
+
+# NOTE: confirm exact legacy Wix slugs in Google Search Console
+# (Coverage > All known pages) before deploying, and add any
+# additional /about-N, /contact-N, /blank-N variants Wix generated.

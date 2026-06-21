@@ -1,0 +1,19 @@
+---
+// Base layout. The per-page <head> (title, meta, canonical, OG/Twitter, favicons,
+// fonts, page-scoped <style>, and all JSON-LD) is injected verbatim from the
+// original Design Component via `headHtml`. The page body markup is passed as the
+// default slot. This keeps the client-approved markup byte-for-byte faithful.
+interface Props {
+  headHtml: string;
+}
+const { headHtml } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <Fragment set:html={headHtml} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
