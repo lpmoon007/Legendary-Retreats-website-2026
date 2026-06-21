@@ -40,9 +40,11 @@ npm run preview    # serve the built dist/
 
 ## Deploy
 
-Static `dist/` served by nginx. HTTPS, gzip/brotli, long-cache `/assets/*`, the
-301 redirect map (`_src/_deploy/seo/redirects.md`), and `try_files` for clean
-URLs. (nginx config + step-by-step VPS instructions: pending.)
+Static `dist/` served by nginx on the GoDaddy VPS. HTTPS, gzip/brotli, long-cache
+`/assets/*`, the Wix→clean-slug 301 redirect map, and `try_files` for clean URLs.
+
+- **nginx config:** [`deploy/nginx.conf`](deploy/nginx.conf)
+- **Step-by-step guide:** [`DEPLOY.md`](DEPLOY.md)
 
 ## Brand tokens
 
