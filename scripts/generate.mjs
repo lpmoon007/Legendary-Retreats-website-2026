@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, '_src', '_deploy');
@@ -60,6 +61,35 @@ const keyFor = (url) => (url === '/' ? 'home' : url.replace(/^\//, '').replace(/
 const pageFileFor = (url) => (url === '/' ? 'index.astro' : `${url.replace(/^\//, '')}.astro`);
 const depthOf = (url) => (url === '/' ? 1 : url.replace(/^\//, '').split('/').length); // ../ count to reach src/
 
+// Article JSON-LD has no date fields in the .dc.html exports, and the articles
+// carry no visible on-page date. Derive datePublished (first commit that added
+// the source) and dateModified (last commit that touched it) from git so the
+// freshness signal stays honest and auto-updates when an article is edited.
+// Falls back to today's date if git history is unavailable (e.g. shallow CI).
+const TODAY = new Date().toISOString().slice(0, 10);
+function gitDate(file, filter) {
+  try {
+    const out = execSync(
+      `git log ${filter} --format=%aI -1 -- "${file}"`,
+      { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] }
+    ).toString().trim();
+    return out ? out.slice(0, 10) : null;
+  } catch { return null; }
+}
+function injectArticleDates(headHtml, file) {
+  // Only Article schema; skip if a date is somehow already present.
+  if (!headHtml.includes('"@type":"Article"') || headHtml.includes('"datePublished"')) {
+    return headHtml;
+  }
+  const published = gitDate(file, '--diff-filter=A --follow') || TODAY;
+  const modified = gitDate(file, '') || published;
+  // Insert right after the Article type declaration (one Article object per page).
+  return headHtml.replace(
+    '"@type":"Article"',
+    `"@type":"Article","datePublished":"${published}","dateModified":"${modified}"`
+  );
+}
+
 function extract(html) {
   // --- <head> inner, minus the support.js runtime script ---
   const head = /<head[^>]*>([\s\S]*?)<\/head>/i.exec(html)[1]
@@ -100,6 +130,7 @@ for (const [name, url] of Object.entries(MAP)) {
   }
   let { headHtml, bodyHtml } = extract(readFileSync(file, 'utf8'));
   headHtml = rewrite(headHtml);
+  headHtml = injectArticleDates(headHtml, file);
   bodyHtml = rewrite(bodyHtml);
 
   const isDial = name === DIAL_PAGE;
