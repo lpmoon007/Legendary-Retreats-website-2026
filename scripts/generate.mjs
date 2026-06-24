@@ -9,6 +9,10 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { OG_MAP } from './og-map.mjs';
+
+const SITE = 'https://www.legendary-retreats.com';
+const OG_DEFAULT = `${SITE}/assets/brand/og-default.png`;
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, '_src', '_deploy');
@@ -90,6 +94,20 @@ function injectArticleDates(headHtml, file) {
   );
 }
 
+// Point og:image + twitter:image at the page-specific share card (1200x630 JPG
+// from scripts/og-images.mjs) and declare its dimensions. Unmapped pages keep
+// the branded default.
+function injectOgImage(headHtml, key) {
+  const src = OG_MAP[key];
+  if (!src) return headHtml;
+  const url = `${SITE}/assets/og/${src.split('/').pop()}.jpg`;
+  headHtml = headHtml.split(OG_DEFAULT).join(url);
+  return headHtml.replace(
+    /<meta property="og:image" content="[^"]*">/i,
+    (m) => `${m}<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg">`
+  );
+}
+
 function extract(html) {
   // --- <head> inner, minus the support.js runtime script ---
   const head = /<head[^>]*>([\s\S]*?)<\/head>/i.exec(html)[1]
@@ -131,6 +149,7 @@ for (const [name, url] of Object.entries(MAP)) {
   let { headHtml, bodyHtml } = extract(readFileSync(file, 'utf8'));
   headHtml = rewrite(headHtml);
   headHtml = injectArticleDates(headHtml, file);
+  headHtml = injectOgImage(headHtml, keyFor(url));
   bodyHtml = rewrite(bodyHtml);
 
   const isDial = name === DIAL_PAGE;
