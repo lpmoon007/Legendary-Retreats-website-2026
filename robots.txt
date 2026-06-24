@@ -1,0 +1,31 @@
+# robots.txt — legendary-retreats.com
+# Allow everything, point crawlers and AI agents to the sitemap + llms.txt.
+
+User-agent: *
+Allow: /
+
+# Major AI / answer engines — explicitly welcomed.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+Sitemap: https://www.legendary-retreats.com/sitemap.xml
+# AI-readable site summary:
+# https://www.legendary-retreats.com/llms.txt
