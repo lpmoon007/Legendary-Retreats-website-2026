@@ -35,6 +35,7 @@ export const OG_MAP = {
   'formats__wilderness-expedition': 'field/raft-img0003',
   'sailing-offsites': 'field/kayak-fjord',
   'executive-offsites': 'field/rubicon-summit-group',
+  'executive-offsite-facilitator': 'field/james-carter',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',
