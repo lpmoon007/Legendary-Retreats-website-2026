@@ -32,6 +32,7 @@ const MAP = {
   'Retreat - Sierra Nevada': '/destinations/sierra-nevada',
   'Retreat - Great Basin Desert': '/destinations/great-basin-desert',
   'Retreat - Death Valley': '/destinations/death-valley',
+  'Retreat - Sedona': '/destinations/sedona-arizona',
   'Format - Cabin Fever': '/formats/cabin-fever',
   'Format - Off-Road Immersion': '/formats/off-road-immersion',
   'Format - Winter Survival': '/formats/winter-survival',
