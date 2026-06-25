@@ -23,6 +23,10 @@ export const OG_MAP = {
   'destinations__great-basin-desert': 'field/rovers-pyramid-lake',
   'destinations__death-valley': 'field/dest-deathvalley-titus',
   'destinations__sedona-arizona': 'field/luxury-lodge-sunset',
+  'destinations__napa-valley': 'field/sierra-lodge-night',
+  'destinations__lake-tahoe': 'field/sierra-peaks',
+  'destinations__jackson-hole-wyoming': 'field/remote-lodge-aerial',
+  'destinations__montana': 'field/mining-lodge',
 
   // Signature formats
   'formats__cabin-fever': 'field/mining-lodge',
