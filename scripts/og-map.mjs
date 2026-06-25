@@ -33,6 +33,7 @@ export const OG_MAP = {
   'formats__off-road-immersion': 'field/rubicon-rockcrawl',
   'formats__winter-survival': 'field/w-img12322',
   'formats__wilderness-expedition': 'field/raft-img0003',
+  'sailing-offsites': 'field/kayak-fjord',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',

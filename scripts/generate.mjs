@@ -41,6 +41,7 @@ const MAP = {
   'Format - Off-Road Immersion': '/formats/off-road-immersion',
   'Format - Winter Survival': '/formats/winter-survival',
   'Format - Wilderness Expedition': '/formats/wilderness-expedition',
+  'Sailing Offsites': '/sailing-offsites',
   'Case Studies': '/case-studies',
   'Case Study - Auto Retailer Egos': '/case-studies/online-auto-retailer-leadership-team',
   'Case Study - Federal Fiscal Team': '/case-studies/federal-fiscal-leadership-team',
