@@ -22,18 +22,18 @@ export const OG_MAP = {
   'destinations__sierra-nevada': 'field/sierra-peaks',
   'destinations__great-basin-desert': 'field/rovers-pyramid-lake',
   'destinations__death-valley': 'field/dest-deathvalley-titus',
-  'destinations__sedona-arizona': 'field/luxury-lodge-sunset',
-  'destinations__napa-valley': 'field/sierra-lodge-night',
+  'destinations__sedona-arizona': 'destinations/sedona-offroad',
+  'destinations__napa-valley': 'destinations/napa-alila',
   'destinations__lake-tahoe': 'field/sierra-peaks',
-  'destinations__jackson-hole-wyoming': 'field/remote-lodge-aerial',
-  'destinations__montana': 'field/mining-lodge',
+  'destinations__jackson-hole-wyoming': 'destinations/jackson-jenny-lake',
+  'destinations__montana': 'destinations/montana-rock-creek',
 
   // Signature formats
   'formats__cabin-fever': 'field/mining-lodge',
   'formats__off-road-immersion': 'field/rubicon-rockcrawl',
   'formats__winter-survival': 'field/w-img12322',
   'formats__wilderness-expedition': 'field/raft-img0003',
-  'sailing-offsites': 'field/kayak-fjord',
+  'sailing-offsites': 'destinations/sailing-schooner',
   'executive-offsites': 'field/rubicon-summit-group',
   'executive-offsite-facilitator': 'field/james-carter',
 
