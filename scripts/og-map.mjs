@@ -24,7 +24,7 @@ export const OG_MAP = {
   'destinations__death-valley': 'field/dest-deathvalley-titus',
   'destinations__sedona-arizona': 'destinations/sedona-offroad',
   'destinations__napa-valley': 'destinations/napa-alila',
-  'destinations__lake-tahoe': 'field/sierra-peaks',
+  'destinations__lake-tahoe': 'destinations/tahoe-lodge',
   'destinations__jackson-hole-wyoming': 'destinations/jackson-jenny-lake',
   'destinations__montana': 'destinations/montana-rock-creek',
 
