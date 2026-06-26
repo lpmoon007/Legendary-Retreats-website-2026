@@ -12,6 +12,33 @@ const { headHtml } = Astro.props;
 <html lang="en">
   <head>
     <Fragment set:html={headHtml} />
+    <style is:global>
+      /* Site-wide responsive retrofit for the inline-styled design export.
+         Uses attribute selectors + !important to override inline grid/padding
+         on small screens, without altering the desktop markup. */
+      img, video { max-width: 100%; height: auto; }
+      @media (max-width: 900px) {
+        header > div { flex-wrap: wrap !important; row-gap: 12px !important; padding-left: 20px !important; padding-right: 20px !important; }
+        header nav { width: 100% !important; flex-wrap: wrap !important; gap: 10px 16px !important; justify-content: flex-start !important; font-size: 13px !important; }
+      }
+      @media (max-width: 768px) {
+        [style*="grid-template-columns:repeat(2"],
+        [style*="grid-template-columns:repeat(3"],
+        [style*="grid-template-columns:repeat(4"],
+        [style*="grid-template-columns:repeat(5"],
+        [style*="grid-template-columns:1fr 1fr"],
+        [style*="grid-template-columns:1.05fr"],
+        [style*="grid-template-columns:1.04fr"],
+        [style*="grid-template-columns:1.1fr"],
+        [style*="grid-template-columns:1.4fr"],
+        [style*="grid-template-columns:0.9fr"],
+        [style*="grid-template-columns:200px"] { grid-template-columns: 1fr !important; }
+        [style*="margin:0 auto"] { padding-left: 22px !important; padding-right: 22px !important; }
+        /* keep absolutely-positioned overlay cards on-screen */
+        [style*="left:-26px"] { left: 10px !important; top: 10px !important; }
+        [style*="right:-14px"] { right: 6px !important; }
+      }
+    </style>
   </head>
   <body>
     <slot />

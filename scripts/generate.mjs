@@ -89,6 +89,20 @@ function gitDate(file, filter) {
     return out ? out.slice(0, 10) : null;
   } catch { return null; }
 }
+// Performance: let every image decode off the main thread, prioritize the hero
+// (the second <img> — the first is the header logo) for a fast LCP, and lazy-load
+// everything below the fold (3rd image onward).
+function optimizeImages(html) {
+  let i = 0;
+  return html.replace(/<img\s/g, () => {
+    const idx = i++;
+    let extra = 'decoding="async" ';
+    if (idx === 1) extra += 'fetchpriority="high" ';
+    else if (idx >= 2) extra += 'loading="lazy" ';
+    return '<img ' + extra;
+  });
+}
+
 function injectArticleDates(headHtml, file) {
   // Only Article schema; skip if a date is somehow already present.
   if (!headHtml.includes('"@type":"Article"') || headHtml.includes('"datePublished"')) {
@@ -160,6 +174,7 @@ for (const [name, url] of Object.entries(MAP)) {
   headHtml = injectArticleDates(headHtml, file);
   headHtml = injectOgImage(headHtml, keyFor(url));
   bodyHtml = rewrite(bodyHtml);
+  bodyHtml = optimizeImages(bodyHtml);
 
   const isDial = name === DIAL_PAGE;
   if (isDial) {
