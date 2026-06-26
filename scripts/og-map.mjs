@@ -37,6 +37,7 @@ export const OG_MAP = {
   'executive-offsites': 'field/rubicon-summit-group',
   'executive-offsite-facilitator': 'field/james-carter',
   'for-executive-assistants': 'destinations/napa-alila',
+  'the-connection-deficit': 'field/new-fire-with-team',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',

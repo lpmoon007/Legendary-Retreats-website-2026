@@ -45,6 +45,7 @@ const MAP = {
   'Executive Offsites': '/executive-offsites',
   'Executive Offsite Facilitator': '/executive-offsite-facilitator',
   'For Executive Assistants': '/for-executive-assistants',
+  'The Connection Deficit': '/the-connection-deficit',
   'Case Studies': '/case-studies',
   'Case Study - Auto Retailer Egos': '/case-studies/online-auto-retailer-leadership-team',
   'Case Study - Federal Fiscal Team': '/case-studies/federal-fiscal-leadership-team',
