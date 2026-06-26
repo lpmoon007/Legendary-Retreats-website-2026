@@ -46,6 +46,7 @@ const MAP = {
   'Executive Offsite Facilitator': '/executive-offsite-facilitator',
   'For Executive Assistants': '/for-executive-assistants',
   'The Connection Deficit': '/the-connection-deficit',
+  'Offsite vs Retreat': '/offsite-vs-executive-retreat',
   'Case Studies': '/case-studies',
   'Case Study - Auto Retailer Egos': '/case-studies/online-auto-retailer-leadership-team',
   'Case Study - Federal Fiscal Team': '/case-studies/federal-fiscal-leadership-team',
@@ -118,6 +119,16 @@ function injectArticleDates(headHtml, file) {
   );
 }
 
+// Add a Speakable signal (voice-assistant / GEO) to every page. The page's main
+// heading and standfirst paragraph are the parts worth reading aloud; we target
+// the <h1> plus the first <p> after it via cssSelector. Emitted as a standalone
+// WebPage node so it never collides with the page's existing JSON-LD.
+function injectSpeakable(headHtml, url) {
+  const canonical = url === '/' ? `${SITE}/` : `${SITE}${url}`;
+  const node = `<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"${canonical}","speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","h1 + p"]}}</script>`;
+  return `${headHtml}\n${node}`;
+}
+
 // Point og:image + twitter:image at the page-specific share card (1200x630 JPG
 // from scripts/og-images.mjs) and declare its dimensions. Unmapped pages keep
 // the branded default.
@@ -174,6 +185,7 @@ for (const [name, url] of Object.entries(MAP)) {
   headHtml = rewrite(headHtml);
   headHtml = injectArticleDates(headHtml, file);
   headHtml = injectOgImage(headHtml, keyFor(url));
+  headHtml = injectSpeakable(headHtml, url);
   bodyHtml = rewrite(bodyHtml);
   bodyHtml = optimizeImages(bodyHtml);
 

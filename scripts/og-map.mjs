@@ -38,6 +38,7 @@ export const OG_MAP = {
   'executive-offsite-facilitator': 'field/james-carter',
   'for-executive-assistants': 'destinations/napa-alila',
   'the-connection-deficit': 'field/new-fire-with-team',
+  'offsite-vs-executive-retreat': 'field/sierra-peaks',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',
