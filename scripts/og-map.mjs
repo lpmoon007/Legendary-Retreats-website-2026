@@ -39,6 +39,9 @@ export const OG_MAP = {
   'for-executive-assistants': 'destinations/napa-alila',
   'the-connection-deficit': 'field/new-fire-with-team',
   'offsite-vs-executive-retreat': 'field/sierra-peaks',
+  'offsite-vs-team-building': 'field/new-fire-with-team',
+  'team-offsite-ideas': 'field/rover-desert-joy',
+  'executive-offsite-agenda': 'field/luxury-lodge-sunset',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',
