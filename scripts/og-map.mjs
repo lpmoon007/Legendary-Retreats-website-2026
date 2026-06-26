@@ -36,6 +36,7 @@ export const OG_MAP = {
   'sailing-offsites': 'destinations/sailing-schooner',
   'executive-offsites': 'field/rubicon-summit-group',
   'executive-offsite-facilitator': 'field/james-carter',
+  'for-executive-assistants': 'destinations/napa-alila',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',

@@ -44,6 +44,7 @@ const MAP = {
   'Sailing Offsites': '/sailing-offsites',
   'Executive Offsites': '/executive-offsites',
   'Executive Offsite Facilitator': '/executive-offsite-facilitator',
+  'For Executive Assistants': '/for-executive-assistants',
   'Case Studies': '/case-studies',
   'Case Study - Auto Retailer Egos': '/case-studies/online-auto-retailer-leadership-team',
   'Case Study - Federal Fiscal Team': '/case-studies/federal-fiscal-leadership-team',
