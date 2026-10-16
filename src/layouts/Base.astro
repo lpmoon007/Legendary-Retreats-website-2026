@@ -17,10 +17,6 @@ const { headHtml } = Astro.props;
          Uses attribute selectors + !important to override inline grid/padding
          on small screens, without altering the desktop markup. */
       img, video { max-width: 100%; height: auto; }
-      @media (max-width: 900px) {
-        header > div { flex-wrap: wrap !important; row-gap: 12px !important; padding-left: 20px !important; padding-right: 20px !important; }
-        header nav { width: 100% !important; flex-wrap: wrap !important; gap: 10px 16px !important; justify-content: flex-start !important; font-size: 13px !important; }
-      }
       @media (max-width: 768px) {
         [style*="grid-template-columns:repeat(2"],
         [style*="grid-template-columns:repeat(3"],
