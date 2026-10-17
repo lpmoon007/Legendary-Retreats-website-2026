@@ -12,5 +12,5 @@ export const SITE_CONFIG = {
   hubspotPortal: '20276071',
   hubspotRegion: 'na2',
   kitFormGuid: 'c4bf79e3-be0f-4cdb-ac08-d3f2a146f949',
-  inquiryFormGuid: '',
+  inquiryFormGuid: 'ffc85cce-43c8-400d-94f1-cd0a5d5c8e55',
 };
