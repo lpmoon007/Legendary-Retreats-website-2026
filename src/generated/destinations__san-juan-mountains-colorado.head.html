@@ -89,5 +89,23 @@
 .lr-ftr__base{max-width:1240px;margin:0 auto;padding:22px 32px 34px;border-top:1px solid rgba(237,228,211,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#7A7064}
 @media (max-width:860px){.lr-ftr__in{grid-template-columns:1fr 1fr;padding:56px 22px 36px}.lr-ftr__brand{grid-column:1/-1}.lr-ftr__base{padding:20px 22px 30px}}
 @media (max-width:480px){.lr-ftr__in{grid-template-columns:1fr}}
-</style>
+</style><script>(function(){
+var GA="G-9CEJQ87GF0",CL="yzaagzb8dt",KIT="c4bf79e3-be0f-4cdb-ac08-d3f2a146f949",INQ="";
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=window.gtag||gtag;
+if(GA){gtag('js',new Date());gtag('config',GA);}
+if(CL){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};}
+var done=false;function load(){if(done)return;done=true;
+if(GA){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(g);}
+if(CL){var c=document.createElement('script');c.async=true;c.src='https://www.clarity.ms/tag/'+CL;document.head.appendChild(c);}}
+['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,load,{once:true,passive:true})});
+addEventListener('load',function(){setTimeout(load,1500)});
+function track(name,p){p=p||{};p.page_path=location.pathname;if(GA)gtag('event',name,p);if(CL)window.clarity('event',name);}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.href;
+var where=a.closest('header')?'header':a.closest('footer')?'footer':'body';
+if(/meetings(-na2)?\.hubspot\.com\/jcarter28/.test(h))track('meetings_click',{link_location:where,link_text:(a.textContent||'').trim().slice(0,60)});
+else if(/complete-retreat-planning-kit\.pdf/.test(h))track('kit_download',{method:'direct_link'});},true);
+function submitted(id){if(id&&id===KIT)track('kit_download',{method:'form'});else if(id&&INQ&&id===INQ)track('generate_lead',{form:'retreat_inquiry'});else track('form_submit',{form_id:id||'unknown'});}
+addEventListener('message',function(e){var d=e.data;if(d&&d.type==='hsFormCallback'&&d.eventName==='onFormSubmitted')submitted(d.id);});
+addEventListener('hs-form-event:on-submission:success',function(e){var id='';try{id=window.HubSpotFormsV4.getFormFromEvent(e).getFormId();}catch(_){id=(e.detail&&e.detail.formId)||'';}submitted(id);});
+})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"https://www.legendary-retreats.com/destinations/san-juan-mountains-colorado/","speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","h1 + p"]}}</script>
