@@ -270,9 +270,14 @@ if (!ANALYTICS) console.warn('WARNING: site.config.mjs has no GA4/Clarity IDs, s
 
 // Retreat inquiry: once a HubSpot form GUID is configured, the home page's
 // <!--lr:inquiry--> block (meetings-link CTA) becomes the embedded form.
+// The call link stays visible under the form: if HubSpot is slow or blocked
+// (ad blockers, corporate filters) the visitor still has a way to act.
+const MEETINGS_URL = 'https://meetings-na2.hubspot.com/jcarter28';
 const INQUIRY_FORM = C.inquiryFormGuid
-  ? `<div class="hs-form-frame" data-region="${C.hubspotRegion}" data-form-id="${C.inquiryFormGuid}" data-portal-id="${C.hubspotPortal}"></div>` +
-    `<script defer src="https://js-${C.hubspotRegion}.hsforms.net/forms/embed/${C.hubspotPortal}.js"></script>`
+  ? `<div class="hs-form-frame" data-region="${C.hubspotRegion}" data-form-id="${C.inquiryFormGuid}" data-portal-id="${C.hubspotPortal}" style="min-height:380px;"></div>` +
+    `<script defer src="https://js-${C.hubspotRegion}.hsforms.net/forms/embed/${C.hubspotPortal}.js"></script>` +
+    `<noscript><p class="lr-plan__alt">The form needs JavaScript. <a href="${MEETINGS_URL}">Book a 15-minute call with James</a> instead.</p></noscript>` +
+    `<p class="lr-plan__alt">Prefer to talk? <a href="${MEETINGS_URL}" target="_blank" rel="noopener" data-lr-plan>Book a 15-minute call with James</a></p>`
   : null;
 
 function injectChrome(bodyHtml) {

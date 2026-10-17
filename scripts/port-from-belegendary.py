@@ -237,6 +237,28 @@ TEXT_FIXES = [
 ]
 
 
+# Focused tier floor is $35K on legendary-retreats.com (Be Legendary still
+# publishes $25K). Raw-string swaps so visible copy, meta and JSON-LD all match.
+# The Business Insider headline ("$25,000 Executive Getaways") is a quote: untouched.
+PRICE_FIXES = [
+    ('$25,000–$50,000', '$35,000–$50,000'),
+    ('$25,000-$50,000', '$35,000-$50,000'),
+    ('$25,000 to $50,000', '$35,000 to $50,000'),
+    ('$25k–$50k', '$35k–$50k'),
+    ('$25K–$50K', '$35K–$50K'),
+    ('$25,000–$100,000', '$35,000–$100,000'),
+    ('about $25,000 for a Focused', 'about $35,000 for a Focused'),
+    ('"name":"Focused Retreat","priceCurrency":"USD","price":"25000"',
+     '"name":"Focused Retreat","priceCurrency":"USD","price":"35000"'),
+]
+
+
+def fix_prices(text):
+    for a, b in PRICE_FIXES:
+        text = text.replace(a, b)
+    return text
+
+
 def fix_text(soup):
     for t in soup.find_all(string=True):
         new = str(t)
@@ -584,6 +606,7 @@ def port(bl_repo):
 </body>
 </html>
 '''
+        doc = fix_prices(doc)
         dest = OUT if url else ROOT / '_src' / '_port'  # section sources aren't published
         dest.mkdir(parents=True, exist_ok=True)
         (dest / f'{name}.dc.html').write_text(doc)
