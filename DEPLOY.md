@@ -105,6 +105,14 @@ sudo nginx -t && sudo systemctl reload nginx
 
 ---
 
+## 5b. Before the first deploy
+- Fill `site.config.mjs` with the legendary-retreats.com GA4 measurement ID and
+  Clarity project ID (separate from belegendary.org). `npm run build` must NOT
+  print the "analytics are OFF" warning.
+- In GA4 → Admin → Events, mark `generate_lead`, `kit_download` and
+  `meetings_click` as key events once they first appear.
+- Optional: add `inquiryFormGuid` once the HubSpot retreat inquiry form exists.
+
 ## 6. Verify
 ```bash
 curl -I https://www.legendary-retreats.com/                      # 200
@@ -117,6 +125,7 @@ curl -I https://www.legendary-retreats.com/destinations          # 301 -> /desti
 curl -I https://www.legendary-retreats.com/destinations/lake-tahoe/  # 200 (page is live)
 curl -I https://www.legendary-retreats.com/assets/downloads/complete-retreat-planning-kit.pdf  # 200
 curl -I https://www.legendary-retreats.com/sitemap.xml           # 200
+curl -I https://www.legendary-retreats.com/no-such-page/         # 404, branded page
 ```
 In a browser, click through the nav (desktop dropdowns + the mobile menu), the
 four dials on the home page, the HubSpot kit form on /retreat-planning-kit/

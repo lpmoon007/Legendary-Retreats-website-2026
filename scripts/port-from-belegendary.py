@@ -246,6 +246,44 @@ def fix_text(soup):
             t.replace_with(new)
 
 
+# "Calibration Call" is Be Legendary's diagnostic-call language; on the retreat
+# site the call is a planning conversation. Primary CTA: "Plan your retreat";
+# single-day experience pages (not retreats) say "Book a call".
+CALL_SENTENCES = [
+    ('See where your team breaks first.', 'Shape your retreat in 15 minutes.'),
+    ("A Calibration Call is 15 minutes — you leave with a concrete read on your team, whether or not we work together. It's a calibration, not a pitch.",
+     'Fifteen minutes with James. You leave with a clear shape for the retreat: the outcome, the format and an honest range, whether or not we work together. No pitch.'),
+    ('We start with a calibration call to find the one outcome', 'We start with a 15-minute call to find the one outcome'),
+    ("A Calibration Call is 15 minutes — you'll leave knowing which discipline your team most needs to work on, whether or not we work together.",
+     "In a 15-minute call with James you'll leave knowing the one outcome worth building the offsite around, whether or not we work together."),
+    ('A Calibration Call is 15 minutes. You\'ll leave knowing which discipline your team most needs to change in the operating rhythm — so the next offsite holds, whether or not we work together.',
+     'Book a 15-minute call with James. You\'ll leave knowing the one thing your team needs to change for the next offsite to hold, whether or not we work together.'),
+    ('free 15-minute Calibration Call', 'free 15-minute call'),
+]
+DAY_PAGES = ('teams/executive-immersion', 'executive-off-road-immersion', 'sailing-team-building')
+
+
+def retreat_voice(soup, bl_path):
+    cta = 'Book a call' if bl_path.startswith(DAY_PAGES) else 'Plan your retreat'
+    # "A <strong>Calibration Call</strong> is 15 minutes. Tell us ..."
+    for st in soup.find_all('strong'):
+        if st.get_text(strip=True) == 'Calibration Call':
+            st.string = 'call with James'
+            nxt = st.next_sibling
+            if isinstance(nxt, NavigableString) and nxt.startswith(' is 15 minutes.'):
+                nxt.replace_with(nxt.replace(' is 15 minutes.', ' takes 15 minutes.', 1))
+    for t in soup.find_all(string=True):
+        new = str(t)
+        for a, b in CALL_SENTENCES:
+            new = new.replace(a, b)
+        new = new.replace('Book a Calibration Call', cta)
+        if new != t:
+            t.replace_with(new)
+    left = [t for t in soup.find_all(string=re.compile('[Cc]alibration'))]
+    if left:
+        print('  ! unconverted "Calibration" copy:', [str(t)[:80] for t in left])
+
+
 def swap_low_commitment_cta(soup):
     """Be Legendary's 'start free' card points at its Break-Point assessment;
     on the retreat site the free first step is the retreat planning kit."""
@@ -483,6 +521,7 @@ def port(bl_repo):
         rewrite_links(body)
         swap_low_commitment_cta(body)
         fix_text(body)
+        retreat_voice(body, bl_path)
         fix_breadcrumbs(body)
         recolor_tree(body, dark_body)
         for s in body.find_all('style'):

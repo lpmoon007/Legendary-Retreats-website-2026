@@ -41,6 +41,13 @@ npm run preview    # serve the built dist/
   in its `PAGES` list): build Be Legendary, then
   `python3 scripts/port-from-belegendary.py <be-legendary-repo>` and
   `npm run generate`. Needs `beautifulsoup4` + `lxml`.
+- `site.config.mjs` — GA4 + Clarity IDs and HubSpot form GUIDs. With IDs set,
+  every page gets lazy-loaded GA4/Clarity and three conversion events:
+  `generate_lead` (retreat inquiry form), `kit_download` (kit form or PDF click),
+  `meetings_click` (any meetings-scheduler link). Setting `inquiryFormGuid`
+  swaps the home page's `<!--lr:inquiry-->` CTA for the embedded HubSpot form.
+  Empty IDs = off, and the build warns.
+- `_src/_deploy/Not Found.dc.html` → `dist/404.html` (noindex, not in the sitemap).
 - `src/layouts/Base.astro` — injects each page's head + body.
 - `public/` — `assets/`, plus `robots.txt`, `sitemap.xml` (generated), `llms.txt`.
 

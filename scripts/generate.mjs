@@ -12,6 +12,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { OG_MAP } from './og-map.mjs';
+import { SITE_CONFIG } from '../site.config.mjs';
 
 const SITE = 'https://www.legendary-retreats.com';
 const OG_DEFAULT = `${SITE}/assets/brand/og-default.png`;
@@ -81,7 +82,9 @@ const MAP = {
   'About': '/about/',
   'The Experience': '/experience/',
   'Contact': '/contact/',
+  'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
+const NOT_FOUND_URL = '/404/';
 
 // Retired Design Components (Oct 2026 consolidation). Links that still name
 // them resolve straight to the replacement; deploy/nginx.conf 301s the old URLs.
@@ -231,6 +234,47 @@ function rewrite(s) {
   return s;
 }
 
+// GA4 + Clarity (IDs from site.config.mjs; nothing is emitted while both are
+// empty). Libraries load lazily on first interaction or shortly after load so
+// they stay off the LCP path; gtag/clarity queue calls made before that. Three
+// conversions are reported to both tools:
+//   generate_lead   — retreat inquiry form submitted (inquiryFormGuid)
+//   kit_download    — planning-kit form submitted, or the PDF link clicked
+//   meetings_click  — any link to the HubSpot meetings scheduler
+const C = SITE_CONFIG;
+const ANALYTICS = !(C.ga4 || C.clarity) ? '' : `<script>(function(){
+var GA=${JSON.stringify(C.ga4)},CL=${JSON.stringify(C.clarity)},KIT=${JSON.stringify(C.kitFormGuid)},INQ=${JSON.stringify(C.inquiryFormGuid)};
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=window.gtag||gtag;
+if(GA){gtag('js',new Date());gtag('config',GA);}
+if(CL){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};}
+var done=false;function load(){if(done)return;done=true;
+if(GA){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(g);}
+if(CL){var c=document.createElement('script');c.async=true;c.src='https://www.clarity.ms/tag/'+CL;document.head.appendChild(c);}}
+['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,load,{once:true,passive:true})});
+addEventListener('load',function(){setTimeout(load,1500)});
+function track(name,p){p=p||{};p.page_path=location.pathname;if(GA)gtag('event',name,p);if(CL)window.clarity('event',name);}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.href;
+var where=a.closest('header')?'header':a.closest('footer')?'footer':'body';
+if(/meetings(-na2)?\\.hubspot\\.com\\/jcarter28/.test(h))track('meetings_click',{link_location:where,link_text:(a.textContent||'').trim().slice(0,60)});
+else if(/complete-retreat-planning-kit\\.pdf/.test(h))track('kit_download',{method:'direct_link'});},true);
+function submitted(id){if(id&&id===KIT)track('kit_download',{method:'form'});else if(id&&INQ&&id===INQ)track('generate_lead',{form:'retreat_inquiry'});else track('form_submit',{form_id:id||'unknown'});}
+addEventListener('message',function(e){var d=e.data;if(d&&d.type==='hsFormCallback'&&d.eventName==='onFormSubmitted')submitted(d.id);});
+addEventListener('hs-form-event:on-submission:success',function(e){var id='';try{id=window.HubSpotFormsV4.getFormFromEvent(e).getFormId();}catch(_){id=(e.detail&&e.detail.formId)||'';}submitted(id);});
+})();</script>`;
+if (ANALYTICS) {
+  // Fail the build rather than ship a script that throws (e.g. a lost escape).
+  try { new Function(ANALYTICS.replace(/^<script>|<\/script>$/g, '')); }
+  catch (e) { console.error('Analytics snippet is not valid JS:', e.message); process.exit(1); }
+}
+if (!ANALYTICS) console.warn('WARNING: site.config.mjs has no GA4/Clarity IDs, so analytics are OFF (launch blocker).');
+
+// Retreat inquiry: once a HubSpot form GUID is configured, the home page's
+// <!--lr:inquiry--> block (meetings-link CTA) becomes the embedded form.
+const INQUIRY_FORM = C.inquiryFormGuid
+  ? `<div class="hs-form-frame" data-region="${C.hubspotRegion}" data-form-id="${C.inquiryFormGuid}" data-portal-id="${C.hubspotPortal}"></div>` +
+    `<script defer src="https://js-${C.hubspotRegion}.hsforms.net/forms/embed/${C.hubspotPortal}.js"></script>`
+  : null;
+
 function injectChrome(bodyHtml) {
   return bodyHtml
     .replace(/<!--lr:header-->[\s\S]*?<!--\/lr:header-->/, HEADER)
@@ -255,12 +299,14 @@ for (const [name, url] of Object.entries(MAP)) {
     console.error(`MISSING chrome markers: ${name}.dc.html`);
     process.exit(1);
   }
-  headHtml = `${headHtml}\n<style>${CHROME_CSS}</style>`;
+  const isNotFound = url === NOT_FOUND_URL;
+  headHtml = `${headHtml}\n<style>${CHROME_CSS}</style>${ANALYTICS}`;
   headHtml = rewrite(headHtml);
   headHtml = injectArticleDates(headHtml, file);
   headHtml = injectOgImage(headHtml, keyFor(url));
-  headHtml = injectSpeakable(headHtml, url);
+  if (!isNotFound) headHtml = injectSpeakable(headHtml, url);
   bodyHtml = rewrite(injectChrome(bodyHtml));
+  if (INQUIRY_FORM) bodyHtml = bodyHtml.replace(/<!--lr:inquiry-->[\s\S]*?<!--\/lr:inquiry-->/, INQUIRY_FORM);
   bodyHtml = optimizeImages(bodyHtml);
 
   const key = keyFor(url);
@@ -278,7 +324,7 @@ import body from '${prefix}generated/${key}.body.html?raw';
 ---
 <Base headHtml={head}><Fragment set:html={body} /></Base>
 `);
-  built.push({ name, url, key, file });
+  if (!isNotFound) built.push({ name, url, key, file });
 }
 
 // --- sitemap.xml from the page map (lastmod = last commit touching the source) ---
@@ -287,5 +333,5 @@ const urls = built.map(({ url, file }) =>
 writeFileSync(join(ROOT, 'public', 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
 
-console.log(`Generated ${built.length} pages (+ sitemap.xml):`);
+console.log(`Generated ${built.length} pages + 404 (+ sitemap.xml):`);
 for (const b of built) console.log(`  ${b.url.padEnd(52)} <- ${b.name}.dc.html`);
