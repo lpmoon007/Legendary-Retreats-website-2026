@@ -1,22 +1,75 @@
 <div data-screen-label="Field Notes" style="font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;background:#EFE9DD;color:#1C1A17;line-height:1.55;">
 
   <!-- HEADER -->
-  <header style="position:sticky;top:0;z-index:50;background:rgba(239,233,221,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #DED7C9;">
-    <div style="max-width:1240px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <a href="/" style="display:flex;align-items:center;gap:12px;">
-        <img decoding="async" src="/assets/brand/snail-maroon-web.png" alt="Be Legendary" style="height:34px;width:auto;display:block;">
-        <span style="font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:0.04em;font-size:15px;color:#64010a;text-transform:uppercase;">Legendary Retreats</span>
-      </a>
-      <nav style="display:flex;align-items:center;gap:24px;font-size:13.5px;font-weight:600;color:#403B33;">
-        <a href="/leadership-retreats">Leadership Retreats</a>
-        <a href="/ways-to-work-together">Ways to Work Together</a>
-        <a href="/field-notes" style="color:#64010a;">Field Notes</a>
-        <a href="/about">About</a>
-        <a href="/for-executive-assistants">For Executive Assistants</a>
-        <a href="https://meetings-na2.hubspot.com/jcarter28" style="background:#64010a;color:#F6EFE0;padding:11px 20px;border-radius:999px;font-weight:700;">Book a Strategy Call</a>
-      </nav>
-    </div>
-  </header>
+  <a class="lr-skip" href="#main">Skip to content</a>
+<header class="lr-hdr">
+  <div class="lr-hdr__in">
+    <a class="lr-brand" href="/" aria-label="Legendary Retreats home">
+      <img decoding="async" src="/assets/brand/snail-maroon-web.png" alt="" width="34" height="34">
+      <span>Legendary Retreats</span>
+    </a>
+    <nav class="lr-nav" aria-label="Primary">
+      <div class="lr-nav__item">
+        <a class="lr-nav__top" href="/ways-to-work-together/">Retreats <span class="lr-caret" aria-hidden="true">&#9662;</span></a>
+        <div class="lr-dd">
+          <a href="/ways-to-work-together/"><b>Ways to work together</b><small>Focused, Signature &amp; Bespoke</small></a>
+          <a href="/destinations/"><b>Destinations</b><small>Where we take teams</small></a>
+          <a href="/formats/"><b>Formats</b><small>Off-road, winter survival, sailing &amp; more</small></a>
+          <a href="/luxury-executive-retreat/"><b>Luxury executive retreats</b><small>Five-star, with a point</small></a>
+          <a href="/for-executive-assistants/"><b>For executive assistants</b><small>Planning for your principal</small></a>
+        </div>
+      </div>
+      <div class="lr-nav__item">
+        <a class="lr-nav__top" href="/executive-immersion/">Experiences <span class="lr-caret" aria-hidden="true">&#9662;</span></a>
+        <div class="lr-dd">
+          <a href="/executive-immersion/"><b>Executive Immersion</b><small>One engineered day, where your team already is</small></a>
+          <a href="/executive-off-road-immersion/"><b>Off-road immersion</b><small>Where the terrain becomes the lesson</small></a>
+          <a href="/sailing-team-building/"><b>Sailing</b><small>A crew, a boat, real consequence</small></a>
+        </div>
+      </div>
+      <a class="lr-nav__top" href="/case-studies/">Case Studies</a>
+      <div class="lr-nav__item">
+        <a class="lr-nav__top" href="/field-notes/">Ideas &amp; Guides <span class="lr-caret" aria-hidden="true">&#9662;</span></a>
+        <div class="lr-dd">
+          <a href="/retreat-planning-kit/"><b>Free retreat planning kit</b><small>The complete PDF kit</small></a>
+          <a href="/leadership-retreat-ideas/">Leadership retreat ideas</a>
+          <a href="/executive-offsite-ideas/">Executive offsite ideas</a>
+          <a href="/corporate-retreat-ideas/">Corporate retreat ideas</a>
+          <a href="/how-to-plan-a-leadership-retreat/">How to plan a leadership retreat</a>
+          <a href="/how-to-plan-an-executive-offsite/">How to plan an executive offsite</a>
+          <a href="/leadership-offsite-agenda/">Offsite agenda template</a>
+          <a class="lr-dd__all" href="/field-notes/">All field notes &amp; guides &rarr;</a>
+        </div>
+      </div>
+      <a class="lr-nav__top" href="/about/">About</a>
+    </nav>
+    <a class="lr-cta" href="https://meetings-na2.hubspot.com/jcarter28" target="_blank" rel="noopener" data-lr-plan>Plan your retreat</a>
+    <details class="lr-menu">
+      <summary aria-label="Menu"><span></span><span></span><span></span></summary>
+      <div class="lr-menu__panel">
+        <p>Retreats</p>
+        <a href="/ways-to-work-together/">Ways to work together</a>
+        <a href="/destinations/">Destinations</a>
+        <a href="/formats/">Formats</a>
+        <a href="/luxury-executive-retreat/">Luxury executive retreats</a>
+        <a href="/for-executive-assistants/">For executive assistants</a>
+        <p>Experiences</p>
+        <a href="/executive-immersion/">Executive Immersion</a>
+        <a href="/executive-off-road-immersion/">Off-road immersion</a>
+        <a href="/sailing-team-building/">Sailing</a>
+        <p>More</p>
+        <a href="/case-studies/">Case studies</a>
+        <a href="/retreat-planning-kit/">Free retreat planning kit</a>
+        <a href="/field-notes/">Ideas &amp; guides</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <a class="lr-menu__cta" href="https://meetings-na2.hubspot.com/jcarter28" target="_blank" rel="noopener" data-lr-plan>Plan your retreat</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<main id="main">
 
   <!-- HERO -->
   <section style="max-width:1240px;margin:0 auto;padding:80px 40px 48px;">
@@ -25,24 +78,39 @@
     <p style="margin-top:24px;max-width:64ch;font-size:18px;line-height:1.65;color:#403B33;">Plain-spoken essays on what makes a leadership retreat change behavior — and what makes most of them a waste of a good week. Written from the field, not the whiteboard.</p>
   </section>
 
-  <!-- FEATURED REPORT -->
+  <!-- FEATURED: PLANNING KIT -->
   <section style="max-width:1240px;margin:0 auto;padding:0 40px 24px;">
-    <a href="/the-connection-deficit" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:0;background:#2A0306;border-radius:18px;overflow:hidden;box-shadow:0 28px 64px -38px rgba(42,3,6,0.6);border:1px solid #4A1217;">
+    <a href="/retreat-planning-kit/" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:0;background:#2A0306;border-radius:18px;overflow:hidden;box-shadow:0 28px 64px -38px rgba(42,3,6,0.6);border:1px solid #4A1217;">
       <div style="position:relative;min-height:300px;">
         <img decoding="async" fetchpriority="high" src="/assets/field/new-fire-with-team.webp" alt="An executive team gathered around a fire on a leadership retreat" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
       </div>
       <div style="padding:52px 48px;display:flex;flex-direction:column;justify-content:center;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#2A0306;background:#E0B973;padding:4px 9px;border-radius:4px;">New report</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C99;">A Be Legendary Report</span></div>
-        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(26px,3.2vw,40px);line-height:1.1;letter-spacing:-0.02em;color:#FBF9F4;">The Connection Deficit</h2>
-        <p style="margin-top:18px;font-size:16px;line-height:1.65;color:#D9B9BC;max-width:50ch;">How remote work and AI quietly eroded the connection inside executive teams — and what the data on rebuilding it actually shows. Original research, verified sources, and our own measured outcomes.</p>
-        <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#E0B973;">Read the report →</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#2A0306;background:#E0B973;padding:4px 9px;border-radius:4px;">Free download</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C99;">PDF kit</span></div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(26px,3.2vw,40px);line-height:1.1;letter-spacing:-0.02em;color:#FBF9F4;">The Complete Retreat Planning Kit</h2>
+        <p style="margin-top:18px;font-size:16px;line-height:1.65;color:#D9B9BC;max-width:50ch;">The three design principles, five sponsor-alignment questions, the agenda shape, a venue checklist, a budget worksheet and the 30-day follow-through. Built for the person organizing the retreat.</p>
+        <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#E0B973;">Get the kit →</div>
       </div>
     </a>
   </section>
 
+  <!-- PLANNING GUIDES -->
+  <section style="max-width:1240px;margin:0 auto;padding:24px 40px 32px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#64010a;margin-bottom:18px;">Planning guides &amp; ideas</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+      <a href="/how-to-plan-a-leadership-retreat/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Guide</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">How to plan a leadership retreat</span></a>
+      <a href="/how-to-plan-an-executive-offsite/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Guide</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">How to plan an executive offsite</span></a>
+      <a href="/leadership-offsite-agenda/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Template</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">Leadership offsite agenda template</span></a>
+      <a href="/leadership-team-offsite-facilitator/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Buyer's guide</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">How to choose an offsite facilitator</span></a>
+      <a href="/why-leadership-offsites-dont-stick/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Field note</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">Why don't our leadership offsites stick?</span></a>
+      <a href="/leadership-retreat-ideas/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Ideas</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">Leadership retreat ideas</span></a>
+      <a href="/executive-offsite-ideas/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Ideas</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">Executive offsite ideas</span></a>
+      <a href="/corporate-retreat-ideas/" style="background:#F6EFE0;border:1px solid #E5DCCB;border-radius:14px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#9A7A74;">Ideas</span><span style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;color:#1C1A17;">Corporate retreat ideas &amp; locations</span></a>
+    </div>
+  </section>
+
   <!-- FEATURED ARTICLE -->
   <section style="max-width:1240px;margin:0 auto;padding:0 40px 20px;">
-    <a href="/field-notes/do-leadership-retreats-work" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:0;background:#1C1A17;border-radius:18px;overflow:hidden;box-shadow:0 28px 64px -38px rgba(28,26,23,0.55);">
+    <a href="/field-notes/do-leadership-retreats-work/" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:0;background:#1C1A17;border-radius:18px;overflow:hidden;box-shadow:0 28px 64px -38px rgba(28,26,23,0.55);">
       <div style="padding:52px 48px;display:flex;flex-direction:column;justify-content:center;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#1C1A17;background:#E0B973;padding:4px 9px;border-radius:4px;">Start here</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;">8 min read</span></div>
         <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(26px,3.2vw,40px);line-height:1.1;letter-spacing:-0.02em;color:#FBF9F4;">Do leadership retreats actually work? The honest answer.</h2>
@@ -59,7 +127,7 @@
   <section style="max-width:1240px;margin:0 auto;padding:20px 40px 40px;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-      <a href="/field-notes/two-questions-leadership-retreat" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/two-questions-leadership-retreat/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/raft-img0942.webp" alt="An executive leadership team rafting a river together on a retreat" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Planning · 6 min</div>
@@ -69,7 +137,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/align-leadership-team" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/align-leadership-team/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/rover-desert-joy.webp" alt="A leadership team navigating terrain together on an off-road retreat" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Alignment · 7 min</div>
@@ -79,7 +147,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/questions-before-executive-retreat" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/questions-before-executive-retreat/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/snow-hiking.webp" alt="A leadership team preparing for an executive retreat" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Free checklist · 5 min</div>
@@ -89,7 +157,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/30-day-reinforcement" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/30-day-reinforcement/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/mining-lodge.webp" alt="Reinforcing leadership behavior change after a retreat" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Measurement · 6 min</div>
@@ -99,7 +167,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/what-is-an-experiential-leadership-retreat" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/what-is-an-experiential-leadership-retreat/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/kayak-fjord.webp" alt="An experiential leadership retreat in the field" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Explainer · 5 min</div>
@@ -109,7 +177,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/executive-retreat-cost" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/executive-retreat-cost/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/remote-lodge-aerial.webp" alt="A remote lodge executive retreat location" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Investment · 5 min</div>
@@ -119,7 +187,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/newly-formed-post-merger-leadership-team" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/newly-formed-post-merger-leadership-team/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/rovers-pyramid-lake.webp" alt="A newly formed leadership team on an off-road retreat" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Situations · 6 min</div>
@@ -129,7 +197,7 @@
         </div>
       </a>
 
-      <a href="/field-notes/signature-vs-bespoke-retreat" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+      <a href="/field-notes/signature-vs-bespoke-retreat/" style="display:block;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
         <div style="position:relative;aspect-ratio:16/9;overflow:hidden;"><img decoding="async" loading="lazy" src="/assets/field/luxury-lodge-sunset.webp" alt="Choosing between a Signature and bespoke executive retreat" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="padding:28px 30px;">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9A9182;margin-bottom:12px;">Choosing · 5 min</div>
@@ -144,7 +212,7 @@
 
   <!-- CASE STUDY -->
   <section style="max-width:1240px;margin:0 auto;padding:0 40px 20px;">
-    <a href="/case-studies/federal-fiscal-leadership-team" style="display:grid;grid-template-columns:0.42fr 0.58fr;gap:0;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
+    <a href="/case-studies/federal-fiscal-leadership-team/" style="display:grid;grid-template-columns:0.42fr 0.58fr;gap:0;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;overflow:hidden;">
       <div style="position:relative;min-height:240px;background:#1C1A17;">
         <img decoding="async" loading="lazy" src="/assets/field/w-img1235.webp" alt="An executive leadership team in a working session at a mountain lodge" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0.92;">
       </div>
@@ -164,17 +232,57 @@
         <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:26px;letter-spacing:-0.01em;">More in the works.</h3>
         <p style="margin-top:8px;font-size:15.5px;color:#5A5448;line-height:1.6;">New field notes on retreat design, measurement, and the formats we keep returning to — from off-road immersions to remote lodges. The fastest way to talk through your team is still a direct conversation.</p>
       </div>
-      <a href="https://meetings-na2.hubspot.com/jcarter28" style="background:#64010a;color:#F6EFE0;padding:16px 28px;border-radius:999px;font-weight:700;font-size:15.5px;white-space:nowrap;">Book a Strategy Call →</a>
+      <a href="https://meetings-na2.hubspot.com/jcarter28" style="background:#64010a;color:#F6EFE0;padding:16px 28px;border-radius:999px;font-weight:700;font-size:15.5px;white-space:nowrap;">Plan your retreat →</a>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer style="background:#141210;color:#9A9182;">
-    <div style="max-width:1240px;margin:0 auto;padding:50px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
-      <a href="/" style="display:flex;align-items:center;gap:12px;"><img decoding="async" loading="lazy" src="/assets/brand/snail-cream-web.png" alt="Be Legendary" style="height:30px;width:auto;"><span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#E0D8C8;letter-spacing:0.03em;text-transform:uppercase;">Legendary Retreats</span></a>
-      <div style="display:flex;gap:24px;font-size:13px;font-weight:600;flex-wrap:wrap;"><a href="/leadership-retreats">Leadership Retreats</a><a href="/ways-to-work-together">Ways to Work Together</a><a href="/framework">The Framework</a><a href="/destinations">Destinations</a><a href="/case-studies">Case Studies</a><a href="/field-notes">Field Notes</a><a href="/about">About</a><a href="https://meetings-na2.hubspot.com/jcarter28">Book a Call</a></div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;">© 2026 Be Legendary · Denver, CO · 800-513-8759</div>
+  </main>
+<footer class="lr-ftr">
+  <div class="lr-ftr__in">
+    <div class="lr-ftr__brand">
+      <a class="lr-brand lr-brand--light" href="/">
+        <img decoding="async" loading="lazy" src="/assets/brand/snail-cream-web.png" alt="" width="30" height="30">
+        <span>Legendary Retreats</span>
+      </a>
+      <p>Facilitated executive retreats built around one outcome, reinforced for 30 days, and measured.</p>
+      <a class="lr-ftr__cta" href="https://meetings-na2.hubspot.com/jcarter28" target="_blank" rel="noopener" data-lr-plan>Plan your retreat &rarr;</a>
+      <p class="lr-ftr__phone"><a href="tel:8005138759">800-513-8759</a></p>
     </div>
-  </footer>
+    <div class="lr-ftr__col">
+      <p>Retreats</p>
+      <a href="/ways-to-work-together/">Ways to work together</a>
+      <a href="/destinations/">Destinations</a>
+      <a href="/formats/">Formats</a>
+      <a href="/luxury-executive-retreat/">Luxury executive retreats</a>
+      <a href="/executive-immersion/">Executive Immersion</a>
+      <a href="/executive-off-road-immersion/">Off-road immersion</a>
+      <a href="/sailing-team-building/">Sailing</a>
+    </div>
+    <div class="lr-ftr__col">
+      <p>Ideas &amp; guides</p>
+      <a href="/retreat-planning-kit/">Free retreat planning kit</a>
+      <a href="/leadership-retreat-ideas/">Leadership retreat ideas</a>
+      <a href="/executive-offsite-ideas/">Executive offsite ideas</a>
+      <a href="/corporate-retreat-ideas/">Corporate retreat ideas</a>
+      <a href="/how-to-plan-a-leadership-retreat/">Plan a leadership retreat</a>
+      <a href="/leadership-offsite-agenda/">Offsite agenda template</a>
+      <a href="/field-notes/">Field notes</a>
+    </div>
+    <div class="lr-ftr__col">
+      <p>Company</p>
+      <a href="/about/">About James Carter</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/for-executive-assistants/">For executive assistants</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://www.belegendary.org/" target="_blank" rel="noopener">Executive team performance &nearr;</a>
+    </div>
+  </div>
+  <div class="lr-ftr__base">
+    <span>&copy; 2026 Legendary Retreats, a Be Legendary company &middot; Denver, CO</span>
+    <span>Every retreat is reinforced for 30 days and measured.</span>
+  </div>
+</footer>
+
 
 </div>

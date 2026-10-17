@@ -7,11 +7,8 @@
 // e.g. /contact. Several pages intentionally share a source image.
 export const OG_MAP = {
   // Landing / section pages
-  'home': 'field/new-fire-with-team',
-  'leadership-retreats': 'field/g-img1361',
+  'home': 'field/sierra-lodge-night',
   'ways-to-work-together': 'field/luxury-lodge-sunset',
-  'framework': 'field/james-portrait',
-  'is-this-your-team': 'field/new-fire-with-team',
   'about': 'field/james-carter',
   'experience': 'field/g-img1494',
 
@@ -30,18 +27,28 @@ export const OG_MAP = {
 
   // Signature formats
   'formats__cabin-fever': 'field/mining-lodge',
-  'formats__off-road-immersion': 'field/rubicon-rockcrawl',
   'formats__winter-survival': 'field/w-img12322',
   'formats__wilderness-expedition': 'field/raft-img0003',
-  'sailing-offsites': 'destinations/sailing-schooner',
-  'executive-offsites': 'field/rubicon-summit-group',
-  'executive-offsite-facilitator': 'field/james-carter',
   'for-executive-assistants': 'destinations/napa-alila',
-  'the-connection-deficit': 'field/new-fire-with-team',
   'offsite-vs-executive-retreat': 'field/sierra-peaks',
   'offsite-vs-team-building': 'field/new-fire-with-team',
-  'team-offsite-ideas': 'field/rover-desert-joy',
-  'executive-offsite-agenda': 'field/luxury-lodge-sunset',
+
+  'formats': 'field/rubicon-rockcrawl',
+  'executive-off-road-immersion': 'field/rubicon-rockcrawl',
+  'sailing-team-building': 'destinations/sailing-schooner',
+  'luxury-executive-retreat': 'field/luxury-lodge-sunset',
+  'executive-immersion': 'field/redrock-jeep',
+  'corporate-retreat-ideas': 'field/rover-desert-joy',
+  'executive-offsite-ideas': 'field/rubicon-summit-group',
+  'leadership-retreat-ideas': 'field/g-img1361',
+  'retreat-planning-kit': 'field/new-fire-with-team',
+
+  // Planning guides
+  'how-to-plan-a-leadership-retreat': 'field/team-desert-tea',
+  'how-to-plan-an-executive-offsite': 'field/rubicon-summit-group',
+  'leadership-offsite-agenda': 'field/luxury-lodge-sunset',
+  'why-leadership-offsites-dont-stick': 'field/snow-hiking',
+  'leadership-team-offsite-facilitator': 'field/james-carter',
 
   // Case studies (text pages — images chosen to match each engagement)
   'case-studies': 'field/rover-desert-joy',

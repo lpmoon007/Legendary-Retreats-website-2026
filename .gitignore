@@ -14,3 +14,5 @@ public/assets/og/
 .env
 .env.*
 !.env.example
+_src/_port/
+review/

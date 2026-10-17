@@ -105,25 +105,44 @@ sudo nginx -t && sudo systemctl reload nginx
 
 ---
 
+## 5b. Before the first deploy
+- Fill `site.config.mjs` with the legendary-retreats.com GA4 measurement ID and
+  Clarity project ID (separate from belegendary.org). `npm run build` must NOT
+  print the "analytics are OFF" warning.
+- In GA4 → Admin → Events, mark `generate_lead`, `kit_download` and
+  `meetings_click` as key events once they first appear.
+- Optional: add `inquiryFormGuid` once the HubSpot retreat inquiry form exists.
+
 ## 6. Verify
 ```bash
 curl -I https://www.legendary-retreats.com/                      # 200
 curl -I http://legendary-retreats.com/                           # 301 -> https://www
-curl -I https://www.legendary-retreats.com/about-4               # 301 -> /about
-curl -I https://www.legendary-retreats.com/destinations/lake-tahoe  # 301 -> /destinations/sierra-nevada
+curl -I https://www.legendary-retreats.com/about-4               # 301 -> /about/
+curl -I https://www.legendary-retreats.com/leadership-retreats   # 301 -> /
+curl -I https://www.legendary-retreats.com/sailing-offsites      # 301 -> /sailing-team-building/
+curl -I https://www.legendary-retreats.com/framework             # 301 -> belegendary.org/flag-model/
+curl -I https://www.legendary-retreats.com/destinations          # 301 -> /destinations/ (nginx dir slash)
+curl -I https://www.legendary-retreats.com/destinations/lake-tahoe/  # 200 (page is live)
+curl -I https://www.legendary-retreats.com/assets/downloads/complete-retreat-planning-kit.pdf  # 200
 curl -I https://www.legendary-retreats.com/sitemap.xml           # 200
+curl -I https://www.legendary-retreats.com/no-such-page/         # 404, branded page
 ```
-In a browser, click through the nav, the dial on /ways-to-work-together, and the
-HubSpot booking iframe on /contact.
+In a browser, click through the nav (desktop dropdowns + the mobile menu), the
+four dials on the home page, the HubSpot kit form on /retreat-planning-kit/
+(submit a test), and the HubSpot booking iframe on /contact/.
 
 ---
 
 ## What the nginx config does (`deploy/nginx.conf`)
 - **Forces HTTPS** and the **www** canonical host (matches every page's canonical).
 - **Clean URLs** via `try_files $uri $uri/` (Astro emits `/<slug>/index.html`).
-- **301 redirects** from the old Wix URLs (`/about-4`, `/gallery`, `/film`,
-  `/projects-8`, `/leadership`, `/book`, `/destinations/lake-tahoe → …/sierra-nevada`,
-  etc.) — see the `map` block at the top.
+- **301 redirects** (the `map` block at the top; mirrored for Plesk in
+  `deploy/plesk-nginx-directives.conf`): the old Wix URLs (`/about-4`, `/gallery`,
+  `/film`, `/projects-8`, `/leadership`, `/book`, etc.), the June 2026 pages retired
+  in the Oct 2026 consolidation (`/leadership-retreats`, `/sailing-offsites`,
+  `/executive-offsites`, ...), and `/framework`, `/is-this-your-team`,
+  `/the-connection-deficit` → belegendary.org's Flag Model page. Every target is
+  final (no chains).
 - **Long-cache** `/assets/*` and `/_astro/*` (`Cache-Control: immutable`, 1 year).
 - **gzip** on by default; **brotli** lines are included but commented (uncomment
   only if your nginx has the `ngx_brotli` module compiled in).
@@ -149,8 +168,8 @@ sudo systemctl reload nginx   # not strictly needed for content, but harmless
   booking iframe (`meetings-na2.hubspot.com/jcarter28`). No server config needed;
   just don't add a Content-Security-Policy that blocks them without allowlisting.
 - **GoDaddy *shared* hosting (cPanel) instead of a VPS?** That's Apache, not nginx
-  — you'd upload `dist/` to `public_html/` and translate the 301s into a
-  `.htaccess` (the Apache forms are in `_src/_deploy/seo/redirects.md`). Tell me if
+  — you'd upload `dist/` to `public_html/` and translate the 301s in `deploy/nginx.conf` into a
+  `.htaccess`. Tell me if
   that's your setup and I'll generate the `.htaccess`.
 - Post-launch: submit `https://www.legendary-retreats.com/sitemap.xml` in Google
   Search Console; verify JSON-LD with the Rich Results Test.
