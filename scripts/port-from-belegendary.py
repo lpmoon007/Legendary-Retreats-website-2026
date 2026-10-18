@@ -237,16 +237,25 @@ TEXT_FIXES = [
 ]
 
 
-# Focused tier floor is $35K on legendary-retreats.com (Be Legendary still
-# publishes $25K). Raw-string swaps so visible copy, meta and JSON-LD all match.
+# Tier prices on legendary-retreats.com: Focused $35K-$50K, Signature
+# $45K-$150K (Be Legendary still publishes $25K-$50K and $35K-$100K).
+# Raw-string swaps so visible copy, meta and JSON-LD all match. Order matters:
+# Signature is rewritten before Focused so the new $35K floor isn't re-matched.
 # The Business Insider headline ("$25,000 Executive Getaways") is a quote: untouched.
 PRICE_FIXES = [
+    ('$35,000–$100,000', '$45,000–$150,000'),
+    ('$35,000-$100,000', '$45,000-$150,000'),
+    ('$35,000 to $100,000', '$45,000 to $150,000'),
+    ('$35k–$100k', '$45k–$150k'),
+    ('$35K–$100K', '$45K–$150K'),
+    ('"name":"Signature Retreat","priceCurrency":"USD","price":"35000"',
+     '"name":"Signature Retreat","priceCurrency":"USD","price":"45000"'),
     ('$25,000–$50,000', '$35,000–$50,000'),
     ('$25,000-$50,000', '$35,000-$50,000'),
     ('$25,000 to $50,000', '$35,000 to $50,000'),
     ('$25k–$50k', '$35k–$50k'),
     ('$25K–$50K', '$35K–$50K'),
-    ('$25,000–$100,000', '$35,000–$100,000'),
+    ('$25,000–$100,000', '$35,000–$150,000'),
     ('about $25,000 for a Focused', 'about $35,000 for a Focused'),
     ('"name":"Focused Retreat","priceCurrency":"USD","price":"25000"',
      '"name":"Focused Retreat","priceCurrency":"USD","price":"35000"'),

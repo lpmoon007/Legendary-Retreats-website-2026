@@ -51,13 +51,53 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
+      # Connection problems are reported as annotations (visible on the run
+      # summary) so a failed deploy says why without digging through logs.
+      - name: Check the server connection
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          LFTP_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+        run: |
+          for v in DEPLOY_HOST DEPLOY_USER LFTP_PASSWORD; do
+            [ -n "${!v}" ] || { echo "::error::Secret for $v is empty"; exit 1; }
+          done
+          if timeout 15 bash -c "</dev/tcp/$DEPLOY_HOST/22"; then
+            echo "::notice::Port 22 on the server is reachable"
+          else
+            echo "::error::Cannot reach port 22 on $DEPLOY_HOST (firewall or SSH not listening)"
+            exit 1
+          fi
+          banner=$(timeout 15 ssh-keyscan -T 10 "$DEPLOY_HOST" 2>&1 | grep -m1 -i "SSH-" || true)
+          echo "::notice::SSH banner: ${banner:-none}"
+          set +e
+          out=$(lftp --env-password -u "$DEPLOY_USER" "sftp://$DEPLOY_HOST" 2>&1 <<'EOF'
+          set sftp:auto-confirm yes
+          set net:max-retries 1
+          set net:timeout 20
+          set cmd:fail-exit yes
+          pwd
+          cls -1
+          bye
+          EOF
+          )
+          rc=$?
+          set -e
+          echo "$out" | head -20 | while IFS= read -r line; do echo "::notice::lftp: $line"; done
+          if [ $rc -ne 0 ]; then
+            echo "::error::SFTP login or listing failed (exit $rc). See the lftp notices above."
+            exit 1
+          fi
+          echo "$out" | grep -qx "httpdocs/\?" || echo "::warning::No httpdocs in the login directory; listing shown above"
+
       - name: Sync dist/ to httpdocs over SFTP
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           LFTP_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
         run: |
-          lftp --env-password -u "$DEPLOY_USER" "sftp://$DEPLOY_HOST" <<'EOF'
+          set +e
+          lftp --env-password -u "$DEPLOY_USER" "sftp://$DEPLOY_HOST" > sync.log 2>&1 <<'EOF'
           set cmd:fail-exit yes
           set sftp:auto-confirm yes
           set net:max-retries 3
@@ -68,6 +108,14 @@ jobs:
                  dist/ .
           bye
           EOF
+          rc=$?
+          set -e
+          tail -n 40 sync.log
+          if [ $rc -ne 0 ]; then
+            grep -iv "^Transferring\|^Removing" sync.log | tail -n 8 | while IFS= read -r line; do echo "::error::lftp: $line"; done
+            exit $rc
+          fi
+          echo "::notice::Synced $(grep -c '^Transferring' sync.log) files, removed $(grep -c '^Removing' sync.log)"
 
       - name: Check the live site
         run: |
