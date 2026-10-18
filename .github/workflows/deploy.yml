@@ -4,7 +4,10 @@
 # Secrets (repo Settings → Secrets and variables → Actions):
 #   DEPLOY_HOST      160.153.174.40
 #   DEPLOY_USER      Plesk system user for legendary-retreats.com
-#   DEPLOY_PASSWORD  that user's password
+#   DEPLOY_PASSWORD  that user's password (used for FTPS)
+#   DEPLOY_SSH_KEY   optional: a private key authorised for that user. When set,
+#                    the deploy uses SFTP with the key instead of FTPS. (The
+#                    server's SSH accepts keys only, not passwords.)
 #
 # The sync uploads the build and deletes files that are no longer in it, but
 # never touches .well-known/ (Let's Encrypt renewals) or cgi-bin/. A build
@@ -53,59 +56,68 @@ jobs:
 
       # Connection problems are reported as annotations (visible on the run
       # summary) so a failed deploy says why without digging through logs.
-      - name: Check the server connection
+      - name: Choose the transfer method
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          [ -n "$DEPLOY_HOST" ] && [ -n "$DEPLOY_USER" ] || { echo "::error::DEPLOY_HOST / DEPLOY_USER secret is empty"; exit 1; }
+          cat > ~/.lftprc <<'EOF'
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          set net:timeout 30
+          set net:reconnect-interval-base 5
+          EOF
+          if [ -n "$DEPLOY_SSH_KEY" ]; then
+            mkdir -p ~/.ssh && chmod 700 ~/.ssh
+            printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+            ssh-keyscan -T 10 "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+            echo "set sftp:connect-program 'ssh -a -x -i ~/.ssh/deploy_key -o IdentitiesOnly=yes'" >> ~/.lftprc
+            echo "LFTP_URL=sftp://$DEPLOY_USER:@$DEPLOY_HOST" >> "$GITHUB_ENV"
+            echo "::notice::Transfer: SFTP with SSH key"
+          else
+            [ -n "$DEPLOY_PASSWORD" ] || { echo "::error::DEPLOY_PASSWORD secret is empty"; exit 1; }
+            timeout 15 bash -c "</dev/tcp/$DEPLOY_HOST/21" || { echo "::error::Cannot reach FTP port 21 on the server"; exit 1; }
+            # Explicit TLS. Plesk's FTP certificate is usually issued for the
+            # server name, not this IP, so it is not hostname-verified; the
+            # session is still encrypted.
+            cat >> ~/.lftprc <<'EOF'
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate no
+          set ftp:passive-mode true
+          EOF
+            echo "LFTP_URL=ftp://$DEPLOY_HOST" >> "$GITHUB_ENV"
+            echo "LFTP_USE_PASSWORD=1" >> "$GITHUB_ENV"
+            echo "::notice::Transfer: FTPS (FTP over TLS) with the account password"
+          fi
+
+      - name: Check the server login
+        env:
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           LFTP_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
         run: |
-          for v in DEPLOY_HOST DEPLOY_USER LFTP_PASSWORD; do
-            [ -n "${!v}" ] || { echo "::error::Secret for $v is empty"; exit 1; }
-          done
-          if timeout 15 bash -c "</dev/tcp/$DEPLOY_HOST/22"; then
-            echo "::notice::Port 22 on the server is reachable"
-          else
-            echo "::error::Cannot reach port 22 on $DEPLOY_HOST (firewall or SSH not listening)"
-            exit 1
-          fi
-          banner=$(timeout 15 ssh-keyscan -T 10 "$DEPLOY_HOST" 2>&1 | grep -m1 -i "SSH-" || true)
-          echo "::notice::SSH banner: ${banner:-none}"
+          auth=(-u "$DEPLOY_USER,"); [ -n "$LFTP_USE_PASSWORD" ] && auth=(--env-password -u "$DEPLOY_USER")
           set +e
-          out=$(lftp --env-password -u "$DEPLOY_USER" "sftp://$DEPLOY_HOST" 2>&1 <<'EOF'
-          set sftp:auto-confirm yes
-          set net:max-retries 1
-          set net:timeout 20
-          set cmd:fail-exit yes
-          pwd
-          cls -1
-          bye
-          EOF
-          )
+          out=$(printf 'set net:max-retries 1\npwd\ncls -1\nbye\n' | lftp "${auth[@]}" "$LFTP_URL" 2>&1)
           rc=$?
           set -e
           echo "$out" | head -20 | while IFS= read -r line; do echo "::notice::lftp: $line"; done
-          if [ $rc -ne 0 ]; then
-            echo "::error::SFTP login or listing failed (exit $rc). See the lftp notices above."
-            exit 1
-          fi
+          [ $rc -eq 0 ] || { echo "::error::Login or listing failed (exit $rc). See the lftp notices."; exit 1; }
           echo "$out" | grep -qx "httpdocs/\?" || echo "::warning::No httpdocs in the login directory; listing shown above"
 
-      - name: Sync dist/ to httpdocs over SFTP
+      - name: Sync dist/ to httpdocs
         env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           LFTP_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
         run: |
+          auth=(-u "$DEPLOY_USER,"); [ -n "$LFTP_USE_PASSWORD" ] && auth=(--env-password -u "$DEPLOY_USER")
           set +e
-          lftp --env-password -u "$DEPLOY_USER" "sftp://$DEPLOY_HOST" > sync.log 2>&1 <<'EOF'
-          set cmd:fail-exit yes
-          set sftp:auto-confirm yes
-          set net:max-retries 3
-          set net:timeout 30
+          lftp "${auth[@]}" "$LFTP_URL" > sync.log 2>&1 <<'EOF'
           cd httpdocs
-          mirror --reverse --delete --parallel=4 --verbose=1 \
-                 --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
-                 dist/ .
+          mirror --reverse --delete --parallel=4 --verbose=1 --exclude-glob .well-known/ --exclude-glob cgi-bin/ dist/ .
           bye
           EOF
           rc=$?
