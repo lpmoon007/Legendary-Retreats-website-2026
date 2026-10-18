@@ -1,0 +1,84 @@
+# Build the site and publish it to the Plesk server on every push to the main
+# branch (or by hand from the Actions tab). Replaces uploading zips.
+#
+# Secrets (repo Settings → Secrets and variables → Actions):
+#   DEPLOY_HOST      160.153.174.40
+#   DEPLOY_USER      Plesk system user for legendary-retreats.com
+#   DEPLOY_PASSWORD  that user's password
+#
+# The sync uploads the build and deletes files that are no longer in it, but
+# never touches .well-known/ (Let's Encrypt renewals) or cgi-bin/. A build
+# stamp (/build.txt = commit SHA) lets the last step prove the new version is live.
+name: Deploy
+
+on:
+  push:
+    branches: [claude/exciting-shannon-exms0i]
+  workflow_dispatch:
+
+# Never run two deploys at once; a newer push waits for the running one.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history: the generator dates articles and the sitemap from git.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: |
+          npm run build 2>&1 | tee build.log
+          if grep -q "analytics are OFF" build.log; then
+            echo "::error::Analytics IDs missing in site.config.mjs; refusing to deploy."
+            exit 1
+          fi
+          test -f dist/index.html && test -f dist/404.html
+          echo "$GITHUB_SHA" > dist/build.txt
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Sync dist/ to httpdocs over SFTP
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          LFTP_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+        run: |
+          lftp --env-password -u "$DEPLOY_USER" "sftp://$DEPLOY_HOST" <<'EOF'
+          set cmd:fail-exit yes
+          set sftp:auto-confirm yes
+          set net:max-retries 3
+          set net:timeout 30
+          cd httpdocs
+          mirror --reverse --delete --parallel=4 --verbose=1 \
+                 --exclude-glob .well-known/ --exclude-glob cgi-bin/ \
+                 dist/ .
+          bye
+          EOF
+
+      - name: Check the live site
+        run: |
+          sleep 5
+          live=$(curl -s https://www.legendary-retreats.com/build.txt)
+          echo "live build: $live  expected: $GITHUB_SHA"
+          test "$live" = "$GITHUB_SHA"
+          code=$(curl -s -o /tmp/home.html -w '%{http_code}' https://www.legendary-retreats.com/)
+          echo "home: $code"
+          test "$code" = "200"
+          grep -q "Legendary Retreats" /tmp/home.html
+          kit=$(curl -s -o /dev/null -w '%{http_code}' https://www.legendary-retreats.com/retreat-planning-kit/)
+          echo "kit page: $kit"
+          test "$kit" = "200"

@@ -1,5 +1,13 @@
 # Deploying Legendary Retreats to the GoDaddy VPS (nginx)
 
+> **Day-to-day deploys are automatic.** Every push to the main branch
+> (`claude/exciting-shannon-exms0i`) runs `.github/workflows/deploy.yml`: it
+> builds the site and syncs `dist/` to `httpdocs` over SFTP (leaving
+> `.well-known/` alone), then checks that `/build.txt` on the live site matches
+> the pushed commit. Watch runs under the repo's **Actions** tab; re-run one by
+> hand with **Run workflow**. The manual steps below are for a fresh server.
+
+
 The site is a **static build** (Astro → plain HTML/CSS/JS in `dist/`). nginx just
 serves files — no Node runtime is needed *in production*. Node is only needed to
 *build* (either on the VPS or on your Mac, then upload).
