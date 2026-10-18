@@ -315,6 +315,25 @@ def retreat_voice(soup, bl_path):
         print('  ! unconverted "Calibration" copy:', [str(t)[:80] for t in left])
 
 
+# Extra sections inserted into specific ported pages, after the first element
+# whose text contains the anchor. Source lives in _src/_deploy/extras/.
+PAGE_EXTRAS = {
+    'teams/luxury-executive-retreat': ('The trap of the beautiful off-site', 'luxury-gallery.html'),
+}
+
+
+def add_extras(soup, bl_path):
+    if bl_path not in PAGE_EXTRAS:
+        return
+    anchor, fname = PAGE_EXTRAS[bl_path]
+    hit = soup.find(string=re.compile(re.escape(anchor)))
+    sec = hit.find_parent('section') if hit else None
+    if sec is None:
+        raise SystemExit(f'extras anchor not found on {bl_path}: {anchor!r}')
+    frag = BeautifulSoup((OUT / 'extras' / fname).read_text(), 'html.parser')
+    sec.insert_after(frag)
+
+
 def swap_low_commitment_cta(soup):
     """Be Legendary's 'start free' card points at its Break-Point assessment;
     on the retreat site the free first step is the retreat planning kit."""
@@ -555,6 +574,7 @@ def port(bl_repo):
         retreat_voice(body, bl_path)
         fix_breadcrumbs(body)
         recolor_tree(body, dark_body)
+        add_extras(body, bl_path)  # after recolor: extras are authored in the LR palette
         for s in body.find_all('style'):
             s.string = recolor_css(s.get_text(), dark=dark_body)
 

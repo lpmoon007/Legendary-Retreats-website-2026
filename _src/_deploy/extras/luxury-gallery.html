@@ -1,0 +1,86 @@
+<!-- Luxury gallery: inserted into the ported Luxury Executive Retreat page by
+     scripts/port-from-belegendary.py (PAGE_EXTRAS). Edit here, then re-port. -->
+<section class="lx-gal" aria-labelledby="lx-gal-h">
+  <style>
+    .lx-gal{max-width:1240px;margin:64px auto 8px;padding:0 32px}
+    .lx-gal__head{max-width:760px;margin:0 auto 28px;text-align:center}
+    .lx-gal__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#64010a;margin-bottom:14px}
+    .lx-gal h2{font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.02em;color:#3A0A0C}
+    .lx-gal__lede{margin-top:14px;font-size:17px;line-height:1.6;color:#5A4A44}
+    .lx-gal__grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;grid-auto-flow:dense;gap:12px}
+    .lx-gal__item{position:relative;overflow:hidden;border-radius:14px;padding:0;border:0;cursor:zoom-in;background:#1C1A17;display:block}
+    .lx-gal__item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+    .lx-gal__item:hover img,.lx-gal__item:focus-visible img{transform:scale(1.04)}
+    .lx-gal__item figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 11px;font:500 13px 'Hanken Grotesk',sans-serif;color:#FBF7EF;text-align:left;background:linear-gradient(transparent,rgba(14,13,11,.72))}
+    .lx-gal__item--feature{grid-column:span 2;grid-row:span 2}
+    .lx-gal__item--wide{grid-column:span 2}
+    .lx-gal__note{margin-top:16px;text-align:center;font-size:14px;color:#8A6A64}
+    .lx-gal__note a{color:#64010a;text-decoration:underline;text-underline-offset:3px}
+    .lx-lb{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh}
+    .lx-lb::backdrop{background:rgba(14,13,11,.92)}
+    .lx-lb__fig{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:56px 72px}
+    .lx-lb__fig img{max-width:100%;max-height:calc(100vh - 150px);object-fit:contain;border-radius:8px}
+    .lx-lb__fig figcaption{color:#EFE9DD;font:500 15px 'Hanken Grotesk',sans-serif}
+    .lx-lb button{position:absolute;background:rgba(239,233,221,.1);color:#FBF7EF;border:1px solid rgba(239,233,221,.25);border-radius:999px;width:48px;height:48px;font-size:22px;cursor:pointer}
+    .lx-lb button:hover{background:rgba(224,185,115,.25)}
+    .lx-lb__close{top:16px;right:16px}
+    .lx-lb__prev{left:16px;top:50%;transform:translateY(-50%)}
+    .lx-lb__next{right:16px;top:50%;transform:translateY(-50%)}
+    @media (max-width:860px){.lx-gal{padding:0 20px}.lx-gal__grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}.lx-lb__fig{padding:56px 12px}.lx-lb__prev,.lx-lb__next{top:auto;bottom:20px;transform:none}}
+    @media (max-width:480px){.lx-gal__grid{grid-auto-rows:140px;gap:8px}.lx-gal__item figcaption{font-size:11.5px;padding:22px 9px 8px}}
+  </style>
+  <div class="lx-gal__head">
+    <p class="lx-gal__eyebrow">Five-star, with a point</p>
+    <h2 id="lx-gal-h">Where the work happens.</h2>
+    <p class="lx-gal__lede">A few of the lodges, estates and ranches we design around. Every venue is chosen for the outcome; the comfort is what lets a team go somewhere hard.</p>
+  </div>
+  <div class="lx-gal__grid">
+    <figure class="lx-gal__item lx-gal__item--feature" tabindex="0" role="button"><img src="/assets/lr-lodge.webp" alt="A five-star mountain estate at golden hour" width="1800" height="655"><figcaption>Mountain estate at golden hour</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/destinations/napa-alila.webp" alt="Resort and vineyard estate in Napa Valley, California" width="1600" height="900"><figcaption>Vineyard estate, Napa Valley</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/destinations/montana-rock-creek.webp" alt="Five-star ranch lodge at dusk in Montana" width="945" height="630"><figcaption>Ranch lodge at dusk, Montana</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/destinations/jackson-jenny-lake.webp" alt="Rocking chairs facing the Teton range at a Jackson Hole lodge" width="1024" height="768"><figcaption>The Tetons from the porch, Jackson Hole</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/site-photos/brush-creek-horses.webp" alt="Horses running at a ranch retreat" width="1600" height="1100"><figcaption>Horseback &amp; ranch</figcaption></figure>
+    <figure class="lx-gal__item lx-gal__item--wide" tabindex="0" role="button"><img src="/assets/sailing/schooner.webp" alt="An executive team aboard a classic schooner under full sail at golden hour" width="1916" height="821"><figcaption>A classic schooner under full sail</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/destinations/napa-calistoga.webp" alt="Vineyard estate in Calistoga, Napa Valley" width="1000" height="667"><figcaption>Villa among the vines, Calistoga</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/field/sierra-lodge-night.webp" alt="A timber-frame mountain lodge lit up at dusk" width="1142" height="661"><figcaption>Timber-frame lodge at dusk</figcaption></figure>
+    <figure class="lx-gal__item lx-gal__item--wide" tabindex="0" role="button"><img src="/assets/site-photos/castle-horses.webp" alt="Riders on horseback below a hilltop castle estate" width="1600" height="1100"><figcaption>Riding out to a hilltop estate</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/field/remote-lodge-aerial.webp" alt="A remote lakeside lodge seen from the air" width="945" height="630"><figcaption>A remote lakeside lodge</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/field/alula-lunch.webp" alt="An executive team sharing a meal on a Bedouin rug among the red rock of AlUla, Saudi Arabia" width="1024" height="768"><figcaption>Lunch on a Bedouin rug, AlUla</figcaption></figure>
+    <figure class="lx-gal__item lx-gal__item--wide" tabindex="0" role="button"><img src="/assets/field/kayak-fjord.webp" alt="Sea kayaks drawn up on a fjord shore beneath steep peaks" width="1500" height="1000"><figcaption>Sea kayaks on the fjord</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/site-photos/telluride-ferrata.webp" alt="A climber on the via ferrata above Telluride, Colorado" width="1600" height="1100"><figcaption>Telluride via ferrata</figcaption></figure>
+    <figure class="lx-gal__item" tabindex="0" role="button"><img src="/assets/sailing/day-sail.webp" alt="A team sailing a yacht on open water" width="1916" height="821"><figcaption>A day under sail</figcaption></figure>
+  </div>
+  <p class="lx-gal__note">Tap any photo to view it large. Want a venue like these? <a href="https://meetings-na2.hubspot.com/jcarter28" target="_blank" rel="noopener" data-lr-plan>Plan your retreat</a></p>
+  <dialog class="lx-lb" aria-label="Photo viewer">
+    <figure class="lx-lb__fig"><img alt=""><figcaption></figcaption></figure>
+    <button class="lx-lb__close" type="button" aria-label="Close">&times;</button>
+    <button class="lx-lb__prev" type="button" aria-label="Previous photo">&#8249;</button>
+    <button class="lx-lb__next" type="button" aria-label="Next photo">&#8250;</button>
+  </dialog>
+  <script>
+    (function () {
+      var root = document.currentScript.closest('.lx-gal');
+      var items = Array.prototype.slice.call(root.querySelectorAll('.lx-gal__item'));
+      var lb = root.querySelector('.lx-lb'), img = lb.querySelector('img'), cap = lb.querySelector('figcaption');
+      if (!lb.showModal) return; // very old browsers: the grid still works as a static gallery
+      var i = 0, x0 = null;
+      function show(n) {
+        i = (n + items.length) % items.length;
+        var src = items[i].querySelector('img');
+        img.src = src.src; img.alt = src.alt;
+        cap.textContent = items[i].querySelector('figcaption').textContent;
+      }
+      items.forEach(function (it, n) {
+        it.addEventListener('click', function () { show(n); lb.showModal(); });
+        it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(n); lb.showModal(); } });
+      });
+      lb.querySelector('.lx-lb__close').addEventListener('click', function () { lb.close(); });
+      lb.querySelector('.lx-lb__prev').addEventListener('click', function () { show(i - 1); });
+      lb.querySelector('.lx-lb__next').addEventListener('click', function () { show(i + 1); });
+      lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('lx-lb__fig')) lb.close(); });
+      lb.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') show(i - 1); if (e.key === 'ArrowRight') show(i + 1); });
+      lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1)); x0 = null; });
+    })();
+  </script>
+</section>
