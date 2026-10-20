@@ -409,6 +409,21 @@ PHOTO_HEROES = {
         'alt': 'Red-rock country near Sedona, Arizona',
         'eyebrow': 'Field note', 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
     },
+    'teams/leadership-retreat-ideas': {
+        'src': '/assets/site-photos/telluride-ferrata.webp', 'width': 1600, 'height': 1100,
+        'alt': 'A climber on the via ferrata above Telluride, Colorado',
+        'eyebrow': 'Retreat ideas',
+    },
+    'teams/executive-offsite-ideas': {
+        'src': '/assets/site-photos/brush-creek-horses.webp', 'width': 1600, 'height': 1100,
+        'alt': 'Horses running at a ranch retreat',
+        'eyebrow': 'Offsite ideas',
+    },
+    'teams/corporate-retreat-ideas': {
+        'src': '/assets/site-photos/castle-horses.webp', 'width': 1600, 'height': 1100,
+        'alt': 'Riders on horseback below a hilltop castle estate',
+        'eyebrow': 'Ideas & locations',
+    },
     'teams/retreats/destinations': {
         'src': '/assets/field/kayak-fjord.webp', 'width': 1500, 'height': 1000,
         'alt': 'Red sea kayaks drawn up on a fjord shore beneath steep peaks',
