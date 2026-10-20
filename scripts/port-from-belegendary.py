@@ -366,6 +366,14 @@ PAGE_EXTRAS = {
 }
 
 
+# Small page-specific CSS fixes.
+PAGE_CSS = {
+    # On phones the kit form comes straight after the hero, ahead of the
+    # seven-item contents list.
+    'retreat-planning-kit': '@media (max-width:860px){main .bl-grid-collapse > div:last-child{order:-1}}',
+}
+
+
 # Full-bleed photo hero: the page's breadcrumb + <h1> move onto the photo; the
 # rest of the original header (e.g. "The short answer") stays below it.
 PHOTO_HEROES = {
@@ -459,6 +467,10 @@ PHOTO_HEROES = {
         'src': '/assets/site-photos/caption.webp', 'width': 1600, 'height': 1100,
         'alt': 'A towering red-rock formation in the desert at sunset',
         'eyebrow': None, 'lede': True},
+    'retreat-planning-kit': {
+        'src': '/assets/field/new-img-5582.webp', 'width': 1536, 'height': 2048,
+        'alt': 'An executive team roped together, climbing a red-rock canyon wall',
+        'eyebrow': None, 'lede': True, 'anchor_top': True},
     'teams/leadership-retreat-ideas': {
         'src': '/assets/site-photos/telluride-ferrata.webp', 'width': 1600, 'height': 1100,
         'alt': 'A climber on the via ferrata above Telluride, Colorado',
@@ -551,6 +563,11 @@ def add_photo_hero(soup, bl_path):
         'html.parser')
     inner = hero.find(class_='lr-phero__in')
     anchor = header if header.name in ('header', 'section') else (h1.find_parent(['header', 'section']) or header)
+    if cfg.get('anchor_top'):
+        # h1 sits inside a column of a grid: the hero goes above the whole block.
+        anchor = h1
+        while anchor.parent is not None and anchor.parent.name != 'main':
+            anchor = anchor.parent
     anchor.insert_before(hero)
     if crumb:
         crumb_parent = crumb.parent
@@ -953,6 +970,8 @@ def port(bl_repo):
         add_extras(body, bl_path)  # after recolor: extras are authored in the LR palette
         if add_photo_hero(body, bl_path):
             page_styles.append(HERO_CSS)
+        if bl_path in PAGE_CSS:
+            page_styles.append(PAGE_CSS[bl_path])
         add_updated_line(body, bl_path)
         restyle_css = restyle_hero(body, bl_path)
         if restyle_css:
