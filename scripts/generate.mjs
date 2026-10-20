@@ -82,6 +82,7 @@ const MAP = {
   'About': '/about/',
   'The Experience': '/experience/',
   'Contact': '/contact/',
+  'Press': '/press/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';

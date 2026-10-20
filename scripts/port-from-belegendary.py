@@ -218,8 +218,24 @@ def map_href(href):
     return BL + path + tail, True
 
 
+# Absolute links that point somewhere better on this domain: the CNN Money
+# piece is live again on cnn.com, and press coverage has its own page here.
+LINK_FIXES = {
+    'https://web.archive.org/web/20180827210716/https://money.cnn.com/2018/08/27/pf/executive-retreats/index.html':
+        'https://www.cnn.com/2018/09/30/success/executive-retreats',
+    'https://www.belegendary.org/press/': '/press/',
+    '/press/': '/press/',
+}
+
+
 def rewrite_links(soup):
     for a in soup.find_all('a', href=True):
+        if a['href'] in LINK_FIXES:
+            a['href'] = LINK_FIXES[a['href']]
+            if a['href'].startswith('/'):
+                del a['target']
+                del a['rel']
+            continue
         new, ext = map_href(a['href'])
         a['href'] = new
         if ext or new == MEETINGS:
@@ -319,7 +335,10 @@ def retreat_voice(soup, bl_path):
 # whose text contains the anchor. Source lives in _src/_deploy/extras/.
 # mode 'after' inserts after the anchor's section; 'replace' swaps it out.
 PAGE_EXTRAS = {
-    'teams/luxury-executive-retreat': [('The trap of the beautiful off-site', 'luxury-gallery.html', 'after')],
+    'teams/luxury-executive-retreat': [('The trap of the beautiful off-site', 'luxury-gallery.html', 'after'),
+                                       ('Where the work happens.', 'press-strip.html', 'after')],
+    'teams/retreats/ways-to-work-together': [('Three ways to run a legendary retreat.', 'press-strip.html', 'after')],
+    'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after')],
     'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace')],
 }
 
