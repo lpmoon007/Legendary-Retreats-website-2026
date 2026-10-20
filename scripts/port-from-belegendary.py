@@ -226,6 +226,9 @@ LINK_FIXES = {
         'https://www.cnn.com/2018/09/30/success/executive-retreats',
     'https://www.belegendary.org/press/': '/press/',
     '/press/': '/press/',
+    # The retreat site has its own one-page brief for the principal.
+    '/brief-your-principal/': '/retreat-brief/',
+    'https://www.belegendary.org/brief-your-principal/': '/retreat-brief/',
 }
 
 
@@ -451,6 +454,10 @@ PHOTO_HEROES = {
     'teams/retreats/ways-to-work-together': {
         'src': '/assets/field/g-img1301.webp', 'width': 1500, 'height': 1124,
         'alt': 'An executive team on ATVs crossing an alpine valley in the San Juan Mountains',
+        'eyebrow': None, 'lede': True},
+    'teams/retreats/for-executive-assistants': {
+        'src': '/assets/site-photos/caption.webp', 'width': 1600, 'height': 1100,
+        'alt': 'A towering red-rock formation in the desert at sunset',
         'eyebrow': None, 'lede': True},
     'teams/leadership-retreat-ideas': {
         'src': '/assets/site-photos/telluride-ferrata.webp', 'width': 1600, 'height': 1100,
