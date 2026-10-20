@@ -34,6 +34,16 @@
   body{background:#EFE9DD}
   ::selection{background:#64010a;color:#F6EFE0}
   a{text-decoration:none;color:inherit}
+
+  /* House-style photo hero. */
+  .lr-phero{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0D0B}
+  .lr-phero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+  .lr-phero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,13,11,.5) 0%,rgba(14,13,11,0) 60%),linear-gradient(180deg,rgba(14,13,11,.2) 0%,rgba(14,13,11,.05) 30%,rgba(14,13,11,.55) 62%,rgba(14,13,11,.9) 100%)}
+  .lr-phero__in{position:relative;width:100%;max-width:1240px;margin:0 auto;padding:120px 40px 56px}
+  .lr-phero__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E0B973;margin-bottom:16px}
+  .lr-phero h1{font-family:'Newsreader',serif;font-weight:400;font-size:clamp(38px,5.6vw,72px);line-height:1.04;letter-spacing:-0.022em;color:#FBF7EF;max-width:20ch;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+  .lr-phero__lede{margin-top:22px;max-width:52ch;font-size:18px;line-height:1.65;color:rgba(239,233,221,.9)}
+  @media (max-width:860px){.lr-phero__in{padding:110px 20px 40px}.ct-grid{grid-template-columns:1fr!important;gap:36px!important;padding:40px 20px 64px!important}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"Legendary Retreats","parentOrganization":{"@type":"Organization","name":"Be Legendary","url":"https://www.belegendary.org/"},"url":"https://www.legendary-retreats.com","telephone":"+1-800-513-8759","image":"https://www.legendary-retreats.com/assets/brand/snail-maroon-web.png","address":{"@type":"PostalAddress","addressLocality":"Denver","addressRegion":"CO","addressCountry":"US"},"description":"Book a strategy call to design an executive leadership retreat for your team.","areaServed":["United States","Central America","Worldwide"]}
@@ -45,13 +55,16 @@
   <!--lr:header--><!--/lr:header-->
 <main id="main">
 
-  <section style="max-width:1240px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:0.92fr 1.08fr;gap:56px;align-items:start;">
-    <div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#64010a;margin-bottom:22px;">Book a strategy call</div>
-      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(36px,4.6vw,60px);line-height:1.04;letter-spacing:-0.02em;">Let's start with one question.</h1>
-      <p style="margin-top:24px;max-width:46ch;font-size:18px;line-height:1.65;color:#403B33;">What do you need your team to walk away feeling, thinking, and saying to one another? Bring that to the call — the rest is our job.</p>
+  <section class="lr-phero"><img class="lr-phero__img" src="assets/destinations/sedona-group.webp" alt="An executive team together on the red rock above Sedona, Arizona" width="1600" height="1200" loading="eager" fetchpriority="high" decoding="async"><div class="lr-phero__scrim"></div><div class="lr-phero__in">
+    <p class="lr-phero__eyebrow">Book a strategy call</p>
+    <h1>Let's start with one question.</h1>
+    <p class="lr-phero__lede">What do you need your team to walk away feeling, thinking, and saying to one another? Bring that to the call — the rest is our job.</p>
+  </div></section>
 
-      <div style="margin-top:34px;display:flex;flex-direction:column;gap:18px;">
+  <section class="ct-grid" style="max-width:1240px;margin:0 auto;padding:56px 40px 80px;display:grid;grid-template-columns:0.92fr 1.08fr;gap:56px;align-items:start;">
+    <div>
+
+      <div style="display:flex;flex-direction:column;gap:18px;">
         <div style="display:flex;gap:14px;align-items:flex-start;">
           <span style="font-family:'IBM Plex Mono',monospace;color:#64010a;font-size:13px;margin-top:3px;">01</span>
           <p style="font-size:15.5px;color:#403B33;line-height:1.6;"><strong>You talk to James, not a salesperson.</strong> The first conversation is with the person who'll design and lead your retreat.</p>
@@ -68,7 +81,7 @@
 
       <div style="margin-top:36px;padding-top:26px;border-top:1px solid #DED7C9;display:flex;flex-direction:column;gap:10px;">
         <a href="tel:8005138759" style="font-family:'Newsreader',serif;font-size:26px;color:#64010a;">800-513-8759</a>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#6B6358;">Be Legendary · Denver, Colorado</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#6B6358;">Legendary Retreats · Denver, Colorado</div>
       </div>
     </div>
 

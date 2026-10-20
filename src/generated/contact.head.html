@@ -26,6 +26,16 @@
   body{background:#EFE9DD}
   ::selection{background:#64010a;color:#F6EFE0}
   a{text-decoration:none;color:inherit}
+
+  /* House-style photo hero. */
+  .lr-phero{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0D0B}
+  .lr-phero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+  .lr-phero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,13,11,.5) 0%,rgba(14,13,11,0) 60%),linear-gradient(180deg,rgba(14,13,11,.2) 0%,rgba(14,13,11,.05) 30%,rgba(14,13,11,.55) 62%,rgba(14,13,11,.9) 100%)}
+  .lr-phero__in{position:relative;width:100%;max-width:1240px;margin:0 auto;padding:120px 40px 56px}
+  .lr-phero__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E0B973;margin-bottom:16px}
+  .lr-phero h1{font-family:'Newsreader',serif;font-weight:400;font-size:clamp(38px,5.6vw,72px);line-height:1.04;letter-spacing:-0.022em;color:#FBF7EF;max-width:20ch;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+  .lr-phero__lede{margin-top:22px;max-width:52ch;font-size:18px;line-height:1.65;color:rgba(239,233,221,.9)}
+  @media (max-width:860px){.lr-phero__in{padding:110px 20px 40px}.ct-grid{grid-template-columns:1fr!important;gap:36px!important;padding:40px 20px 64px!important}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"Legendary Retreats","parentOrganization":{"@type":"Organization","name":"Be Legendary","url":"https://www.belegendary.org/"},"url":"https://www.legendary-retreats.com","telephone":"+1-800-513-8759","image":"https://www.legendary-retreats.com/assets/brand/snail-maroon-web.png","address":{"@type":"PostalAddress","addressLocality":"Denver","addressRegion":"CO","addressCountry":"US"},"description":"Book a strategy call to design an executive leadership retreat for your team.","areaServed":["United States","Central America","Worldwide"]}
