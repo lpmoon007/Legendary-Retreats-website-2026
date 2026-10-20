@@ -45,6 +45,14 @@
 .lr-phero nav[aria-label="Breadcrumb"] span:last-child{color:#E0B973!important}
 .lr-phero__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E0B973;margin-bottom:16px}
 .lr-phero h1{color:#FBF7EF!important;max-width:20ch!important;font-size:clamp(38px,5.6vw,72px)!important;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+/* Heroes carrying an intro (and buttons) have a tall text block: shade starts higher. */
+.lr-phero__scrim--tall{background:linear-gradient(90deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.35) 0%,rgba(14,13,11,.5) 22%,rgba(14,13,11,.8) 48%,rgba(14,13,11,.95) 100%)!important}
+@media (max-width:860px){.lr-phero__scrim--tall{background:linear-gradient(180deg,rgba(14,13,11,.45) 0%,rgba(14,13,11,.82) 28%,rgba(14,13,11,.95) 60%)!important}}
+.lr-phero__lede{margin-top:22px!important;color:rgba(239,233,221,.88)!important;max-width:58ch!important}
+.lr-phero__lede *{color:inherit!important}
+.lr-phero__cta{margin-top:30px!important}
+.lr-phero__cta a{color:#E0B973!important}
+.lr-phero__cta a:first-child{background:#E0B973!important;color:#1C1A17!important;border-color:#E0B973!important}
 @media (max-width:860px){.lr-phero{min-height:480px}.lr-phero__in{padding:96px 22px 36px}}
 
 </style>

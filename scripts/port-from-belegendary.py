@@ -339,6 +339,26 @@ PHOTO_HEROES = {
         'alt': 'An executive team aboard a classic schooner under full sail at golden hour',
         'eyebrow': 'Retreat formats',
     },
+    'teams/executive-immersion': {
+        'src': '/assets/img/canyon-overlook.C9_Bw8rH_Z12nC9J.webp', 'width': 1672, 'height': 941,
+        'alt': 'An executive team at a canyon overlook at golden hour',
+        'eyebrow': None, 'lede': True, 'cta': True, 'drop_local_imgs': True,
+    },
+    'teams/executive-immersion/expedition': {
+        'src': '/assets/sedona/sedona-vista.webp', 'width': 1400, 'height': 1050,
+        'alt': 'Red-rock buttes and a long valley view near Sedona, Arizona',
+        'eyebrow': 'Executive Immersion · Expedition', 'lede': True,
+    },
+    'teams/executive-immersion/city': {
+        'src': '/assets/img/reach-front-door.Cn0YwnHe_Z2v6ibM.webp', 'width': 1672, 'height': 941,
+        'alt': 'Executives walking a city street together with a map',
+        'eyebrow': 'Executive Immersion · City', 'lede': True,
+    },
+    'teams/executive-immersion/ownership': {
+        'src': '/assets/img/empty-table.BCuMPEcG_Z2su3hy.webp', 'width': 1672, 'height': 941,
+        'alt': 'A long dining table set and empty while a team works in the kitchen behind it',
+        'eyebrow': 'Executive Immersion · Ownership', 'lede': True,
+    },
     'teams/retreats/destinations': {
         'src': '/assets/field/kayak-fjord.webp', 'width': 1500, 'height': 1000,
         'alt': 'Red sea kayaks drawn up on a fjord shore beneath steep peaks',
@@ -354,8 +374,26 @@ HERO_CSS = '''
 .lr-phero nav[aria-label="Breadcrumb"] span:last-child{color:#E0B973!important}
 .lr-phero__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E0B973;margin-bottom:16px}
 .lr-phero h1{color:#FBF7EF!important;max-width:20ch!important;font-size:clamp(38px,5.6vw,72px)!important;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+/* Heroes carrying an intro (and buttons) have a tall text block: shade starts higher. */
+.lr-phero__scrim--tall{background:linear-gradient(90deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.35) 0%,rgba(14,13,11,.5) 22%,rgba(14,13,11,.8) 48%,rgba(14,13,11,.95) 100%)!important}
+@media (max-width:860px){.lr-phero__scrim--tall{background:linear-gradient(180deg,rgba(14,13,11,.45) 0%,rgba(14,13,11,.82) 28%,rgba(14,13,11,.95) 60%)!important}}
+.lr-phero__lede{margin-top:22px!important;color:rgba(239,233,221,.88)!important;max-width:58ch!important}
+.lr-phero__lede *{color:inherit!important}
+.lr-phero__cta{margin-top:30px!important}
+.lr-phero__cta a{color:#E0B973!important}
+.lr-phero__cta a:first-child{background:#E0B973!important;color:#1C1A17!important;border-color:#E0B973!important}
 @media (max-width:860px){.lr-phero{min-height:480px}.lr-phero__in{padding:96px 22px 36px}}
 '''
+
+
+def _prune_empty(el):
+    """Remove el and empty ancestors left behind after moving hero content."""
+    while el is not None and el.name not in ('main', 'body', 'article', '[document]'):
+        if el.get_text(strip=True) or el.find(['img', 'iframe', 'video', 'svg']):
+            return
+        parent = el.parent
+        el.decompose()
+        el = parent
 
 
 def add_photo_hero(soup, bl_path):
@@ -364,29 +402,51 @@ def add_photo_hero(soup, bl_path):
         return False
     h1 = soup.find('h1')
     header = h1.find_parent('header') or h1.parent
-    crumb = header.find('nav', attrs={'aria-label': re.compile('readcrumb')})
+    crumb = (header.find('nav', attrs={'aria-label': re.compile('readcrumb')})
+             or soup.find('nav', attrs={'aria-label': re.compile('readcrumb')}))
     for src in cfg.get('drop_imgs', []):
         for img in soup.find_all('img', src=src):
             if not img.find_parent(class_=re.compile('lx-gal')):
                 box = img.parent if img.parent.name in ('div', 'figure') and len(img.parent.find_all(True)) == 1 else img
                 box.decompose()
+    lede = h1.find_next_sibling('p') if cfg.get('lede') else None
+    cta = None
+    if cfg.get('cta') and lede is not None:
+        cta = lede.find_next_sibling('div')
+        if cta is not None and not cta.find('a'):
+            cta = None
     eyebrow = cfg['eyebrow']
     if eyebrow is None:
         prev = h1.find_previous_sibling('p')
-        eyebrow = prev.get_text(strip=True) if prev else ''
+        eyebrow = prev.get_text(' ', strip=True).replace('\xa0', ' ') if prev else ''
         if prev:
             prev.decompose()
     hero = BeautifulSoup(
         f'<section class="lr-phero"><img class="lr-phero__img" src="{cfg["src"]}" alt="{cfg["alt"]}" '
         f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async">'
-        f'<div class="lr-phero__scrim"></div><div class="lr-phero__in"><p class="lr-phero__eyebrow">{eyebrow}</p></div></section>',
+        f'<div class="lr-phero__scrim{" lr-phero__scrim--tall" if cfg.get("lede") else ""}"></div>'
+        f'<div class="lr-phero__in"><p class="lr-phero__eyebrow">{eyebrow}</p></div></section>',
         'html.parser')
     inner = hero.find(class_='lr-phero__in')
+    anchor = header if header.name in ('header', 'section') else (h1.find_parent(['header', 'section']) or header)
+    anchor.insert_before(hero)
     if crumb:
+        crumb_parent = crumb.parent
         inner.insert(0, crumb.extract())
+        _prune_empty(crumb_parent)
+    h1_parent = h1.parent
     inner.append(h1.extract())
-    header.insert_before(hero)
-    header['style'] = re.sub(r'padding:\s*(?:52|56|64)px', 'padding:40px', header.get('style', ''))
+    for el, cls in ((lede, 'lr-phero__lede'), (cta, 'lr-phero__cta')):
+        if el is not None:
+            el['class'] = (el.get('class') or []) + [cls]
+            inner.append(el.extract())
+    if cfg.get('drop_local_imgs'):
+        local = h1_parent.find_parent('section') or h1_parent
+        for img in local.find_all('img'):
+            img.decompose()
+    _prune_empty(h1_parent)
+    if anchor.parent is not None:  # still on the page (not pruned away)
+        anchor['style'] = re.sub(r'padding:\s*(?:52|56|64)px', 'padding:40px', anchor.get('style', ''))
     return True
 
 
@@ -420,7 +480,36 @@ HERO_RESTYLES = {
 }
 
 
+INLINE_HERO_RESTYLES = {'teams/executive-immersion/the-city-never-sleeps'}
+
+
+def restyle_inline_hero(hero):
+    """Hero built from inline styles (img + gradient divs + content div)."""
+    hero['style'] = (hero.get('style', '').rstrip(';') +
+                     ';min-height:min(88vh,860px);display:flex;align-items:flex-end;')
+    shades = [d for d in hero.find_all('div', recursive=False) if 'gradient' in d.get('style', '')]
+    for d in shades[1:]:
+        d.decompose()
+    if shades:
+        shades[0]['style'] = 'position:absolute;inset:0;'
+        shades[0]['class'] = ['lr-phero__scrim--tall']
+    content = [d for d in hero.find_all('div', recursive=False) if 'gradient' not in d.get('style', '')]
+    if content:
+        st = content[-1].get('style', '')
+        st = re.sub(r'max-width:\s*\d+px', 'max-width:1240px', st)
+        st = re.sub(r'padding:[^;]+', 'padding:150px 40px 60px', st)
+        content[-1]['style'] = st + ';width:100%'
+    h1 = hero.find('h1')
+    h1['style'] = re.sub(r'font-weight:\s*500', 'font-weight:400', h1.get('style', ''))
+    h1['style'] = re.sub(r'font-size:clamp\([^)]*\)', 'font-size:clamp(38px,5.6vw,72px)', h1['style'])
+    h1['style'] += ';text-shadow:0 2px 30px rgba(0,0,0,.35)'
+
+
 def restyle_hero(soup, bl_path):
+    if bl_path in INLINE_HERO_RESTYLES:
+        restyle_inline_hero(soup.find('h1').find_parent('section'))
+        return (HERO_CSS.split('/* Heroes carrying')[1].split('.lr-phero__lede')[0].join(['/*', ''])
+                + '@media (max-width:860px){main section:first-of-type h1{font-size:clamp(34px,9vw,44px)!important}}')
     cfg = HERO_RESTYLES.get(bl_path)
     if not cfg:
         return None
