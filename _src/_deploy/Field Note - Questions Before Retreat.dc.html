@@ -29,6 +29,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
+/* House-style photo hero (same as the destinations, formats and case-study pages). */
+.lr-phero{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0D0B}
+.lr-phero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.lr-phero__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,13,11,.3) 0%,rgba(14,13,11,.08) 32%,rgba(14,13,11,.6) 68%,rgba(14,13,11,.9) 100%)}
+.lr-phero__scrim--tall{background:linear-gradient(90deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.35) 0%,rgba(14,13,11,.5) 22%,rgba(14,13,11,.8) 48%,rgba(14,13,11,.95) 100%)}
+.lr-phero__in{position:relative;width:100%;max-width:1240px;margin:0 auto;padding:120px 40px 56px}
+.lr-phero__in > a:first-child{display:inline-block;margin-bottom:6px;color:rgba(239,233,221,.78)!important}
+.lr-phero__in > div span{color:rgba(239,233,221,.72)!important}
+.lr-phero__in > div span:first-child,.lr-phero__eyebrow{color:#E0B973!important}
+.lr-phero__in > div span[style*="background:#E0B973"]{color:#1C1A17!important}
+.lr-phero__in > div span[style*="border-radius:50%"]{background:rgba(239,233,221,.5)!important}
+.lr-phero h1{color:#FBF7EF!important;max-width:20ch!important;font-weight:400!important;font-size:clamp(38px,5.6vw,72px)!important;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.lr-phero__lede{color:rgba(239,233,221,.9)!important}
+@media (max-width:860px){.lr-phero__in{padding:110px 20px 40px}.lr-phero__scrim--tall{background:linear-gradient(180deg,rgba(14,13,11,.45) 0%,rgba(14,13,11,.82) 28%,rgba(14,13,11,.95) 60%)}}
+
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{background:#EFE9DD}
@@ -51,13 +66,16 @@
   <!--lr:header--><!--/lr:header-->
 <main id="main">
 
-  <article style="max-width:760px;margin:0 auto;padding:64px 40px 40px;">
+  <section class="lr-phero"><img class="lr-phero__img" src="assets/field/w-img1235.webp" alt="An executive team in a working session at a mountain lodge" width="1500" height="1125" loading="eager" fetchpriority="high" decoding="async"><div class="lr-phero__scrim"></div><div class="lr-phero__in">
     <a href="Field Notes.dc.html" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#9A9182;">← Field Notes</a>
     <div style="display:flex;align-items:center;gap:12px;margin:24px 0 18px;">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#1C1A17;background:#E0B973;padding:4px 9px;border-radius:4px;">Free checklist</span>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#9A9182;">5 min read</span>
     </div>
     <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.6vw,56px);line-height:1.05;letter-spacing:-0.02em;">12 questions to ask before any executive retreat.</h1>
+  </div></section>
+
+  <article style="max-width:760px;margin:0 auto;padding:48px 40px 40px;">
 
     <p style="margin-top:28px;font-size:21px;line-height:1.6;color:#2A2620;font-weight:500;">A retreat fails or succeeds before anyone books a flight. Answer these twelve questions first, and you'll have done the hardest part: defining the <em>function</em> the retreat exists to serve. The format — location, activities, agenda — should be designed around your answers, never the reverse.</p>
 
