@@ -14,7 +14,7 @@ export const OG_MAP = {
   'executive-retreat-planners': 'field/new-img-9364',
   'board-retreat': 'destinations/napa-alila',
   'strategic-planning-retreat': 'field/g-img1357',
-  'retreat-cost-estimator': 'field/new-img-9364',
+  'retreat-cost-estimator': 'offroad/phoenix/phx-vista',
   'procurement': 'field/luxury-lodge-sunset',
 
   // Destinations
