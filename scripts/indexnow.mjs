@@ -33,7 +33,8 @@ async function submit(oldFile) {
   let old = {};
   try { if (oldFile && existsSync(oldFile)) old = JSON.parse(readFileSync(oldFile, 'utf8')); } catch { old = {}; }
   const changed = Object.keys(now).filter((u) => old[u] !== now[u]);
-  if (!changed.length) return console.log('::notice::IndexNow: no changed pages');
+  console.log(`::notice::IndexNow: ${Object.keys(old).length} live / ${Object.keys(now).length} built pages, ${changed.length} changed`);
+  if (!changed.length) return;
   const urlList = changed.map((u) => `https://${HOST}${u}`);
   const res = await fetch('https://api.indexnow.org/indexnow', {
     method: 'POST',
