@@ -16,3 +16,5 @@ public/assets/og/
 !.env.example
 _src/_port/
 review/
+public/assets/**/*-800w.webp
+public/assets/**/*-1280w.webp

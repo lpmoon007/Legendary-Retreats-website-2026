@@ -50,6 +50,7 @@ jobs:
           fi
           test -f dist/index.html && test -f dist/404.html
           echo "$GITHUB_SHA" > dist/build.txt
+          node scripts/indexnow.mjs manifest
 
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
@@ -108,6 +109,10 @@ jobs:
           [ $rc -eq 0 ] || { echo "::error::Login or listing failed (exit $rc). See the lftp notices."; exit 1; }
           echo "$out" | grep -qx "httpdocs/\?" || echo "::warning::No httpdocs in the login directory; listing shown above"
 
+      # The live site's page hashes, so only pages that changed are sent to IndexNow.
+      - name: Fetch the live page hashes
+        run: curl -sf https://www.legendary-retreats.com/page-hashes.json -o /tmp/old-hashes.json || echo "::notice::No live page-hashes.json yet; IndexNow will receive every page"
+
       - name: Sync dist/ to httpdocs
         env:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
@@ -142,3 +147,9 @@ jobs:
           kit=$(curl -s -o /dev/null -w '%{http_code}' https://www.legendary-retreats.com/retreat-planning-kit/)
           echo "kit page: $kit"
           test "$kit" = "200"
+
+      # Bing (ChatGPT search, Copilot) and other IndexNow engines hear about
+      # changed pages immediately. Never fails the deploy.
+      - name: Notify search engines (IndexNow)
+        continue-on-error: true
+        run: node scripts/indexnow.mjs submit /tmp/old-hashes.json

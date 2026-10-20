@@ -798,7 +798,8 @@ def esc_attr(s):
 # Page titles aimed at what buyers search on this domain ("executive team
 # building" for the one-day format).
 TITLE_OVERRIDES = {
-    'teams/executive-immersion': 'Executive Team Building: Executive Immersion, One Engineered Day | Legendary Retreats',
+    'teams/executive-immersion': 'Executive Team Building: One-Day Executive Immersion',
+    'teams/retreats/destinations': 'Executive Retreat Locations & Destinations | Legendary Retreats',
 }
 
 

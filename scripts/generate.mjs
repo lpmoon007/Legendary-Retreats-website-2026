@@ -133,9 +133,34 @@ function gitDate(file, filter) {
     return out ? out.slice(0, 10) : null;
   } catch { return null; }
 }
+// Pixel width of a .webp file, read from its header (VP8, VP8L or VP8X).
+function webpWidth(file) {
+  try {
+    const b = readFileSync(file);
+    const kind = b.toString('ascii', 12, 16);
+    if (kind === 'VP8X') return 1 + b.readUIntLE(24, 3);
+    if (kind === 'VP8L') return 1 + (b.readUInt16LE(21) & 0x3fff);
+    if (kind === 'VP8 ') return b.readUInt16LE(26) & 0x3fff;
+  } catch { /* unreadable: no srcset */ }
+  return 0;
+}
+
+// Phone- and tablet-sized copies made by scripts/image-variants.mjs.
+function heroSrcset(src) {
+  const m = src.match(/^\/?(assets\/.+)\.webp$/);
+  if (!m) return '';
+  const base = join(ROOT, 'public', m[1]);
+  const full = webpWidth(`${base}.webp`);
+  if (!full) return '';
+  const set = [800, 1280]
+    .filter((w) => existsSync(`${base}-${w}w.webp`))
+    .map((w) => `/${m[1]}-${w}w.webp ${w}w`);
+  return set.length ? `${set.join(', ')}, /${m[1]}.webp ${full}w` : '';
+}
+
 // Performance: let every image decode off the main thread, prioritize the hero
-// (the second <img> — the first is the header logo) for a fast LCP, and lazy-load
-// everything below the fold (3rd image onward).
+// (the second <img> — the first is the header logo) for a fast LCP, give it a
+// phone-sized srcset, and lazy-load everything below the fold (3rd image onward).
 function optimizeImages(html) {
   // Attributes the source already sets are left alone.
   let i = 0;
@@ -143,8 +168,14 @@ function optimizeImages(html) {
     const idx = i++;
     let extra = '';
     if (!/\bdecoding=/.test(attrs)) extra += 'decoding="async" ';
+    const hero = /\bfetchpriority="high"/.test(attrs) || (idx === 1 && !/\bloading=/.test(attrs));
     if (idx === 1 && !/\bfetchpriority=|\bloading=/.test(attrs)) extra += 'fetchpriority="high" ';
     else if (idx >= 2 && !/\bloading=/.test(attrs)) extra += 'loading="lazy" ';
+    if (hero && !/\bsrcset=/.test(attrs)) {
+      const src = (attrs.match(/\bsrc="([^"]+)"/) || [])[1] || '';
+      const set = heroSrcset(src);
+      if (set) extra += `srcset="${set}" sizes="100vw" `;
+    }
     return `<img ${extra}${attrs}>`;
   });
 }
@@ -245,21 +276,29 @@ function rewrite(s) {
 //   generate_lead   — retreat inquiry form submitted (inquiryFormGuid)
 //   kit_download    — planning-kit form submitted, or the PDF link clicked
 //   meetings_click  — any link to the HubSpot meetings scheduler
+// Lead source: the HubSpot tracking code (same lazy load) fills each contact's
+// Original Traffic Source and First Page Seen. Clicks on the meetings link carry
+// the visit's landing UTMs (kept for the session) plus utm_content = the page
+// clicked from, which HubSpot stores as the meeting booking's source.
 const C = SITE_CONFIG;
 const ANALYTICS = !(C.ga4 || C.clarity) ? '' : `<script>(function(){
-var GA=${JSON.stringify(C.ga4)},CL=${JSON.stringify(C.clarity)},KIT=${JSON.stringify(C.kitFormGuid)},INQ=${JSON.stringify(C.inquiryFormGuid)};
+var GA=${JSON.stringify(C.ga4)},CL=${JSON.stringify(C.clarity)},HS=${JSON.stringify(C.hubspotPortal)},HR=${JSON.stringify(C.hubspotRegion)},KIT=${JSON.stringify(C.kitFormGuid)},INQ=${JSON.stringify(C.inquiryFormGuid)};
+var UTM={};try{var q=new URLSearchParams(location.search),k=['utm_source','utm_medium','utm_campaign','utm_term'];k.forEach(function(n){if(q.get(n))UTM[n]=q.get(n)});
+if(Object.keys(UTM).length)sessionStorage.setItem('lr_utm',JSON.stringify(UTM));else UTM=JSON.parse(sessionStorage.getItem('lr_utm')||'{}');}catch(_){}
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=window.gtag||gtag;
 if(GA){gtag('js',new Date());gtag('config',GA);}
 if(CL){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};}
 var done=false;function load(){if(done)return;done=true;
 if(GA){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(g);}
-if(CL){var c=document.createElement('script');c.async=true;c.src='https://www.clarity.ms/tag/'+CL;document.head.appendChild(c);}}
+if(CL){var c=document.createElement('script');c.async=true;c.src='https://www.clarity.ms/tag/'+CL;document.head.appendChild(c);}
+if(HS){var h=document.createElement('script');h.async=true;h.defer=true;h.id='hs-script-loader';h.src='https://js'+(HR&&HR!=='na1'?'-'+HR:'')+'.hs-scripts.com/'+HS+'.js';document.head.appendChild(h);}}
 ['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,load,{once:true,passive:true})});
 addEventListener('load',function(){setTimeout(load,1500)});
 function track(name,p){p=p||{};p.page_path=location.pathname;if(GA)gtag('event',name,p);if(CL)window.clarity('event',name);}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.href;
 var where=a.closest('header')?'header':a.closest('footer')?'footer':'body';
-if(/meetings(-na2)?\\.hubspot\\.com\\/jcarter28/.test(h))track('meetings_click',{link_location:where,link_text:(a.textContent||'').trim().slice(0,60)});
+if(/meetings(-na2)?\\.hubspot\\.com\\/jcarter28/.test(h)){track('meetings_click',{link_location:where,link_text:(a.textContent||'').trim().slice(0,60)});
+try{var u=new URL(h);if(!u.searchParams.has('utm_source')){u.searchParams.set('utm_source',UTM.utm_source||'legendary-retreats.com');u.searchParams.set('utm_medium',UTM.utm_medium||'website');u.searchParams.set('utm_campaign',UTM.utm_campaign||'site_cta');if(UTM.utm_term)u.searchParams.set('utm_term',UTM.utm_term);u.searchParams.set('utm_content',location.pathname);a.href=u.toString();}}catch(_){}}
 else if(/complete-retreat-planning-kit\\.pdf/.test(h))track('kit_download',{method:'direct_link'});},true);
 function submitted(id){if(id&&id===KIT)track('kit_download',{method:'form'});else if(id&&INQ&&id===INQ)track('generate_lead',{form:'retreat_inquiry'});else track('form_submit',{form_id:id||'unknown'});}
 addEventListener('message',function(e){var d=e.data;if(d&&d.type==='hsFormCallback'&&d.eventName==='onFormSubmitted')submitted(d.id);});
