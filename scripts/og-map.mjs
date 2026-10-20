@@ -15,7 +15,7 @@ export const OG_MAP = {
   'board-retreat': 'destinations/napa-alila',
   'strategic-planning-retreat': 'field/g-img1357',
   'retreat-cost-estimator': 'field/new-img-9364',
-  'procurement': 'field/w-img1235',
+  'procurement': 'field/luxury-lodge-sunset',
 
   // Destinations
   'destinations': 'field/sierra-peaks',
