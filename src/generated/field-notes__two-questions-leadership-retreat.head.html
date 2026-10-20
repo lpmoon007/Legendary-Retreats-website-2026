@@ -107,6 +107,9 @@
 .lr-ftr__base{max-width:1240px;margin:0 auto;padding:22px 32px 34px;border-top:1px solid rgba(237,228,211,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:#7A7064}
 @media (max-width:860px){.lr-ftr__in{grid-template-columns:1fr 1fr;padding:56px 22px 36px}.lr-ftr__brand{grid-column:1/-1}.lr-ftr__base{padding:20px 22px 30px}}
 @media (max-width:480px){.lr-ftr__in{grid-template-columns:1fr}}
+
+/* Decorative glows and full-bleed sections must never cause sideways scrolling. */
+main{overflow-x:clip}
 </style><script>(function(){
 var GA="G-9CEJQ87GF0",CL="yzaagzb8dt",HS="20276071",HR="na2",KIT="c4bf79e3-be0f-4cdb-ac08-d3f2a146f949",INQ="ffc85cce-43c8-400d-94f1-cd0a5d5c8e55";
 var UTM={};try{var q=new URLSearchParams(location.search),k=['utm_source','utm_medium','utm_campaign','utm_term'];k.forEach(function(n){if(q.get(n))UTM[n]=q.get(n)});
@@ -130,4 +133,4 @@ function submitted(id){if(id&&id===KIT)track('kit_download',{method:'form'});els
 addEventListener('message',function(e){var d=e.data;if(d&&d.type==='hsFormCallback'&&d.eventName==='onFormSubmitted')submitted(d.id);});
 addEventListener('hs-form-event:on-submission:success',function(e){var id='';try{id=window.HubSpotFormsV4.getFormFromEvent(e).getFormId();}catch(_){id=(e.detail&&e.detail.formId)||'';}submitted(id);});
 })();</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"https://www.legendary-retreats.com/field-notes/two-questions-leadership-retreat/","speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","h1 + p"]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"https://www.legendary-retreats.com/field-notes/two-questions-leadership-retreat/","speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","h1 + p",".bl-speakable"]}}</script>

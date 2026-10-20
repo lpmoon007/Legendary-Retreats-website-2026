@@ -33,14 +33,15 @@ async function submit(oldFile) {
   let old = {};
   try { if (oldFile && existsSync(oldFile)) old = JSON.parse(readFileSync(oldFile, 'utf8')); } catch { old = {}; }
   const changed = Object.keys(now).filter((u) => old[u] !== now[u]);
-  if (!changed.length) return console.log('indexnow: no changed pages');
+  if (!changed.length) return console.log('::notice::IndexNow: no changed pages');
   const urlList = changed.map((u) => `https://${HOST}${u}`);
   const res = await fetch('https://api.indexnow.org/indexnow', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
     body: JSON.stringify({ host: HOST, key: KEY, keyLocation: `https://${HOST}/${KEY}.txt`, urlList }),
   });
-  console.log(`indexnow: submitted ${urlList.length} URL(s), HTTP ${res.status}`);
+  const ok = res.status === 200 || res.status === 202;
+  console.log(`::${ok ? 'notice' : 'warning'}::IndexNow: submitted ${urlList.length} URL(s), HTTP ${res.status}`);
   urlList.slice(0, 20).forEach((u) => console.log('  ' + u));
   // 200/202 = accepted. Anything else is reported but never fails the deploy.
 }

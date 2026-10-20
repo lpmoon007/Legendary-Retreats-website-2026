@@ -337,7 +337,8 @@ def retreat_voice(soup, bl_path):
 PAGE_EXTRAS = {
     'teams/luxury-executive-retreat': [('The trap of the beautiful off-site', 'luxury-gallery.html', 'after'),
                                        ('Where the work happens.', 'press-strip.html', 'after')],
-    'teams/retreats/ways-to-work-together': [('Three ways to run a legendary retreat.', 'press-strip.html', 'after')],
+    'teams/retreats/ways-to-work-together': [('Three ways to run a legendary retreat.', 'press-strip.html', 'after'),
+                                             ('How it starts', 'wwt-faq.html', 'after')],
     'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after')],
     'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace')],
 }
@@ -624,6 +625,33 @@ def restyle_hero(soup, bl_path):
     return cfg['css']
 
 
+# Guides show who wrote them and when they were last reviewed (answer engines
+# favor current, attributed content). Bump UPDATED when the guides are reviewed.
+UPDATED = 'October 2026'
+UPDATED_ISO = '2026-10-20'
+UPDATED_PAGES = ('how-to-plan-a-leadership-retreat', 'how-to-plan-an-executive-offsite',
+                 'leadership-offsite-agenda', 'why-leadership-offsites-dont-stick',
+                 'leadership-team-offsite-facilitator', 'teams/leadership-retreat-ideas',
+                 'teams/executive-offsite-ideas', 'teams/corporate-retreat-ideas')
+
+
+def add_updated_line(soup, bl_path):
+    if bl_path not in UPDATED_PAGES:
+        return
+    h1 = soup.select_one('.lr-phero h1')
+    if h1 is None:
+        raise SystemExit(f'updated line: no photo-hero h1 on {bl_path}')
+    # Guides that already carry a byline keep it, with the new date.
+    dated = h1.find_parent(class_='lr-phero').find(string=re.compile(r'Updated [A-Z][a-z]+ \d{4}'))
+    if dated is not None:
+        dated.replace_with(re.sub(r'Updated [A-Z][a-z]+ \d{4}', f'Updated {UPDATED}', str(dated)))
+        return
+    h1.insert_after(BeautifulSoup(
+        f'<div class="lr-phero__meta" style="margin-top:16px;font-size:13.5px;letter-spacing:.02em;color:rgba(239,233,221,.78);">'
+        f'By <a href="/about/" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">James Carter</a> &middot; Updated {UPDATED}</div>',
+        'html.parser'))
+
+
 def add_extras(soup, bl_path):
     for anchor, fname, mode in PAGE_EXTRAS.get(bl_path, []):
         hit = soup.find(string=re.compile(re.escape(anchor)))
@@ -800,6 +828,9 @@ def esc_attr(s):
 TITLE_OVERRIDES = {
     'teams/executive-immersion': 'Executive Team Building: One-Day Executive Immersion',
     'teams/retreats/destinations': 'Executive Retreat Locations & Destinations | Legendary Retreats',
+    'how-to-plan-a-leadership-retreat': 'How to Plan a Leadership Retreat That Sticks (2026 Guide)',
+    'how-to-plan-an-executive-offsite': 'How to Plan an Executive Offsite (2026 Guide)',
+    'leadership-offsite-agenda': 'Executive & Leadership Offsite Agenda Template (2026)',
 }
 
 
@@ -843,6 +874,8 @@ def port(bl_repo):
             if t:
                 ld.append(t)
             s.decompose()
+        if bl_path in UPDATED_PAGES:
+            ld = [re.sub(r'"dateModified":\s*"[^"]*"', f'"dateModified":"{UPDATED_ISO}"', x) for x in ld]
 
         page_styles = [recolor_css(s.get_text(), dark=True) for s in head.find_all('style')]
         inline_js = []
@@ -890,6 +923,7 @@ def port(bl_repo):
         add_extras(body, bl_path)  # after recolor: extras are authored in the LR palette
         if add_photo_hero(body, bl_path):
             page_styles.append(HERO_CSS)
+        add_updated_line(body, bl_path)
         restyle_css = restyle_hero(body, bl_path)
         if restyle_css:
             page_styles.append(restyle_css)

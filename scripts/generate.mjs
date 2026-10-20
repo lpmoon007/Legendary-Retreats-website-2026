@@ -200,7 +200,7 @@ function injectArticleDates(headHtml, file) {
 // WebPage node so it never collides with the page's existing JSON-LD.
 function injectSpeakable(headHtml, url) {
   const canonical = url === '/' ? `${SITE}/` : `${SITE}${url}`;
-  const node = `<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"${canonical}","speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","h1 + p"]}}</script>`;
+  const node = `<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"${canonical}","speakable":{"@type":"SpeakableSpecification","cssSelector":["h1","h1 + p",".bl-speakable"]}}</script>`;
   return `${headHtml}\n${node}`;
 }
 
