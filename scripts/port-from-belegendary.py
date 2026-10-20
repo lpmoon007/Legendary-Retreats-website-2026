@@ -384,6 +384,31 @@ PHOTO_HEROES = {
         'alt': 'An executive team taking in the view together from an Alaskan overlook',
         'eyebrow': None, 'lede': True, 'img_opacity': 0.85,
     },
+    'how-to-plan-a-leadership-retreat': {
+        'src': '/assets/field/g-img1357.webp', 'width': 1500, 'height': 1124,
+        'alt': 'Trail signs for Engineer Pass and Cinnamon Pass in a high mountain valley',
+        'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
+    },
+    'how-to-plan-an-executive-offsite': {
+        'src': '/assets/field/new-img-9364.webp', 'width': 1700, 'height': 1275,
+        'alt': 'An executive team standing together beside their vehicles in the desert',
+        'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
+    },
+    'leadership-offsite-agenda': {
+        'src': '/assets/field/raft-img0942.webp', 'width': 1600, 'height': 1200,
+        'alt': 'An executive team on rafts on a mountain river',
+        'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
+    },
+    'leadership-team-offsite-facilitator': {
+        'src': '/assets/offroad/colorado/co-offroad-facilitation.webp', 'width': 1536, 'height': 1024,
+        'alt': 'A facilitator leading an executive team in a circle in the mountains',
+        'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
+    },
+    'why-leadership-offsites-dont-stick': {
+        'src': '/assets/sedona/sedona-hero.webp', 'width': 1760, 'height': 1338,
+        'alt': 'Red-rock country near Sedona, Arizona',
+        'eyebrow': 'Field note', 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
+    },
     'teams/retreats/destinations': {
         'src': '/assets/field/kayak-fjord.webp', 'width': 1500, 'height': 1000,
         'alt': 'Red sea kayaks drawn up on a fjord shore beneath steep peaks',
@@ -456,7 +481,7 @@ def add_photo_hero(soup, bl_path):
         f'<section class="lr-phero"><img class="lr-phero__img" src="{cfg["src"]}" alt="{cfg["alt"]}" '
         f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async"'
         f'{(" style=" + chr(34) + "opacity:" + str(cfg["img_opacity"]) + chr(34)) if cfg.get("img_opacity") else ""}>'
-        f'<div class="lr-phero__scrim{" lr-phero__scrim--tall" if cfg.get("lede") else ""}"></div>'
+        f'<div class="lr-phero__scrim{" lr-phero__scrim--tall" if cfg.get("tall", cfg.get("lede")) else ""}"></div>'
         f'<div class="lr-phero__in"><p class="lr-phero__eyebrow">{eyebrow}</p></div></section>',
         'html.parser')
     inner = hero.find(class_='lr-phero__in')
@@ -480,7 +505,7 @@ def add_photo_hero(soup, bl_path):
             img.decompose()
     _prune_empty(h1_parent)
     if anchor.parent is not None:  # still on the page (not pruned away)
-        anchor['style'] = re.sub(r'padding:\s*(?:52|56|64)px', 'padding:40px', anchor.get('style', ''))
+        anchor['style'] = re.sub(r'padding:\s*(?:52|56|64|80)px', 'padding:40px', anchor.get('style', ''))
     return True
 
 
