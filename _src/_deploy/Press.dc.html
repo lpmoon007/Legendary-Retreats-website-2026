@@ -35,6 +35,18 @@
   ::selection{background:#64010a;color:#F6EFE0}
   a{text-decoration:none;color:inherit}
   @media (max-width:860px){.bl-grid-collapse{grid-template-columns:1fr!important}main section{padding-left:20px!important;padding-right:20px!important}}
+
+  /* House-style photo hero. */
+  .lr-phero{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0D0B}
+  .lr-phero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+  .lr-phero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.3) 0%,rgba(14,13,11,.35) 25%,rgba(14,13,11,.75) 55%,rgba(14,13,11,.93) 100%)}
+  .lr-phero__in{position:relative;width:100%;max-width:1240px;margin:0 auto;padding:120px 40px 56px}
+  .lr-phero nav{font-size:13px;color:rgba(239,233,221,.75);margin-bottom:18px;display:flex;gap:8px;align-items:center}
+  .lr-phero nav span:last-child{color:#E0B973}
+  .lr-phero__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E0B973;margin-bottom:16px}
+  .lr-phero h1{font-family:'Newsreader',serif;font-weight:400;font-size:clamp(38px,5.6vw,72px);line-height:1.04;letter-spacing:-0.022em;color:#FBF7EF;max-width:20ch;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+  .lr-phero__lede{margin-top:22px;max-width:60ch;font-size:18px;line-height:1.65;color:rgba(239,233,221,.9)}
+  @media (max-width:860px){.lr-phero__in{padding:110px 20px 40px}.lr-phero__scrim{background:linear-gradient(180deg,rgba(14,13,11,.45) 0%,rgba(14,13,11,.82) 30%,rgba(14,13,11,.95) 62%)}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollectionPage","name":"Press & Media Coverage — Legendary Retreats","url":"https://www.legendary-retreats.com/press/","about":{"@type":"Organization","@id":"https://www.legendary-retreats.com/#org","name":"Legendary Retreats","parentOrganization":{"@type":"Organization","name":"Be Legendary","url":"https://www.belegendary.org/"}},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"NewsArticle","headline":"Extreme retreats: Fire walks and snow survival with your workmates","url":"https://edition.cnn.com/2012/03/26/business/extreme-retreats/index.html","datePublished":"2012-03-26","publisher":{"@type":"Organization","name":"CNN"},"about":{"@id":"https://www.legendary-retreats.com/#org"}}},{"@type":"ListItem","position":2,"item":{"@type":"NewsArticle","headline":"Where high-level executives go to recharge","url":"https://www.cnn.com/2018/09/30/success/executive-retreats","datePublished":"2018-08-27","publisher":{"@type":"Organization","name":"CNN Money"},"about":{"@id":"https://www.legendary-retreats.com/#org"}}},{"@type":"ListItem","position":3,"item":{"@type":"NewsArticle","headline":"CEOs Are Going on $25,000 Executive Getaways to De-Stress","url":"https://www.businessinsider.com/ceos-executive-getaways-de-stress-luxury-resorts-2018-9","datePublished":"2018-09","publisher":{"@type":"Organization","name":"Business Insider"},"about":{"@id":"https://www.legendary-retreats.com/#org"}}},{"@type":"ListItem","position":4,"item":{"@type":"NewsArticle","headline":"Risky business","url":"https://www.businessdestinations.com/work/risky-business/","publisher":{"@type":"Organization","name":"Business Destinations"},"about":{"@id":"https://www.legendary-retreats.com/#org"}}}]}}
@@ -49,14 +61,14 @@
   <!--lr:header--><!--/lr:header-->
 <main id="main">
 
-  <section style="max-width:1240px;margin:0 auto;padding:80px 40px 40px;">
-    <nav aria-label="Breadcrumb" style="font-size:13px;color:#8A6A64;margin-bottom:22px;display:flex;gap:8px;align-items:center;"><a href="/">Legendary Retreats</a><span>/</span><span style="color:#64010a;">Press</span></nav>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#64010a;margin-bottom:22px;">Press &amp; media</div>
-    <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(38px,5vw,64px);line-height:1.04;letter-spacing:-0.02em;max-width:20ch;">In the press since 2012.</h1>
-    <p style="margin-top:24px;max-width:64ch;font-size:18px;line-height:1.65;color:#403B33;">James Carter's executive retreats have been covered by CNN, CNN Money, Business Insider and Business Destinations. Legendary Retreats is the retreat practice of Be Legendary, so coverage before 2026 names Be Legendary.</p>
-  </section>
+  <section class="lr-phero"><img class="lr-phero__img" src="/assets/sailing/day-sail.webp" alt="A team sailing a yacht on open water" width="1916" height="821" loading="eager" fetchpriority="high" decoding="async"><div class="lr-phero__scrim"></div><div class="lr-phero__in">
+    <nav aria-label="Breadcrumb"><a href="/" style="color:inherit;text-decoration:none;">Legendary Retreats</a><span>/</span><span>Press</span></nav>
+    <p class="lr-phero__eyebrow">Press &amp; media</p>
+    <h1>In the press since 2012.</h1>
+    <p class="lr-phero__lede">James Carter's executive retreats have been covered by CNN, CNN Money, Business Insider and Business Destinations. Legendary Retreats is the retreat practice of Be Legendary, so coverage before 2026 names Be Legendary.</p>
+  </div></section>
 
-  <section style="max-width:1240px;margin:0 auto;padding:0 40px 40px;">
+  <section style="max-width:1240px;margin:0 auto;padding:48px 40px 40px;">
     <div class="bl-grid-collapse" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
       <a href="https://edition.cnn.com/2012/03/26/business/extreme-retreats/index.html" target="_blank" rel="noopener" style="display:flex;flex-direction:column;background:#FBF9F4;border:1px solid #DED7C9;border-radius:16px;padding:30px 30px 28px;transition:box-shadow .16s;" onmouseover="this.style.boxShadow='0 16px 34px -22px rgba(58,10,12,0.4)'" onmouseout="this.style.boxShadow='none'">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#64010a;margin-bottom:14px;">CNN · March 2012</div>
