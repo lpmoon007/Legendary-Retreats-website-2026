@@ -334,6 +334,11 @@ PHOTO_HEROES = {
         # Images the hero (or the gallery) already shows, dropped from the body.
         'drop_imgs': ['/assets/lr-lodge.webp'],
     },
+    'teams/retreats/formats': {
+        'src': '/assets/sailing/schooner.webp', 'width': 1916, 'height': 821,
+        'alt': 'An executive team aboard a classic schooner under full sail at golden hour',
+        'eyebrow': 'Retreat formats',
+    },
     'teams/retreats/destinations': {
         'src': '/assets/field/kayak-fjord.webp', 'width': 1500, 'height': 1000,
         'alt': 'Red sea kayaks drawn up on a fjord shore beneath steep peaks',
@@ -381,7 +386,7 @@ def add_photo_hero(soup, bl_path):
         inner.insert(0, crumb.extract())
     inner.append(h1.extract())
     header.insert_before(hero)
-    header['style'] = re.sub(r'padding:\s*(?:52|64)px', 'padding:40px', header.get('style', ''))
+    header['style'] = re.sub(r'padding:\s*(?:52|56|64)px', 'padding:40px', header.get('style', ''))
     return True
 
 
