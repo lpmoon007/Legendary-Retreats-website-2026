@@ -390,6 +390,58 @@ def add_photo_hero(soup, bl_path):
     return True
 
 
+# Pages whose ported hero already has a photo: restyle it to the house hero
+# (photo shown, bottom gradient, text anchored low) instead of replacing it.
+# Doubled class selectors outrank the original [data-astro-cid] rules.
+HERO_RESTYLES = {
+    'sailing-team-building': {
+        'css': '''
+.sail-hero.sail-hero{min-height:min(88vh,860px);display:flex;align-items:flex-end}
+/* The deck photo is busy and the text block is tall, so shade starts higher than on other heroes. */
+.sail-hero__scrim.sail-hero__scrim{background:linear-gradient(90deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.35) 0%,rgba(14,13,11,.5) 22%,rgba(14,13,11,.8) 48%,rgba(14,13,11,.95) 100%)}
+.sail-hero__inner.sail-hero__inner{width:100%;max-width:1240px;padding:140px 32px 64px}
+.sail-hero h1{text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.lr-moved{max-width:1240px;margin:0 auto;padding:40px 32px 8px}
+@media (max-width:860px){.sail-hero__scrim.sail-hero__scrim{background:linear-gradient(180deg,rgba(14,13,11,.45) 0%,rgba(14,13,11,.82) 28%,rgba(14,13,11,.95) 60%)}.sail-hero.sail-hero{min-height:auto}.sail-hero__inner.sail-hero__inner{padding:120px 22px 44px}.lr-moved{padding:28px 22px 0}}
+''',
+        'move_below': 'What is sailing team building?',
+    },
+    'executive-off-road-immersion': {
+        'css': '''
+.odi-hero__scrim.odi-hero__scrim{background:linear-gradient(180deg,rgba(14,13,11,.3) 0%,rgba(14,13,11,.06) 28%,rgba(14,13,11,.58) 58%,rgba(14,13,11,.92) 100%)}
+.odi-hero h1{font-weight:400!important;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.odi-hero__inner.odi-hero__inner{max-width:1240px;padding-top:140px}
+.odi-hero nav[aria-label="Breadcrumb"]{font-size:13px;color:rgba(239,233,221,.75);margin-bottom:18px;display:flex;gap:8px}
+.odi-hero nav[aria-label="Breadcrumb"] a{color:inherit;text-decoration:none}
+.odi-hero nav[aria-label="Breadcrumb"] span:last-child{color:#E0B973}
+''',
+        'crumb': 'Off-Road Immersion',
+    },
+}
+
+
+def restyle_hero(soup, bl_path):
+    cfg = HERO_RESTYLES.get(bl_path)
+    if not cfg:
+        return None
+    h1 = soup.find('h1')
+    hero = h1.find_parent('section')
+    if cfg.get('move_below'):
+        hit = hero.find(string=re.compile(re.escape(cfg['move_below'])))
+        box = hit.find_parent('div') if hit else None
+        if box is None:
+            raise SystemExit(f'hero box not found on {bl_path}')
+        wrap = soup.new_tag('section', attrs={'class': 'lr-moved'})
+        box['style'] = re.sub(r'margin-top:\s*\d+px;?', 'margin-top:0;', box.get('style', ''))
+        wrap.append(box.extract())
+        hero.insert_after(wrap)
+    if cfg.get('crumb') and not hero.find('nav', attrs={'aria-label': re.compile('readcrumb')}):
+        nav = BeautifulSoup(f'<nav aria-label="Breadcrumb"><a href="/">Legendary Retreats</a><span>/</span>'
+                            f'<span>{cfg["crumb"]}</span></nav>', 'html.parser')
+        h1.find_parent(lambda t: t.name == 'div' and t.find('h1') is not None and t.find('p') is not None).insert(0, nav)
+    return cfg['css']
+
+
 def add_extras(soup, bl_path):
     for anchor, fname, mode in PAGE_EXTRAS.get(bl_path, []):
         hit = soup.find(string=re.compile(re.escape(anchor)))
@@ -646,6 +698,9 @@ def port(bl_repo):
         add_extras(body, bl_path)  # after recolor: extras are authored in the LR palette
         if add_photo_hero(body, bl_path):
             page_styles.append(HERO_CSS)
+        restyle_css = restyle_hero(body, bl_path)
+        if restyle_css:
+            page_styles.append(restyle_css)
         for s in body.find_all('style'):
             s.string = recolor_css(s.get_text(), dark=dark_body)
 
