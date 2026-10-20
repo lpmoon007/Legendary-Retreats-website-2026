@@ -359,6 +359,31 @@ PHOTO_HEROES = {
         'alt': 'A long dining table set and empty while a team works in the kitchen behind it',
         'eyebrow': 'Executive Immersion · Ownership', 'lede': True,
     },
+    'case-studies/online-auto-retailer-leadership-team': {
+        'src': '/assets/cs-autoretailer.webp', 'width': 1500, 'height': 995,
+        'alt': 'Executives on an off-road desert retreat built for an auto-retail leadership team',
+        'eyebrow': None, 'lede': True,
+    },
+    'case-studies/san-juan-mountains-work-ethic': {
+        'src': '/assets/field/w-img12322.webp', 'width': 1500, 'height': 1125,
+        'alt': 'A dog sled team crossing snow on a winter survival leadership retreat',
+        'eyebrow': None, 'lede': True,
+    },
+    'case-studies/everglades-abundance-mindset': {
+        'src': '/assets/cs-everglades.webp', 'width': 1600, 'height': 900,
+        'alt': 'An executive team in the Florida Everglades on a survival-simulation retreat',
+        'eyebrow': None, 'lede': True,
+    },
+    'case-studies/federal-fiscal-leadership-team': {
+        'src': '/assets/field/w-img1235.webp', 'width': 1500, 'height': 1125,
+        'alt': 'An executive leadership team in a working session at a mountain lodge',
+        'eyebrow': None, 'lede': True,
+    },
+    'case-studies/alaska-executive-vulnerability': {
+        'src': '/assets/field/overlook-alaska.webp', 'width': 945, 'height': 630,
+        'alt': 'An executive team taking in the view together from an Alaskan overlook',
+        'eyebrow': None, 'lede': True, 'img_opacity': 0.85,
+    },
     'teams/retreats/destinations': {
         'src': '/assets/field/kayak-fjord.webp', 'width': 1500, 'height': 1000,
         'alt': 'Red sea kayaks drawn up on a fjord shore beneath steep peaks',
@@ -377,6 +402,8 @@ HERO_CSS = '''
 /* Heroes carrying an intro (and buttons) have a tall text block: shade starts higher. */
 .lr-phero__scrim--tall{background:linear-gradient(90deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.35) 0%,rgba(14,13,11,.5) 22%,rgba(14,13,11,.8) 48%,rgba(14,13,11,.95) 100%)!important}
 @media (max-width:860px){.lr-phero__scrim--tall{background:linear-gradient(180deg,rgba(14,13,11,.45) 0%,rgba(14,13,11,.82) 28%,rgba(14,13,11,.95) 60%)!important}}
+.lr-phero__in > a:first-child{display:inline-block;margin-bottom:16px;color:rgba(239,233,221,.78)!important}
+.lr-phero__in > div:not(.lr-phero__cta) span{color:rgba(239,233,221,.72)}
 .lr-phero__lede{margin-top:22px!important;color:rgba(239,233,221,.88)!important;max-width:58ch!important}
 .lr-phero__lede *{color:inherit!important}
 .lr-phero__cta{margin-top:30px!important}
@@ -403,7 +430,8 @@ def add_photo_hero(soup, bl_path):
     h1 = soup.find('h1')
     header = h1.find_parent('header') or h1.parent
     crumb = (header.find('nav', attrs={'aria-label': re.compile('readcrumb')})
-             or soup.find('nav', attrs={'aria-label': re.compile('readcrumb')}))
+             or soup.find('nav', attrs={'aria-label': re.compile('readcrumb')})
+             or next((a for a in header.find_all('a', recursive=False) if a.get_text(strip=True).startswith('←')), None))
     for src in cfg.get('drop_imgs', []):
         for img in soup.find_all('img', src=src):
             if not img.find_parent(class_=re.compile('lx-gal')):
@@ -415,15 +443,19 @@ def add_photo_hero(soup, bl_path):
         cta = lede.find_next_sibling('div')
         if cta is not None and not cta.find('a'):
             cta = None
-    eyebrow = cfg['eyebrow']
+    eyebrow, eyebrow_el = cfg['eyebrow'], None
     if eyebrow is None:
-        prev = h1.find_previous_sibling('p')
-        eyebrow = prev.get_text(' ', strip=True).replace('\xa0', ' ') if prev else ''
-        if prev:
-            prev.decompose()
+        prev = h1.find_previous_sibling(['p', 'div'])
+        if prev is not None and prev.name == 'div':
+            eyebrow_el, eyebrow = prev, ''   # e.g. the gold "Case study" tag row
+        else:
+            eyebrow = prev.get_text(' ', strip=True).replace('\xa0', ' ') if prev else ''
+            if prev:
+                prev.decompose()
     hero = BeautifulSoup(
         f'<section class="lr-phero"><img class="lr-phero__img" src="{cfg["src"]}" alt="{cfg["alt"]}" '
-        f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async">'
+        f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async"'
+        f'{(" style=" + chr(34) + "opacity:" + str(cfg["img_opacity"]) + chr(34)) if cfg.get("img_opacity") else ""}>'
         f'<div class="lr-phero__scrim{" lr-phero__scrim--tall" if cfg.get("lede") else ""}"></div>'
         f'<div class="lr-phero__in"><p class="lr-phero__eyebrow">{eyebrow}</p></div></section>',
         'html.parser')
@@ -435,6 +467,8 @@ def add_photo_hero(soup, bl_path):
         inner.insert(0, crumb.extract())
         _prune_empty(crumb_parent)
     h1_parent = h1.parent
+    if eyebrow_el is not None:
+        inner.find(class_='lr-phero__eyebrow').replace_with(eyebrow_el.extract())
     inner.append(h1.extract())
     for el, cls in ((lede, 'lr-phero__lede'), (cta, 'lr-phero__cta')):
         if el is not None:
