@@ -322,6 +322,56 @@ PAGE_EXTRAS = {
 }
 
 
+# Full-bleed photo hero: the page's breadcrumb + <h1> move onto the photo; the
+# rest of the original header (e.g. "The short answer") stays below it.
+PHOTO_HEROES = {
+    'teams/luxury-executive-retreat': {
+        'src': '/assets/lr-lodge.webp', 'width': 1800, 'height': 655,
+        'alt': 'A five-star mountain estate at golden hour',
+        'eyebrow': 'Luxury executive retreats',
+        # Images the hero (or the gallery) already shows, dropped from the body.
+        'drop_imgs': ['/assets/lr-lodge.webp'],
+    },
+}
+HERO_CSS = '''
+.lr-phero{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:min(72vh,640px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0D0B}
+.lr-phero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.lr-phero__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,13,11,.25) 0%,rgba(14,13,11,.05) 35%,rgba(14,13,11,.55) 70%,rgba(14,13,11,.88) 100%)}
+.lr-phero__in{position:relative;width:100%;max-width:1240px;margin:0 auto;padding:120px 32px 56px}
+.lr-phero nav[aria-label="Breadcrumb"]{color:rgba(239,233,221,.75)!important;margin-bottom:18px!important}
+.lr-phero nav[aria-label="Breadcrumb"] span:last-child{color:#E0B973!important}
+.lr-phero__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E0B973;margin-bottom:16px}
+.lr-phero h1{color:#FBF7EF!important;max-width:20ch!important;font-size:clamp(38px,5.6vw,72px)!important;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+@media (max-width:860px){.lr-phero{min-height:480px}.lr-phero__in{padding:96px 22px 36px}}
+'''
+
+
+def add_photo_hero(soup, bl_path):
+    cfg = PHOTO_HEROES.get(bl_path)
+    if not cfg:
+        return False
+    h1 = soup.find('h1')
+    header = h1.find_parent('header') or h1.parent
+    crumb = header.find('nav', attrs={'aria-label': re.compile('readcrumb')})
+    for src in cfg.get('drop_imgs', []):
+        for img in soup.find_all('img', src=src):
+            if not img.find_parent(class_=re.compile('lx-gal')):
+                box = img.parent if img.parent.name in ('div', 'figure') and len(img.parent.find_all(True)) == 1 else img
+                box.decompose()
+    hero = BeautifulSoup(
+        f'<section class="lr-phero"><img class="lr-phero__img" src="{cfg["src"]}" alt="{cfg["alt"]}" '
+        f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async">'
+        f'<div class="lr-phero__scrim"></div><div class="lr-phero__in"><p class="lr-phero__eyebrow">{cfg["eyebrow"]}</p></div></section>',
+        'html.parser')
+    inner = hero.find(class_='lr-phero__in')
+    if crumb:
+        inner.insert(0, crumb.extract())
+    inner.append(h1.extract())
+    header.insert_before(hero)
+    header['style'] = re.sub(r'padding:\s*52px', 'padding:40px', header.get('style', ''))
+    return True
+
+
 def add_extras(soup, bl_path):
     if bl_path not in PAGE_EXTRAS:
         return
@@ -575,6 +625,8 @@ def port(bl_repo):
         fix_breadcrumbs(body)
         recolor_tree(body, dark_body)
         add_extras(body, bl_path)  # after recolor: extras are authored in the LR palette
+        if add_photo_hero(body, bl_path):
+            page_styles.append(HERO_CSS)
         for s in body.find_all('style'):
             s.string = recolor_css(s.get_text(), dark=dark_body)
 
