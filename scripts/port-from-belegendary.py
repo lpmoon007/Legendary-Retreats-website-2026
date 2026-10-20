@@ -795,6 +795,13 @@ def esc_attr(s):
     return s.replace('&', '&amp;').replace('"', '&quot;').replace('<', '&lt;')
 
 
+# Page titles aimed at what buyers search on this domain ("executive team
+# building" for the one-day format).
+TITLE_OVERRIDES = {
+    'teams/executive-immersion': 'Executive Team Building: Executive Immersion, One Engineered Day | Legendary Retreats',
+}
+
+
 def rebrand_title(t):
     t = re.sub(r'\s*[|—–-]\s*Be Legendary\s*$', ' | Legendary Retreats', t)
     return t
@@ -826,6 +833,8 @@ def port(bl_repo):
         ogt = (head.find('meta', attrs={'property': 'og:title'}) or {}).get('content', title)
         ogd = (head.find('meta', attrs={'property': 'og:description'}) or {}).get('content', desc)
         ogt = rebrand_title(ogt)
+        if bl_path in TITLE_OVERRIDES:
+            title = ogt = TITLE_OVERRIDES[bl_path]
 
         ld = []
         for s in soup.find_all('script', type='application/ld+json'):
