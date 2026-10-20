@@ -86,6 +86,9 @@ const MAP = {
   'Executive Retreat Planners': '/executive-retreat-planners/',
   'Board Retreat': '/board-retreat/',
   'Strategic Planning Retreat': '/strategic-planning-retreat/',
+  'Retreat Cost Estimator': '/retreat-cost-estimator/',
+  'Retreat Brief': '/retreat-brief/',
+  'Procurement': '/procurement/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';
@@ -276,6 +279,8 @@ function rewrite(s) {
 //   generate_lead   — retreat inquiry form submitted (inquiryFormGuid)
 //   kit_download    — planning-kit form submitted, or the PDF link clicked
 //   meetings_click  — any link to the HubSpot meetings scheduler
+// plus procurement_request (vendor-packet email link) and, from the estimator
+// page itself, estimate_change / estimate_share.
 // Lead source: the HubSpot tracking code (same lazy load) fills each contact's
 // Original Traffic Source and First Page Seen. Clicks on the meetings link carry
 // the visit's landing UTMs (kept for the session) plus utm_content = the page
@@ -299,7 +304,8 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 var where=a.closest('header')?'header':a.closest('footer')?'footer':'body';
 if(/meetings(-na2)?\\.hubspot\\.com\\/jcarter28/.test(h)){track('meetings_click',{link_location:where,link_text:(a.textContent||'').trim().slice(0,60)});
 try{var u=new URL(h);if(!u.searchParams.has('utm_source')){u.searchParams.set('utm_source',UTM.utm_source||'legendary-retreats.com');u.searchParams.set('utm_medium',UTM.utm_medium||'website');u.searchParams.set('utm_campaign',UTM.utm_campaign||'site_cta');if(UTM.utm_term)u.searchParams.set('utm_term',UTM.utm_term);u.searchParams.set('utm_content',location.pathname);a.href=u.toString();}}catch(_){}}
-else if(/complete-retreat-planning-kit\\.pdf/.test(h))track('kit_download',{method:'direct_link'});},true);
+else if(/complete-retreat-planning-kit\\.pdf/.test(h))track('kit_download',{method:'direct_link'});
+else if(/^mailto:.*Vendor%20packet/i.test(h))track('procurement_request',{link_location:where});},true);
 function submitted(id){if(id&&id===KIT)track('kit_download',{method:'form'});else if(id&&INQ&&id===INQ)track('generate_lead',{form:'retreat_inquiry'});else track('form_submit',{form_id:id||'unknown'});}
 addEventListener('message',function(e){var d=e.data;if(d&&d.type==='hsFormCallback'&&d.eventName==='onFormSubmitted')submitted(d.id);});
 addEventListener('hs-form-event:on-submission:success',function(e){var id='';try{id=window.HubSpotFormsV4.getFormFromEvent(e).getFormId();}catch(_){id=(e.detail&&e.detail.formId)||'';}submitted(id);});
@@ -376,7 +382,8 @@ import body from '${prefix}generated/${key}.body.html?raw';
 }
 
 // --- sitemap.xml from the page map (lastmod = last commit touching the source) ---
-const urls = built.map(({ url, file }) =>
+// Pages marked noindex (e.g. the printable CEO brief) stay out of the sitemap.
+const urls = built.filter(({ file }) => !/name="robots" content="noindex/.test(readFileSync(file, 'utf8'))).map(({ url, file }) =>
   `  <url><loc>${SITE}${url}</loc><lastmod>${gitDate(file, '') || TODAY}</lastmod></url>`);
 writeFileSync(join(ROOT, 'public', 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);

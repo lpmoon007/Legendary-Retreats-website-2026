@@ -23,6 +23,7 @@ then `npm run generate`. Pages listed in PAGES are overwritten.
 """
 import json
 import re
+from urllib.parse import quote, unquote
 import shutil
 import sys
 from pathlib import Path
@@ -228,8 +229,25 @@ LINK_FIXES = {
 }
 
 
+# Share buttons (LinkedIn, email) carry the page's own URL and title encoded in
+# the href; point them at this domain's page and name.
+BL_ENC = re.compile(r'https%3A%2F%2Fwww\.belegendary\.org(%2F[^&"]*)')
+
+
+def fix_share_href(href):
+    def repl(m):
+        path = unquote(m.group(1)).strip('/')
+        lr = PAGES.get(path, (None, None))[1] or MOVED.get('/' + path + '/')
+        return quote(SITE + lr, safe='') if lr else m.group(0)
+    href = BL_ENC.sub(repl, href)
+    return href.replace('%20%7C%20Be%20Legendary', '%20%7C%20Legendary%20Retreats')
+
+
 def rewrite_links(soup):
     for a in soup.find_all('a', href=True):
+        if 'belegendary.org%2F' in a['href']:
+            a['href'] = fix_share_href(a['href'])
+            continue
         if a['href'] in LINK_FIXES:
             a['href'] = LINK_FIXES[a['href']]
             if a['href'].startswith('/'):
@@ -339,7 +357,8 @@ PAGE_EXTRAS = {
                                        ('Where the work happens.', 'press-strip.html', 'after')],
     'teams/retreats/ways-to-work-together': [('Three ways to run a legendary retreat.', 'press-strip.html', 'after'),
                                              ('How it starts', 'wwt-faq.html', 'after')],
-    'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after')],
+    'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after'),
+                                                ('EA planning resources.', 'ea-tools.html', 'after')],
     'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace')],
 }
 
