@@ -317,8 +317,10 @@ def retreat_voice(soup, bl_path):
 
 # Extra sections inserted into specific ported pages, after the first element
 # whose text contains the anchor. Source lives in _src/_deploy/extras/.
+# mode 'after' inserts after the anchor's section; 'replace' swaps it out.
 PAGE_EXTRAS = {
-    'teams/luxury-executive-retreat': ('The trap of the beautiful off-site', 'luxury-gallery.html'),
+    'teams/luxury-executive-retreat': [('The trap of the beautiful off-site', 'luxury-gallery.html', 'after')],
+    'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace')],
 }
 
 
@@ -331,6 +333,11 @@ PHOTO_HEROES = {
         'eyebrow': 'Luxury executive retreats',
         # Images the hero (or the gallery) already shows, dropped from the body.
         'drop_imgs': ['/assets/lr-lodge.webp'],
+    },
+    'teams/retreats/destinations': {
+        'src': '/assets/field/kayak-fjord.webp', 'width': 1500, 'height': 1000,
+        'alt': 'Red sea kayaks drawn up on a fjord shore beneath steep peaks',
+        'eyebrow': None,  # reuse the page's own eyebrow ("Locations & destinations")
     },
 }
 HERO_CSS = '''
@@ -358,30 +365,37 @@ def add_photo_hero(soup, bl_path):
             if not img.find_parent(class_=re.compile('lx-gal')):
                 box = img.parent if img.parent.name in ('div', 'figure') and len(img.parent.find_all(True)) == 1 else img
                 box.decompose()
+    eyebrow = cfg['eyebrow']
+    if eyebrow is None:
+        prev = h1.find_previous_sibling('p')
+        eyebrow = prev.get_text(strip=True) if prev else ''
+        if prev:
+            prev.decompose()
     hero = BeautifulSoup(
         f'<section class="lr-phero"><img class="lr-phero__img" src="{cfg["src"]}" alt="{cfg["alt"]}" '
         f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async">'
-        f'<div class="lr-phero__scrim"></div><div class="lr-phero__in"><p class="lr-phero__eyebrow">{cfg["eyebrow"]}</p></div></section>',
+        f'<div class="lr-phero__scrim"></div><div class="lr-phero__in"><p class="lr-phero__eyebrow">{eyebrow}</p></div></section>',
         'html.parser')
     inner = hero.find(class_='lr-phero__in')
     if crumb:
         inner.insert(0, crumb.extract())
     inner.append(h1.extract())
     header.insert_before(hero)
-    header['style'] = re.sub(r'padding:\s*52px', 'padding:40px', header.get('style', ''))
+    header['style'] = re.sub(r'padding:\s*(?:52|64)px', 'padding:40px', header.get('style', ''))
     return True
 
 
 def add_extras(soup, bl_path):
-    if bl_path not in PAGE_EXTRAS:
-        return
-    anchor, fname = PAGE_EXTRAS[bl_path]
-    hit = soup.find(string=re.compile(re.escape(anchor)))
-    sec = hit.find_parent('section') if hit else None
-    if sec is None:
-        raise SystemExit(f'extras anchor not found on {bl_path}: {anchor!r}')
-    frag = BeautifulSoup((OUT / 'extras' / fname).read_text(), 'html.parser')
-    sec.insert_after(frag)
+    for anchor, fname, mode in PAGE_EXTRAS.get(bl_path, []):
+        hit = soup.find(string=re.compile(re.escape(anchor)))
+        sec = hit.find_parent('section') if hit else None
+        if sec is None:
+            raise SystemExit(f'extras anchor not found on {bl_path}: {anchor!r}')
+        frag = BeautifulSoup((OUT / 'extras' / fname).read_text(), 'html.parser')
+        if mode == 'replace':
+            sec.replace_with(frag)
+        else:
+            sec.insert_after(frag)
 
 
 def swap_low_commitment_cta(soup):

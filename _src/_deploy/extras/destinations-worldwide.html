@@ -1,0 +1,81 @@
+<!-- Worldwide destinations: replaces the hub's "Somewhere farther afield?" box on
+     the ported Destinations page (scripts/port-from-belegendary.py, PAGE_EXTRAS).
+     Every entry is backed by existing site content; edit here, then re-port. -->
+<section class="ww" id="worldwide" aria-labelledby="ww-h">
+  <style>
+    .ww{max-width:1240px;margin:72px auto 0;padding:0 32px}
+    .ww__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:26px}
+    .ww__eyebrow{font:700 12.5px 'Hanken Grotesk',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#64010a;margin-bottom:12px}
+    .ww h2{font-family:'Newsreader',serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.02em;color:#3A0A0C}
+    .ww__lede{margin-top:12px;font-size:17px;line-height:1.6;color:#5A4A44;max-width:56ch}
+    .ww__grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+    .ww__card{position:relative;overflow:hidden;border-radius:16px;min-height:300px;display:flex;align-items:flex-end;background:#1C1A17;color:#FBF7EF;text-decoration:none}
+    .ww__card--lg{grid-column:span 3;min-height:380px}
+    .ww__card--md{grid-column:span 2}
+    .ww__card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    a.ww__card:hover img{transform:scale(1.04)}
+    .ww__card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,13,11,0) 30%,rgba(14,13,11,.86) 100%)}
+    .ww__body{position:relative;z-index:1;padding:24px 24px 22px}
+    .ww__where{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#E0B973;margin-bottom:8px}
+    .ww__card h3{font-family:'Newsreader',serif;font-weight:400;font-size:26px;line-height:1.1;margin-bottom:8px}
+    .ww__card p{font-size:14.5px;line-height:1.55;color:rgba(239,233,221,.86);max-width:46ch}
+    .ww__stat{display:inline-block;margin-top:12px;font:600 13px 'Hanken Grotesk',sans-serif;color:#E0B973}
+    .ww__card--plain{background:linear-gradient(140deg,#3A0A0C,#64010a)}
+    .ww__card--plain::after{display:none}
+    .ww__cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:#E0B973;color:#1C1A17;padding:12px 20px;border-radius:999px;font-weight:700;font-size:14.5px;text-decoration:none}
+    @media (max-width:980px){.ww__grid{grid-template-columns:repeat(2,1fr)}.ww__card--lg,.ww__card--md{grid-column:span 1}.ww__card--lg{min-height:320px}}
+    @media (max-width:620px){.ww{padding:0 20px}.ww__grid{grid-template-columns:1fr}.ww__card,.ww__card--lg{min-height:280px}}
+  </style>
+  <div class="ww__head">
+    <div>
+      <p class="ww__eyebrow">Worldwide</p>
+      <h2 id="ww-h">When the outcome calls for farther afield.</h2>
+      <p class="ww__lede">Most of our work is across the United States, in 40 of 50 states. When the right outcome needs somewhere else, we build it there.</p>
+    </div>
+  </div>
+  <div class="ww__grid">
+    <div class="ww__card ww__card--lg">
+      <img src="/assets/field/alula-lunch.webp" alt="An executive team sharing a meal on a Bedouin rug among the red rock of AlUla, Saudi Arabia" width="1024" height="768">
+      <div class="ww__body">
+        <p class="ww__where">AlUla &middot; Saudi Arabia</p>
+        <h3>An executive retreat in the desert</h3>
+        <p>We ran an executive retreat for Champion Iron in AlUla. Each leader chose the behaviors they wanted to change, and we measured them for 30 days.</p>
+        <span class="ww__stat">Measured: a 209% mindset lift</span>
+      </div>
+    </div>
+    <a class="ww__card ww__card--lg" href="/sailing-team-building/">
+      <img src="/assets/sailing/day-sail.webp" alt="A team sailing a yacht on open water" width="1916" height="821">
+      <div class="ww__body">
+        <p class="ww__where">British Virgin Islands</p>
+        <h3>Multi-day sailing expeditions</h3>
+        <p>Liveaboard passages run from wherever fits the outcome, the BVI among them: a crew, a boat and real consequence.</p>
+        <span class="ww__stat">Sailing retreats &rarr;</span>
+      </div>
+    </a>
+    <a class="ww__card ww__card--md" href="/case-studies/alaska-executive-vulnerability/">
+      <img src="/assets/field/overlook-alaska.webp" alt="An executive team taking in the view together from an Alaskan overlook" width="945" height="630">
+      <div class="ww__body">
+        <p class="ww__where">Alaska backcountry</p>
+        <h3>Beyond the lower 48</h3>
+        <p>A float-plane survival scenario beside a remote Alaskan lake.</p>
+        <span class="ww__stat">Read the case study &rarr;</span>
+      </div>
+    </a>
+    <div class="ww__card ww__card--md ww__card--plain">
+      <div class="ww__body">
+        <p class="ww__where">Central America</p>
+        <h3>Costa Rica and beyond</h3>
+        <p>Select retreats in Central America, for teams that need to be genuinely far from the office.</p>
+      </div>
+    </div>
+    <div class="ww__card ww__card--md">
+      <img src="/assets/site-photos/caption.webp" alt="A towering red-rock formation in the desert at sunset" width="1600" height="1100">
+      <div class="ww__body">
+        <p class="ww__where">Anywhere, on request</p>
+        <h3>Wherever the outcome is</h3>
+        <p>From the deserts of the Middle East to remote corners of Central America.</p>
+        <a class="ww__cta" href="https://meetings-na2.hubspot.com/jcarter28" target="_blank" rel="noopener" data-lr-plan>Tell us the outcome &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
