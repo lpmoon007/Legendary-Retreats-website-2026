@@ -448,6 +448,10 @@ PHOTO_HEROES = {
         'alt': 'Red-rock country near Sedona, Arizona',
         'eyebrow': 'Field note', 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
     },
+    'teams/retreats/ways-to-work-together': {
+        'src': '/assets/field/g-img1301.webp', 'width': 1500, 'height': 1124,
+        'alt': 'An executive team on ATVs crossing an alpine valley in the San Juan Mountains',
+        'eyebrow': None, 'lede': True},
     'teams/leadership-retreat-ideas': {
         'src': '/assets/site-photos/telluride-ferrata.webp', 'width': 1600, 'height': 1100,
         'alt': 'A climber on the via ferrata above Telluride, Colorado',
