@@ -435,9 +435,9 @@ PHOTO_HEROES = {
         'eyebrow': None, 'lede': True, 'img_opacity': 0.85,
     },
     'how-to-plan-a-leadership-retreat': {
-        'src': '/assets/field/g-img1357.webp', 'width': 1500, 'height': 1124,
-        'alt': 'Trail signs for Engineer Pass and Cinnamon Pass in a high mountain valley',
-        'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
+        'src': '/assets/field/g-img1950.webp', 'width': 1500, 'height': 2001,
+        'alt': 'A retreat vehicle on a dirt road through an alpine meadow beneath a San Juan peak',
+        'eyebrow': None, 'lede': True, 'tall': False, 'img_pos': 'center 12%',  # lede = the byline; short answer stays below
     },
     'how-to-plan-an-executive-offsite': {
         'src': '/assets/offroad/los-angeles/la-hungry-valley.webp', 'width': 1536, 'height': 1024,
@@ -525,6 +525,17 @@ def _prune_empty(el):
         el = parent
 
 
+def img_style(cfg):
+    """Optional inline style for the hero photo: dimmed opacity and/or a crop
+    position (img_pos, e.g. 'center 15%') for tall photos."""
+    parts = []
+    if cfg.get('img_opacity'):
+        parts.append(f"opacity:{cfg['img_opacity']}")
+    if cfg.get('img_pos'):
+        parts.append(f"object-position:{cfg['img_pos']}")
+    return f' style="{";".join(parts)}"' if parts else ''
+
+
 def add_photo_hero(soup, bl_path):
     cfg = PHOTO_HEROES.get(bl_path)
     if not cfg:
@@ -557,7 +568,7 @@ def add_photo_hero(soup, bl_path):
     hero = BeautifulSoup(
         f'<section class="lr-phero"><img class="lr-phero__img" src="{cfg["src"]}" alt="{cfg["alt"]}" '
         f'width="{cfg["width"]}" height="{cfg["height"]}" loading="eager" fetchpriority="high" decoding="async"'
-        f'{(" style=" + chr(34) + "opacity:" + str(cfg["img_opacity"]) + chr(34)) if cfg.get("img_opacity") else ""}>'
+        f'{img_style(cfg)}>'
         f'<div class="lr-phero__scrim{" lr-phero__scrim--tall" if cfg.get("tall", cfg.get("lede")) else ""}"></div>'
         f'<div class="lr-phero__in"><p class="lr-phero__eyebrow">{eyebrow}</p></div></section>',
         'html.parser')

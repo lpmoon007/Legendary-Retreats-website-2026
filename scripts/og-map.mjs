@@ -49,7 +49,7 @@ export const OG_MAP = {
   'retreat-planning-kit': 'field/new-fire-with-team',
 
   // Planning guides
-  'how-to-plan-a-leadership-retreat': 'field/team-desert-tea',
+  'how-to-plan-a-leadership-retreat': 'field/g-img1950',
   'how-to-plan-an-executive-offsite': 'offroad/los-angeles/la-hungry-valley',
   'leadership-offsite-agenda': 'field/luxury-lodge-sunset',
   'why-leadership-offsites-dont-stick': 'field/snow-hiking',
