@@ -89,6 +89,7 @@ const MAP = {
   'Retreat Cost Estimator': '/retreat-cost-estimator/',
   'Retreat Brief': '/retreat-brief/',
   'Procurement': '/procurement/',
+  'How We Measure': '/how-we-measure/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';
@@ -302,6 +303,7 @@ addEventListener('load',function(){setTimeout(load,1500)});
 function track(name,p){p=p||{};p.page_path=location.pathname;if(GA)gtag('event',name,p);if(CL)window.clarity('event',name);}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.href;
 var where=a.closest('header')?'header':a.closest('footer')?'footer':'body';
+if(a.hasAttribute('data-lr-proposal'))track('proposal_click',{link_location:where});
 if(/meetings(-na2)?\\.hubspot\\.com\\/jcarter28/.test(h)){track('meetings_click',{link_location:where,link_text:(a.textContent||'').trim().slice(0,60)});
 try{var u=new URL(h);if(!u.searchParams.has('utm_source')){u.searchParams.set('utm_source',UTM.utm_source||'legendary-retreats.com');u.searchParams.set('utm_medium',UTM.utm_medium||'website');u.searchParams.set('utm_campaign',UTM.utm_campaign||'site_cta');if(UTM.utm_term)u.searchParams.set('utm_term',UTM.utm_term);u.searchParams.set('utm_content',location.pathname);a.href=u.toString();}}catch(_){}}
 else if(/complete-retreat-planning-kit\\.pdf/.test(h))track('kit_download',{method:'direct_link'});

@@ -266,7 +266,10 @@ def rewrite_links(soup):
 
 # Copy that names the seller: on this domain the seller is Legendary Retreats.
 TEXT_FIXES = [
-    ('Founder of Be Legendary and creator of the Flag Model', 'Founder of Legendary Retreats and Be Legendary, and creator of the Flag Model'),
+    ('Founder of Be Legendary and creator of the Flag Model.', 'Founder of Legendary Retreats and Be Legendary.'),
+    ('Founder of Be Legendary and creator of the Flag Model™.', 'Founder of Legendary Retreats and Be Legendary.'),
+    ('James is the creator of the Flag Model™ and the sole author of the forthcoming', 'James founded Legendary Retreats and Be Legendary. He is the sole author of the forthcoming'),
+    ('"the Flag Model",', '"executive leadership retreats",'),
     ('a full Be Legendary retreat', 'a full Legendary Retreat'),
     ('Be Legendary designs and delivers', 'Legendary Retreats designs and delivers'),
     ('Be Legendary runs three levels', 'Legendary Retreats runs three levels'),
@@ -332,7 +335,7 @@ DAY_PAGES = ('teams/executive-immersion', 'executive-off-road-immersion', 'saili
 
 
 def retreat_voice(soup, bl_path):
-    cta = 'Book a call' if bl_path.startswith(DAY_PAGES) else 'Plan your retreat'
+    cta = 'Book a call' if bl_path.startswith(DAY_PAGES) else 'Book a call with James'
     # "A <strong>Calibration Call</strong> is 15 minutes. Tell us ..."
     for st in soup.find_all('strong'):
         if st.get_text(strip=True) == 'Calibration Call':
@@ -767,8 +770,10 @@ LR_ORG = {
     '@type': 'Organization', '@id': LR_ORG_ID, 'name': 'Legendary Retreats',
     'url': SITE + '/', 'logo': SITE + '/assets/brand/snail-maroon-web.png',
     'telephone': '+1-800-513-8759',
-    'parentOrganization': {'@type': 'Organization', 'name': 'Be Legendary', 'url': BL + '/'},
-    'founder': {'@type': 'Person', '@id': BL + '/about/james-carter/#person', 'name': 'James Carter'},
+    'parentOrganization': {'@type': 'Organization', '@id': BL + '/#org', 'name': 'Be Legendary', 'url': BL + '/',
+                           'sameAs': ['https://www.wikidata.org/wiki/Q140513581',
+                                      'https://www.linkedin.com/company/repario-and-be-legendary/']},
+    'founder': {'@type': 'Person', '@id': BL + '/#james', 'name': 'James Carter'},
 }
 
 
@@ -828,7 +833,10 @@ def transform_ld(raw):
     if not keep:
         return None
     keep.insert(0, LR_ORG)
-    return json.dumps({'@context': 'https://schema.org', '@graph': keep}, ensure_ascii=False, separators=(',', ':'))
+    out = json.dumps({'@context': 'https://schema.org', '@graph': keep}, ensure_ascii=False, separators=(',', ':'))
+    for a, b in TEXT_FIXES:
+        out = out.replace(a, b)
+    return out
 
 
 # ── assets ────────────────────────────────────────────────────────────────────
