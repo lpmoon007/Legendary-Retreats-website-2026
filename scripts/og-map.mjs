@@ -71,7 +71,7 @@ export const OG_MAP = {
   'field-notes__questions-before-executive-retreat': 'field/new-fire-with-team',
   'field-notes__30-day-reinforcement': 'field/snow-hiking',
   'field-notes__what-is-an-experiential-leadership-retreat': 'field/kayak-fjord',
-  'field-notes__executive-retreat-cost': 'field/luxury-lodge-sunset',
+  'field-notes__executive-retreat-cost': 'field/alula-lunch',
   'field-notes__newly-formed-post-merger-leadership-team': 'field/new-fire-with-team',
   'field-notes__signature-vs-bespoke-retreat': 'field/sierra-lodge-night',
 };
