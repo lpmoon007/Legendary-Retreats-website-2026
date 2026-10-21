@@ -90,6 +90,7 @@ const MAP = {
   'Retreat Brief': '/retreat-brief/',
   'Procurement': '/procurement/',
   'How We Measure': '/how-we-measure/',
+  'Best Executive Retreat Companies': '/best-executive-retreat-companies/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';
