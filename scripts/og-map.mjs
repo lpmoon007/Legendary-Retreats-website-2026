@@ -11,7 +11,7 @@ export const OG_MAP = {
   'ways-to-work-together': 'field/luxury-lodge-sunset',
   'about': 'field/james-carter',
   'experience': 'field/g-img1494',
-  'executive-retreat-planners': 'field/new-img-9364',
+  'executive-retreat-planners': 'sailing/regatta',
   'board-retreat': 'destinations/napa-alila',
   'strategic-planning-retreat': 'field/g-img1357',
   'retreat-cost-estimator': 'offroad/phoenix/phx-vista',
