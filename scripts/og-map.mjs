@@ -12,7 +12,7 @@ export const OG_MAP = {
   'about': 'field/james-carter',
   'experience': 'field/g-img1494',
   'executive-retreat-planners': 'sailing/regatta',
-  'board-retreat': 'destinations/napa-alila',
+  'board-retreat': 'destinations/napa-calistoga',
   'strategic-planning-retreat': 'field/g-img1357',
   'retreat-cost-estimator': 'offroad/phoenix/phx-vista',
   'procurement': 'sailing/offshore-passage',
