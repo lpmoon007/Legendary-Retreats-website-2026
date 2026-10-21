@@ -50,7 +50,7 @@ export const OG_MAP = {
 
   // Planning guides
   'how-to-plan-a-leadership-retreat': 'field/team-desert-tea',
-  'how-to-plan-an-executive-offsite': 'field/rubicon-summit-group',
+  'how-to-plan-an-executive-offsite': 'offroad/los-angeles/la-hungry-valley',
   'leadership-offsite-agenda': 'field/luxury-lodge-sunset',
   'why-leadership-offsites-dont-stick': 'field/snow-hiking',
   'leadership-team-offsite-facilitator': 'field/james-carter',

@@ -440,8 +440,8 @@ PHOTO_HEROES = {
         'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
     },
     'how-to-plan-an-executive-offsite': {
-        'src': '/assets/field/new-img-9364.webp', 'width': 1700, 'height': 1275,
-        'alt': 'An executive team standing together beside their vehicles in the desert',
+        'src': '/assets/offroad/los-angeles/la-hungry-valley.webp', 'width': 1536, 'height': 1024,
+        'alt': 'An executive team at a mountain overlook beside their Jeep, looking out over the valley',
         'eyebrow': None, 'lede': True, 'tall': False,  # lede = the byline; short answer stays below
     },
     'leadership-offsite-agenda': {
