@@ -365,7 +365,8 @@ PAGE_EXTRAS = {
                                              ('How it starts', 'wwt-faq.html', 'after')],
     'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after'),
                                                 ('EA planning resources.', 'ea-tools.html', 'after')],
-    'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace')],
+    'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace'),
+                                    ('See the San Juan case study', 'destinations-colorado.html', 'after')],
     'teams/retreats/formats': [('Five-Star Estate', 'dials.html', 'after')],
 }
 

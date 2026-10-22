@@ -39,6 +39,8 @@ const MAP = {
   'Retreat - Lake Tahoe': '/destinations/lake-tahoe/',
   'Retreat - Jackson Hole': '/destinations/jackson-hole-wyoming/',
   'Retreat - Montana': '/destinations/montana/',
+  'Retreat - Colorado': '/destinations/colorado/',
+  'Retreat - Vail': '/destinations/vail-colorado/',
   'Formats': '/formats/',
   'Format - Cabin Fever': '/formats/cabin-fever/',
   'Format - Winter Survival': '/formats/winter-survival/',

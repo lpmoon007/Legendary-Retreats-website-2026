@@ -8,6 +8,8 @@
 export const OG_MAP = {
   // Landing / section pages
   'home': 'field/team-desert-tea',
+  'destinations__colorado': 'site-photos/telluride-ferrata',
+  'destinations__vail-colorado': 'field/snow-cave-inside',
   'ways-to-work-together': 'field/luxury-lodge-sunset',
   'about': 'field/james-carter',
   'experience': 'field/g-img1494',
