@@ -7,7 +7,7 @@
 // e.g. /contact. Several pages intentionally share a source image.
 export const OG_MAP = {
   // Landing / section pages
-  'home': 'field/sierra-lodge-night',
+  'home': 'field/team-desert-tea',
   'ways-to-work-together': 'field/luxury-lodge-sunset',
   'about': 'field/james-carter',
   'experience': 'field/g-img1494',
