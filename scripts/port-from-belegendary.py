@@ -366,6 +366,7 @@ PAGE_EXTRAS = {
     'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after'),
                                                 ('EA planning resources.', 'ea-tools.html', 'after')],
     'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace')],
+    'teams/retreats/formats': [('Five-Star Estate', 'dials.html', 'after')],
 }
 
 
