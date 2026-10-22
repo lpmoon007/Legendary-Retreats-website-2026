@@ -727,6 +727,32 @@ def add_extras(soup, bl_path):
             sec.insert_after(frag)
 
 
+# The destinations hub's cards point at the home page's formats block; on this
+# site each place has its own guide, so every card links to it.
+DEST_GUIDES = {
+    'Moab, Utah': '/destinations/moab-utah/', 'Sierra Nevada': '/destinations/sierra-nevada/',
+    'Great Basin Desert': '/destinations/great-basin-desert/', 'Sedona, Arizona': '/destinations/sedona-arizona/',
+    'Napa Valley': '/destinations/napa-valley/', 'Lake Tahoe': '/destinations/lake-tahoe/',
+    'Jackson Hole': '/destinations/jackson-hole-wyoming/', 'Montana': '/destinations/montana/',
+    'Death Valley': '/destinations/death-valley/',
+}
+
+
+def link_destination_cards(soup, bl_path):
+    if bl_path != 'teams/retreats/destinations':
+        return
+    for a in soup.find_all('a', href='/#formats'):
+        h = a.find('h3')
+        if h and h.get_text(strip=True) in DEST_GUIDES:
+            a['href'] = DEST_GUIDES[h.get_text(strip=True)]
+    cs = soup.find('a', string=re.compile('See the San Juan case study'))
+    if cs is not None:
+        g = soup.new_tag('a', href='/destinations/san-juan-mountains-colorado/',
+                         style='margin-top:10px;font-size:14.5px;font-weight:700;color:#E0B973;text-decoration:none;')
+        g.string = 'Executive retreats in the San Juans →'
+        cs.insert_after(g)
+
+
 def swap_low_commitment_cta(soup):
     """Be Legendary's 'start free' card points at its Break-Point assessment;
     on the retreat site the free first step is the retreat planning kit."""
@@ -988,6 +1014,7 @@ def port(bl_repo):
         fix_breadcrumbs(body)
         recolor_tree(body, dark_body)
         add_extras(body, bl_path)  # after recolor: extras are authored in the LR palette
+        link_destination_cards(body, bl_path)
         if add_photo_hero(body, bl_path):
             page_styles.append(HERO_CSS)
         if bl_path in PAGE_CSS:
