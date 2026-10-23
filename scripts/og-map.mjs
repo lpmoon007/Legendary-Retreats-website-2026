@@ -10,6 +10,8 @@ export const OG_MAP = {
   'home': 'field/team-desert-tea',
   'destinations__colorado': 'site-photos/telluride-ferrata',
   'destinations__vail-colorado': 'field/snow-cave-inside',
+  'destinations__utah': 'field/new-img-5612',
+  'executive-immersion__las-vegas': 'offroad/las-vegas/lv-vista',
   'ways-to-work-together': 'field/luxury-lodge-sunset',
   'about': 'field/james-carter',
   'experience': 'field/g-img1494',

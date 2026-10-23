@@ -366,8 +366,11 @@ PAGE_EXTRAS = {
     'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after'),
                                                 ('EA planning resources.', 'ea-tools.html', 'after')],
     'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace'),
-                                    ('See the San Juan case study', 'destinations-colorado.html', 'after')],
+                                    ('See the San Juan case study', 'destinations-colorado.html', 'after'),
+                                    ('We are based in Denver. Vail, the San Juans', 'destinations-utah-vegas.html', 'after')],
     'teams/retreats/formats': [('Five-Star Estate', 'dials.html', 'after')],
+    'teams/executive-immersion': [("A conference room can't produce", 'immersion-las-vegas.html', 'after')],
+    'executive-off-road-immersion': [('The Mojave, off the Strip', 'immersion-las-vegas.html', 'after')],
 }
 
 
