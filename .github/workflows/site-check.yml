@@ -1,5 +1,6 @@
 # Manual diagnostic: is the live site reachable, and if not, is it DNS or the
-# web server? Run from the Actions tab (Site check -> Run workflow).
+# web server? Run from the Actions tab (Site check -> Run workflow). Results
+# are posted as notices on the run summary.
 name: Site check
 
 on:
@@ -10,20 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: DNS
+      - name: Check DNS and the web server
         run: |
+          note() { echo "::notice::$*"; }
           for n in legendary-retreats.com www.legendary-retreats.com; do
-            echo "== $n"; dig +short A "$n"; dig +short CNAME "$n"; dig +short NS legendary-retreats.com | head -4
+            note "DNS $n A=[$(dig +short A $n | tr '\n' ' ')] CNAME=[$(dig +short CNAME $n | tr '\n' ' ')]"
           done
-      - name: HTTPS through DNS
-        run: |
+          note "NS=[$(dig +short NS legendary-retreats.com | tr '\n' ' ')]"
           for u in https://www.legendary-retreats.com/ https://legendary-retreats.com/ http://www.legendary-retreats.com/; do
-            echo "== $u"; curl -sS -o /dev/null -m 20 -w 'code=%{http_code} ip=%{remote_ip} time=%{time_total}\n' "$u" || true
+            r=$(curl -sS -o /dev/null -m 20 -w 'code=%{http_code} ip=%{remote_ip}' "$u" 2>&1 | tr '\n' ' ')
+            note "GET $u -> $r"
           done
-      - name: HTTPS straight to the server IP
-        run: |
-          for p in 443 80; do
-            echo "== port $p"; timeout 10 bash -c "</dev/tcp/160.153.174.40/$p" && echo open || echo closed
+          for p in 21 80 443; do
+            if timeout 10 bash -c "</dev/tcp/160.153.174.40/$p" 2>/dev/null; then note "server port $p open"; else note "server port $p closed"; fi
           done
-          curl -sS -k -o /dev/null -m 20 -w 'code=%{http_code}\n' --resolve www.legendary-retreats.com:443:160.153.174.40 https://www.legendary-retreats.com/build.txt || true
-          curl -sS -k -m 20 --resolve www.legendary-retreats.com:443:160.153.174.40 https://www.legendary-retreats.com/build.txt || true
+          r=$(curl -sS -k -m 20 --resolve www.legendary-retreats.com:443:160.153.174.40 -w ' code=%{http_code}' https://www.legendary-retreats.com/build.txt 2>&1 | tr '\n' ' ')
+          note "direct to 160.153.174.40 build.txt -> $r"
