@@ -371,6 +371,7 @@ PAGE_EXTRAS = {
     'teams/retreats/formats': [('Five-Star Estate', 'dials.html', 'after')],
     'teams/executive-immersion': [("A conference room can't produce", 'immersion-las-vegas.html', 'after')],
     'executive-off-road-immersion': [('The Mojave, off the Strip', 'immersion-las-vegas.html', 'after')],
+    'sailing-team-building': [('The sailing is the setting.', 'sailing-bvi.html', 'after')],
 }
 
 

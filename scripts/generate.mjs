@@ -45,6 +45,7 @@ const MAP = {
   'Retreat - Utah': '/destinations/utah/',
   'Retreat - Alaska': '/destinations/alaska/',
   'Retreat - AlUla': '/destinations/alula-saudi-arabia/',
+  'Retreat - British Virgin Islands': '/destinations/british-virgin-islands/',
   'Immersion - Las Vegas': '/executive-immersion/las-vegas/',
   'Formats': '/formats/',
   'Format - Cabin Fever': '/formats/cabin-fever/',
