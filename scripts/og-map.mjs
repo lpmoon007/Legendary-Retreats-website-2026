@@ -12,6 +12,7 @@ export const OG_MAP = {
   'destinations__vail-colorado': 'field/snow-cave-inside',
   'destinations__utah': 'field/new-img-5612',
   'destinations__alaska': 'field/remote-lodge-aerial',
+  'destinations__alula-saudi-arabia': 'field/alula-lunch',
   'executive-immersion__las-vegas': 'offroad/las-vegas/lv-vista',
   'ways-to-work-together': 'field/luxury-lodge-sunset',
   'about': 'field/james-carter',
@@ -76,7 +77,7 @@ export const OG_MAP = {
   'field-notes__questions-before-executive-retreat': 'field/new-fire-with-team',
   'field-notes__30-day-reinforcement': 'field/snow-hiking',
   'field-notes__what-is-an-experiential-leadership-retreat': 'field/kayak-fjord',
-  'field-notes__executive-retreat-cost': 'field/alula-lunch',
+  'field-notes__executive-retreat-cost': 'field/sierra-lodge-night',
   'field-notes__newly-formed-post-merger-leadership-team': 'field/new-fire-with-team',
   'field-notes__signature-vs-bespoke-retreat': 'field/sierra-lodge-night',
 };
