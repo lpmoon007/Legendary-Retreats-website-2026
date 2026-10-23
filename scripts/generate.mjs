@@ -43,6 +43,7 @@ const MAP = {
   'Retreat - Vail': '/destinations/vail-colorado/',
   'Retreat - Costa Rica': '/destinations/costa-rica/',
   'Retreat - Utah': '/destinations/utah/',
+  'Retreat - Alaska': '/destinations/alaska/',
   'Immersion - Las Vegas': '/executive-immersion/las-vegas/',
   'Formats': '/formats/',
   'Format - Cabin Fever': '/formats/cabin-fever/',
