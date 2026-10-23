@@ -14,6 +14,7 @@ export const OG_MAP = {
   'destinations__alaska': 'field/remote-lodge-aerial',
   'destinations__alula-saudi-arabia': 'field/alula-lunch',
   'destinations__british-virgin-islands': 'sailing/day-sail',
+  'destinations__arizona': 'dest-sedona',
   'executive-immersion__las-vegas': 'offroad/las-vegas/lv-vista',
   'ways-to-work-together': 'field/luxury-lodge-sunset',
   'about': 'field/james-carter',
