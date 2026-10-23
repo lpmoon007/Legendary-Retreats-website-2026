@@ -1,0 +1,29 @@
+# Manual diagnostic: is the live site reachable, and if not, is it DNS or the
+# web server? Run from the Actions tab (Site check -> Run workflow).
+name: Site check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: DNS
+        run: |
+          for n in legendary-retreats.com www.legendary-retreats.com; do
+            echo "== $n"; dig +short A "$n"; dig +short CNAME "$n"; dig +short NS legendary-retreats.com | head -4
+          done
+      - name: HTTPS through DNS
+        run: |
+          for u in https://www.legendary-retreats.com/ https://legendary-retreats.com/ http://www.legendary-retreats.com/; do
+            echo "== $u"; curl -sS -o /dev/null -m 20 -w 'code=%{http_code} ip=%{remote_ip} time=%{time_total}\n' "$u" || true
+          done
+      - name: HTTPS straight to the server IP
+        run: |
+          for p in 443 80; do
+            echo "== port $p"; timeout 10 bash -c "</dev/tcp/160.153.174.40/$p" && echo open || echo closed
+          done
+          curl -sS -k -o /dev/null -m 20 -w 'code=%{http_code}\n' --resolve www.legendary-retreats.com:443:160.153.174.40 https://www.legendary-retreats.com/build.txt || true
+          curl -sS -k -m 20 --resolve www.legendary-retreats.com:443:160.153.174.40 https://www.legendary-retreats.com/build.txt || true
