@@ -41,6 +41,7 @@ const MAP = {
   'Retreat - Montana': '/destinations/montana/',
   'Retreat - Colorado': '/destinations/colorado/',
   'Retreat - Vail': '/destinations/vail-colorado/',
+  'Retreat - Costa Rica': '/destinations/costa-rica/',
   'Formats': '/formats/',
   'Format - Cabin Fever': '/formats/cabin-fever/',
   'Format - Winter Survival': '/formats/winter-survival/',
