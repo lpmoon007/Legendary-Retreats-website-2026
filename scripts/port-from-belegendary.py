@@ -274,6 +274,7 @@ TEXT_FIXES = [
     ('Be Legendary designs and delivers', 'Legendary Retreats designs and delivers'),
     ('Be Legendary runs three levels', 'Legendary Retreats runs three levels'),
     ('introduce Be Legendary to your principal', 'introduce us to your principal'),
+    ('two days stranded high on a desert pass,', 'two days stranded high on the western side of Lippincott Pass, inside Death Valley National Park,'),
 ]
 
 
