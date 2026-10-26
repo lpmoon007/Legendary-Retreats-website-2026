@@ -100,6 +100,10 @@ const MAP = {
   'Procurement': '/procurement/',
   'How We Measure': '/how-we-measure/',
   'Best Executive Retreat Companies': '/best-executive-retreat-companies/',
+  'Executive Retreat Worth It': '/is-an-executive-retreat-worth-it/',
+  'Best Adventure Executive Retreat Companies': '/best-adventure-executive-retreat-companies/',
+  'Executive Retreats Near National Parks': '/executive-retreats-near-national-parks/',
+  'Board Retreat Facilitators': '/board-retreat-facilitators/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';

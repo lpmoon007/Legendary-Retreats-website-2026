@@ -929,7 +929,16 @@ TITLE_OVERRIDES = {
     'teams/retreats/destinations': 'Executive Retreat Locations & Destinations | Legendary Retreats',
     'how-to-plan-a-leadership-retreat': 'How to Plan a Leadership Retreat That Sticks (2026 Guide)',
     'how-to-plan-an-executive-offsite': 'How to Plan an Executive Offsite (2026 Guide)',
-    'leadership-offsite-agenda': 'Executive & Leadership Offsite Agenda Template (2026)',
+    'leadership-offsite-agenda': 'Offsite Agenda Template for Executive & Leadership Teams (2026)',
+    'teams/corporate-retreat-ideas': 'Corporate Retreat Ideas & Locations, by Outcome (2026)',
+}
+
+# Meta descriptions rewritten for search CTR (GSC, Oct 2026).
+DESC_OVERRIDES = {
+    'teams/corporate-retreat-ideas': 'Corporate retreat ideas sorted by what the retreat has to change: cabins, off-road, winter survival, sailing or a five-star estate. Locations and costs.',
+    'leadership-offsite-agenda': 'A copy-ready offsite agenda template for executive and leadership teams, built around one outcome and the hard conversation. Adapts to one to three days.',
+    'sailing-team-building': 'Sailing team building for executive teams: a day on the water or a multi-day BVI passage where real behavior surfaces, then a debrief that makes it stick.',
+    'case-studies/alaska-executive-vulnerability': "A Fortune 100 executive team's polish dissolved in a staged Alaska survival scenario, leaving the closest executive group we have seen in 25 years.",
 }
 
 
@@ -966,6 +975,8 @@ def port(bl_repo):
         ogt = rebrand_title(ogt)
         if bl_path in TITLE_OVERRIDES:
             title = ogt = TITLE_OVERRIDES[bl_path]
+        if bl_path in DESC_OVERRIDES:
+            desc = ogd = DESC_OVERRIDES[bl_path]
 
         ld = []
         for s in soup.find_all('script', type='application/ld+json'):
