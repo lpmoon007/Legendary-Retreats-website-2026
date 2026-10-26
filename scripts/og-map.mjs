@@ -85,5 +85,5 @@ export const OG_MAP = {
   'executive-retreats-near-national-parks': 'img/canyon-brief.QIZXyOZQ_Z2lddMB',
   'board-retreat-facilitators': 'img/impossible-lunch.BienYa1Y_Z5g0Bk',
   'best-adventure-executive-retreat-companies': 'img/extraction.D8CJRmF__D9axx',
-  'is-an-executive-retreat-worth-it': 'img/rooftop.sntALi7p_Zbj0xU',
+  'is-an-executive-retreat-worth-it': 'field/new-img-9364',
 };
