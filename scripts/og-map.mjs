@@ -84,4 +84,5 @@ export const OG_MAP = {
   'field-notes__signature-vs-bespoke-retreat': 'field/sierra-lodge-night',
   'executive-retreats-near-national-parks': 'img/canyon-brief.QIZXyOZQ_Z2lddMB',
   'board-retreat-facilitators': 'img/impossible-lunch.BienYa1Y_Z5g0Bk',
+  'best-adventure-executive-retreat-companies': 'img/extraction.D8CJRmF__D9axx',
 };
