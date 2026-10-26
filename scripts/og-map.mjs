@@ -83,4 +83,5 @@ export const OG_MAP = {
   'field-notes__newly-formed-post-merger-leadership-team': 'field/new-fire-with-team',
   'field-notes__signature-vs-bespoke-retreat': 'field/sierra-lodge-night',
   'executive-retreats-near-national-parks': 'img/canyon-brief.QIZXyOZQ_Z2lddMB',
+  'board-retreat-facilitators': 'img/impossible-lunch.BienYa1Y_Z5g0Bk',
 };
