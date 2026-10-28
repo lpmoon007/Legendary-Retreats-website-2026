@@ -79,14 +79,14 @@
 <main id="main">
 
   <!-- HERO -->
-  <section style="position:relative;overflow:hidden;background:#0E0D0B;color:#EFE9DD;min-height:min(78vh,720px);display:flex;align-items:flex-end;">
-    <img decoding="async" fetchpriority="high" srcset="/assets/destinations/sedona-offroad-800w.webp 800w, /assets/destinations/sedona-offroad.webp 1500w" sizes="100vw" src="/assets/destinations/sedona-offroad.webp" alt="Executive off-road offsite on the red rock of Sedona, Arizona" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,13,11,.25) 0%,rgba(14,13,11,.05) 35%,rgba(14,13,11,.55) 70%,rgba(14,13,11,.9) 100%);"></div>
-    <div style="position:relative;max-width:1240px;margin:0 auto;padding:120px 40px 56px;width:100%;">
+  <section class="sd-hero" style="position:relative;overflow:hidden;background:#0E0D0B;color:#EFE9DD;min-height:min(78vh,720px);display:flex;align-items:flex-end;">
+    <style>.sd-hero__img{position:absolute;top:0;right:0;height:100%;width:56%;object-fit:cover;object-position:62% 45%;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%);mask-image:linear-gradient(90deg,transparent 0%,#000 30%)}@media (min-width:861px){.sd-hero h1{max-width:12ch!important;text-shadow:none!important}.sd-hero h1 + p{max-width:40ch!important}}@media (max-width:860px){.sd-hero{flex-direction:column;align-items:stretch!important;min-height:0!important}.sd-hero__img{position:static;order:2;width:100%;height:auto;aspect-ratio:16/10;object-position:55% 45%;-webkit-mask-image:none;mask-image:none}.sd-hero__in{padding:110px 20px 28px!important}}</style>
+    <img srcset="/assets/destinations/sedona-group-800w.webp 800w, /assets/destinations/sedona-group-1280w.webp 1280w, /assets/destinations/sedona-group.webp 1600w" sizes="100vw" class="sd-hero__img" src="/assets/destinations/sedona-group.webp" alt="An executive leadership team on the red rock of Sedona, Arizona, with a sandstone butte behind them" width="1600" height="1200" fetchpriority="high" decoding="async">
+    <div class="sd-hero__in" style="position:relative;max-width:1240px;margin:0 auto;padding:120px 40px 56px;width:100%;">
       <a href="/destinations/" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(239,233,221,.78);">← All destinations</a>
       <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;color:#E0B973;margin:20px 0 14px;">Sedona · Arizona</div>
       <h1 style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(38px,5.6vw,72px);text-shadow:0 2px 30px rgba(0,0,0,.35);line-height:1.04;letter-spacing:-0.02em;max-width:20ch;color:#FBF9F4;">Executive retreats &amp; offsites in Sedona, Arizona.</h1>
-      <p style="margin-top:22px;max-width:60ch;font-size:18px;line-height:1.6;color:rgba(239,233,221,.88);">Red-rock canyon country, high-desert clarity, and some of the country's best resorts — a two-hour drive from Phoenix and a world away from the noise. The place teams come to step back, realign, and make the decisions that have been waiting.</p>
+      <p style="margin-top:22px;max-width:60ch;font-size:18px;line-height:1.6;color:rgba(239,233,221,.88);">Red-rock canyon country, high-desert clarity, and some of the country's best resorts, a two-hour drive from Phoenix and a world away from the noise. The place teams come to step back, realign, and make the decisions that have been waiting.</p>
     </div>
   </section>
 
@@ -106,7 +106,7 @@
 
   <!-- IMAGE BAND -->
   <section style="max-width:1240px;margin:0 auto;padding:0 40px 64px;">
-    <div style="border-radius:16px;overflow:hidden;aspect-ratio:21/9;"><img decoding="async" loading="lazy" src="/assets/destinations/sedona-group.webp" alt="Executive leadership team on a red-rock summit during a Sedona offsite" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;"></div>
+    <div style="border-radius:16px;overflow:hidden;aspect-ratio:21/9;"><img decoding="async" src="/assets/destinations/sedona-offroad.webp" alt="An executive off-road vehicle on the red slickrock of Sedona, Arizona" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 55%;"></div>
   </section>
 
   <!-- WHAT IT BUILDS -->
