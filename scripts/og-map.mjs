@@ -35,7 +35,7 @@ export const OG_MAP = {
   'destinations__sedona-arizona': 'destinations/sedona-group',
   'destinations__costa-rica': 'destinations/costa-rica-pacuare',
   'destinations__napa-valley': 'destinations/napa-alila',
-  'destinations__lake-tahoe': 'destinations/tahoe-lodge',
+  'destinations__lake-tahoe': 'field/rubicon-rockcrawl',
   'destinations__jackson-hole-wyoming': 'destinations/jackson-jenny-lake',
   'destinations__montana': 'destinations/montana-rock-creek',
 
