@@ -87,4 +87,6 @@ export const OG_MAP = {
   'board-retreat-facilitators': 'img/impossible-lunch.BienYa1Y_Z5g0Bk',
   'best-adventure-executive-retreat-companies': 'img/extraction.D8CJRmF__D9axx',
   'is-an-executive-retreat-worth-it': 'field/new-img-9364',
+  'retreat-for-executive-team-in-conflict': 'field/w-img1278',
+  'executive-team-alignment-offsite': 'img/desert-table.pE9jYDkB_ZihOUd',
 };

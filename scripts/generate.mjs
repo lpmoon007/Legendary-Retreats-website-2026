@@ -104,6 +104,8 @@ const MAP = {
   'Best Adventure Executive Retreat Companies': '/best-adventure-executive-retreat-companies/',
   'Executive Retreats Near National Parks': '/executive-retreats-near-national-parks/',
   'Board Retreat Facilitators': '/board-retreat-facilitators/',
+  'Retreat For Team In Conflict': '/retreat-for-executive-team-in-conflict/',
+  'Executive Team Alignment Offsite': '/executive-team-alignment-offsite/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';

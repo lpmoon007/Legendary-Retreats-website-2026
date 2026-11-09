@@ -365,7 +365,8 @@ PAGE_EXTRAS = {
     'teams/retreats/ways-to-work-together': [('Three ways to run a legendary retreat.', 'press-strip.html', 'after'),
                                              ('How it starts', 'wwt-faq.html', 'after')],
     'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after'),
-                                                ('EA planning resources.', 'ea-tools.html', 'after')],
+                                                ('EA planning resources.', 'ea-tools.html', 'after'),
+                                                ('Three tools for the approval conversation.', 'lr-how-executive-assistants.html', 'after')],
     'teams/retreats/destinations': [('Somewhere farther afield', 'destinations-worldwide.html', 'replace'),
                                     ('See the San Juan case study', 'destinations-colorado.html', 'after'),
                                     ('We are based in Denver. Vail, the San Juans', 'destinations-utah-vegas.html', 'after')],
@@ -373,6 +374,10 @@ PAGE_EXTRAS = {
     'teams/executive-immersion': [("A conference room can't produce", 'immersion-las-vegas.html', 'after')],
     'executive-off-road-immersion': [('The Mojave, off the Strip', 'immersion-las-vegas.html', 'after')],
     'sailing-team-building': [('The sailing is the setting.', 'sailing-bvi.html', 'after')],
+    # 'How Legendary Retreats does this' blocks: AI engines cite these guides without naming the brand.
+    'how-to-plan-a-leadership-retreat': [('If you’re the one organizing it', 'lr-how-leadership-retreat.html', 'after')],
+    'how-to-plan-an-executive-offsite': [('Who should be in the room', 'lr-how-executive-offsite.html', 'after')],
+    'why-leadership-offsites-dont-stick': [('Why the energy fades', 'lr-how-offsites-stick.html', 'after')],
 }
 
 
@@ -935,6 +940,7 @@ TITLE_OVERRIDES = {
 
 # Meta descriptions rewritten for search CTR (GSC, Oct 2026).
 DESC_OVERRIDES = {
+    'how-to-plan-an-executive-offsite': 'How to plan an executive offsite that ends in decisions: start with the decision, choose who is in the room, set the agenda and make it stick.',
     'teams/corporate-retreat-ideas': 'Corporate retreat ideas sorted by what the retreat has to change: cabins, off-road, winter survival, sailing or a five-star estate. Locations and costs.',
     'leadership-offsite-agenda': 'A copy-ready offsite agenda template for executive and leadership teams, built around one outcome and the hard conversation. Adapts to one to three days.',
     'sailing-team-building': 'Sailing team building for executive teams: a day on the water or a multi-day BVI passage where real behavior surfaces, then a debrief that makes it stick.',
