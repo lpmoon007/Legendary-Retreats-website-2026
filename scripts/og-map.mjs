@@ -8,7 +8,7 @@
 export const OG_MAP = {
   // Landing / section pages
   'home': 'field/team-desert-tea',
-  'destinations__colorado': 'site-photos/telluride-ferrata',
+  'destinations__colorado': 'field/g-img1294',
   'destinations__vail-colorado': 'field/snow-cave-inside',
   'destinations__utah': 'field/new-img-5612',
   'destinations__alaska': 'field/remote-lodge-aerial',
@@ -90,5 +90,5 @@ export const OG_MAP = {
   'retreat-for-executive-team-in-conflict': 'field/w-img1278',
   'executive-team-alignment-offsite': 'img/desert-table.pE9jYDkB_ZihOUd',
   'retreat-for-newly-merged-leadership-team': 'field/g-img1434',
-  'best-executive-retreat-locations': 'field/g-img1361',
+  'best-executive-retreat-locations': 'field/luxury-lodge-sunset',
 };
