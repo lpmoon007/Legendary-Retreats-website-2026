@@ -89,4 +89,6 @@ export const OG_MAP = {
   'is-an-executive-retreat-worth-it': 'field/new-img-9364',
   'retreat-for-executive-team-in-conflict': 'field/w-img1278',
   'executive-team-alignment-offsite': 'img/desert-table.pE9jYDkB_ZihOUd',
+  'retreat-for-newly-merged-leadership-team': 'field/g-img1434',
+  'best-executive-retreat-locations': 'field/g-img1361',
 };

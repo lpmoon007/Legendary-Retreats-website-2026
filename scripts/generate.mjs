@@ -106,6 +106,8 @@ const MAP = {
   'Board Retreat Facilitators': '/board-retreat-facilitators/',
   'Retreat For Team In Conflict': '/retreat-for-executive-team-in-conflict/',
   'Executive Team Alignment Offsite': '/executive-team-alignment-offsite/',
+  'Retreat For Merged Leadership Team': '/retreat-for-newly-merged-leadership-team/',
+  'Best Executive Retreat Locations': '/best-executive-retreat-locations/',
   'Not Found': '/404/', // -> src/pages/404.astro -> dist/404.html (nginx error_page)
 };
 const NOT_FOUND_URL = '/404/';

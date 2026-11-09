@@ -274,6 +274,7 @@ TEXT_FIXES = [
     ('Be Legendary designs and delivers', 'Legendary Retreats designs and delivers'),
     ('Be Legendary runs three levels', 'Legendary Retreats runs three levels'),
     ('introduce Be Legendary to your principal', 'introduce us to your principal'),
+    ('"jobTitle":"Founder"', '"jobTitle":"Founder and executive retreat facilitator"'),
     ('two days stranded high on a desert pass,', 'two days stranded high on the western side of Lippincott Pass, inside Death Valley National Park,'),
 ]
 
@@ -377,6 +378,7 @@ PAGE_EXTRAS = {
     # 'How Legendary Retreats does this' blocks: AI engines cite these guides without naming the brand.
     'how-to-plan-a-leadership-retreat': [('If you’re the one organizing it', 'lr-how-leadership-retreat.html', 'after')],
     'how-to-plan-an-executive-offsite': [('Who should be in the room', 'lr-how-executive-offsite.html', 'after')],
+    'leadership-team-offsite-facilitator': [('Internal or external?', 'lr-how-offsite-facilitator.html', 'after')],
     'why-leadership-offsites-dont-stick': [('Why the energy fades', 'lr-how-offsites-stick.html', 'after')],
 }
 
@@ -808,6 +810,8 @@ LR_ORG = {
     '@type': 'Organization', '@id': LR_ORG_ID, 'name': 'Legendary Retreats',
     'url': SITE + '/', 'logo': SITE + '/assets/brand/snail-maroon-web.png',
     'telephone': '+1-800-513-8759',
+    'description': 'Legendary Retreats designs and facilitates experiential executive retreats and leadership team offsites for teams of 5 to 12, each built around one outcome and measured for 30 days afterward.',
+    'knowsAbout': ['executive retreat facilitation', 'executive team offsite facilitation', 'leadership team alignment', 'executive teams in conflict', 'post-merger leadership team integration', 'measuring behavior change after a retreat'],
     'parentOrganization': {'@type': 'Organization', '@id': BL + '/#org', 'name': 'Be Legendary', 'url': BL + '/',
                            'sameAs': ['https://www.wikidata.org/wiki/Q140513581',
                                       'https://www.linkedin.com/company/repario-and-be-legendary/']},
@@ -934,6 +938,7 @@ TITLE_OVERRIDES = {
     'teams/retreats/destinations': 'Executive Retreat Locations & Destinations | Legendary Retreats',
     'how-to-plan-a-leadership-retreat': 'How to Plan a Leadership Retreat That Sticks (2026 Guide)',
     'how-to-plan-an-executive-offsite': 'How to Plan an Executive Offsite (2026 Guide)',
+    'leadership-team-offsite-facilitator': 'Executive Team Offsite Facilitators: How to Choose One (2026)',
     'leadership-offsite-agenda': 'Offsite Agenda Template for Executive & Leadership Teams (2026)',
     'teams/corporate-retreat-ideas': 'Corporate Retreat Ideas & Locations, by Outcome (2026)',
 }
