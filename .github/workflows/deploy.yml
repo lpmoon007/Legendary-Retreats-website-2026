@@ -152,4 +152,6 @@ jobs:
       # changed pages immediately. Never fails the deploy.
       - name: Notify search engines (IndexNow)
         continue-on-error: true
-        run: node scripts/indexnow.mjs submit /tmp/old-hashes.json
+        # A manual run from the Actions tab resubmits every page (use after a Bing
+        # indexing problem); a push sends only the pages that changed.
+        run: node scripts/indexnow.mjs submit ${{ github.event_name == 'workflow_dispatch' && '/tmp/no-old-hashes.json' || '/tmp/old-hashes.json' }}
