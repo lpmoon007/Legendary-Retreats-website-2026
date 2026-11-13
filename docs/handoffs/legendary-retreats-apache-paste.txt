@@ -26,6 +26,12 @@ RedirectMatch 301 ^/framework/?$ https://www.belegendary.org/flag-model/
 RedirectMatch 301 ^/is-this-your-team/?$ https://www.belegendary.org/flag-model/
 RedirectMatch 301 ^/the-connection-deficit/?$ https://www.belegendary.org/flag-model/
 
+# Old belegendary.org-style paths typed or cited against this domain (Nov 2026)
+RedirectMatch 301 ^/teams/retreats/?$ https://www.legendary-retreats.com/
+RedirectMatch 301 ^/teams/retreats/(.+)$ https://www.legendary-retreats.com/$1
+RedirectMatch 301 ^/retreats/(.+)$ https://www.legendary-retreats.com/$1
+RedirectMatch 301 ^/teams/(corporate-retreat-ideas|leadership-retreat-ideas|executive-offsite-ideas|luxury-executive-retreat|executive-immersion)(/.*)?$ https://www.legendary-retreats.com/$1$2
+
 # Long-cache static assets (skipped automatically if the modules are off)
 <IfModule mod_headers.c>
   <LocationMatch "^/(assets|_astro)/">
