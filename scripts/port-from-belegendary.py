@@ -362,7 +362,8 @@ def retreat_voice(soup, bl_path):
 # mode 'after' inserts after the anchor's section; 'replace' swaps it out.
 PAGE_EXTRAS = {
     'teams/luxury-executive-retreat': [('The trap of the beautiful off-site', 'luxury-gallery.html', 'after'),
-                                       ('Where the work happens.', 'press-strip.html', 'after')],
+                                       ('Where the work happens.', 'press-strip.html', 'after'),
+                                       ('The trap of the beautiful off-site', 'lr-luxury-venues.html', 'after')],
     'teams/retreats/ways-to-work-together': [('Three ways to run a legendary retreat.', 'press-strip.html', 'after'),
                                              ('How it starts', 'wwt-faq.html', 'after')],
     'teams/retreats/for-executive-assistants': [('After hundreds of luxury retreats', 'press-strip.html', 'after'),
@@ -939,12 +940,14 @@ TITLE_OVERRIDES = {
     'how-to-plan-a-leadership-retreat': 'How to Plan a Leadership Retreat That Sticks (2026 Guide)',
     'how-to-plan-an-executive-offsite': 'How to Plan an Executive Offsite (2026 Guide)',
     'leadership-team-offsite-facilitator': 'Executive Team Offsite Facilitators: How to Choose One (2026)',
+    'teams/luxury-executive-retreat': 'Luxury Executive Retreats: Five-Star Venues & Providers (2026)',
     'leadership-offsite-agenda': 'Offsite Agenda Template for Executive & Leadership Teams (2026)',
     'teams/corporate-retreat-ideas': 'Corporate Retreat Ideas & Locations, by Outcome (2026)',
 }
 
 # Meta descriptions rewritten for search CTR (GSC, Oct 2026).
 DESC_OVERRIDES = {
+    'teams/luxury-executive-retreat': 'Luxury executive retreats at five-star venues we use, from Death Valley to Montana ranches and Costa Rica, plus how luxury retreat providers compare.',
     'how-to-plan-an-executive-offsite': 'How to plan an executive offsite that ends in decisions: start with the decision, choose who is in the room, set the agenda and make it stick.',
     'teams/corporate-retreat-ideas': 'Corporate retreat ideas sorted by what the retreat has to change: cabins, off-road, winter survival, sailing or a five-star estate. Locations and costs.',
     'leadership-offsite-agenda': 'A copy-ready offsite agenda template for executive and leadership teams, built around one outcome and the hard conversation. Adapts to one to three days.',
