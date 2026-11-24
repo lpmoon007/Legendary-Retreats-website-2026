@@ -29,7 +29,7 @@ export const OG_MAP = {
   'destinations': 'field/sierra-peaks',
   'destinations__moab-utah': 'destinations/moab-canyon-rim',
   'destinations__san-juan-mountains-colorado': 'field/g-img1361',
-  'destinations__sierra-nevada': 'field/sierra-peaks',
+  'destinations__sierra-nevada': 'destinations/sierra-alpine-lake',
   'destinations__great-basin-desert': 'field/rovers-pyramid-lake',
   'destinations__death-valley': 'field/dest-deathvalley-titus',
   'destinations__sedona-arizona': 'destinations/sedona-group',
