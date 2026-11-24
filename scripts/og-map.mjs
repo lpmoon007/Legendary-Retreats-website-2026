@@ -27,7 +27,7 @@ export const OG_MAP = {
 
   // Destinations
   'destinations': 'field/sierra-peaks',
-  'destinations__moab-utah': 'field/redrock-jeep',
+  'destinations__moab-utah': 'destinations/moab-canyon-rim',
   'destinations__san-juan-mountains-colorado': 'field/g-img1361',
   'destinations__sierra-nevada': 'field/sierra-peaks',
   'destinations__great-basin-desert': 'field/rovers-pyramid-lake',
