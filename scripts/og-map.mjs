@@ -9,7 +9,7 @@ export const OG_MAP = {
   // Landing / section pages
   'home': 'field/team-desert-tea',
   'destinations__colorado': 'field/g-img1294',
-  'destinations__vail-colorado': 'field/snow-cave-inside',
+  'destinations__vail-colorado': 'destinations/vail-gore-range',
   'destinations__utah': 'field/new-img-5612',
   'destinations__alaska': 'field/remote-lodge-aerial',
   'destinations__alula-saudi-arabia': 'field/alula-lunch',
