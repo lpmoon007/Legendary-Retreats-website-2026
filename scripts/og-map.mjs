@@ -33,7 +33,7 @@ export const OG_MAP = {
   'destinations__great-basin-desert': 'field/rovers-pyramid-lake',
   'destinations__death-valley': 'field/dest-deathvalley-titus',
   'destinations__sedona-arizona': 'destinations/sedona-group',
-  'destinations__costa-rica': 'destinations/costa-rica-pacuare',
+  'destinations__costa-rica': 'destinations/costa-rica-jungle-ridge',
   'destinations__napa-valley': 'destinations/napa-vineyard-table',
   'destinations__lake-tahoe': 'destinations/tahoe-lake-canoe',
   'destinations__jackson-hole-wyoming': 'destinations/jackson-teton-ride',
