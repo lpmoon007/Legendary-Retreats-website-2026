@@ -34,7 +34,7 @@ export const OG_MAP = {
   'destinations__death-valley': 'field/dest-deathvalley-titus',
   'destinations__sedona-arizona': 'destinations/sedona-group',
   'destinations__costa-rica': 'destinations/costa-rica-pacuare',
-  'destinations__napa-valley': 'destinations/napa-alila',
+  'destinations__napa-valley': 'destinations/napa-vineyard-table',
   'destinations__lake-tahoe': 'field/rubicon-rockcrawl',
   'destinations__jackson-hole-wyoming': 'destinations/jackson-teton-ride',
   'destinations__montana': 'destinations/montana-river',
