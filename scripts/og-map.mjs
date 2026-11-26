@@ -12,7 +12,7 @@ export const OG_MAP = {
   'destinations__vail-colorado': 'destinations/vail-gore-range',
   'destinations__utah': 'field/new-img-5612',
   'destinations__alaska': 'field/remote-lodge-aerial',
-  'destinations__alula-saudi-arabia': 'field/alula-lunch',
+  'destinations__alula-saudi-arabia': 'destinations/alula-dusk',
   'destinations__british-virgin-islands': 'sailing/day-sail',
   'destinations__arizona': 'dest-sedona',
   'executive-immersion__las-vegas': 'offroad/las-vegas/lv-vista',
