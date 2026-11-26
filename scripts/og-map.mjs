@@ -31,7 +31,7 @@ export const OG_MAP = {
   'destinations__san-juan-mountains-colorado': 'field/g-img1361',
   'destinations__sierra-nevada': 'destinations/sierra-alpine-lake',
   'destinations__great-basin-desert': 'field/rovers-pyramid-lake',
-  'destinations__death-valley': 'field/dest-deathvalley-titus',
+  'destinations__death-valley': 'destinations/death-valley-salt-flats',
   'destinations__sedona-arizona': 'destinations/sedona-group',
   'destinations__costa-rica': 'destinations/costa-rica-jungle-ridge',
   'destinations__napa-valley': 'destinations/napa-vineyard-table',
